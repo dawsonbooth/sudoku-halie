@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-import EditorScreen from './src/screens/EditorScreen';
 import AppContainer from './src/AppContainer';
 
 
