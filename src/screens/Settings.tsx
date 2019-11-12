@@ -1,14 +1,12 @@
 import React, { useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { strings } from '../constants';
 import { useSelector, useDispatch } from 'react-redux';
-import Header from '../components/Header';
-import Screen from '../components/Screen';
-import { Container, Text, Title, Content } from 'native-base';
-import DrawerToggle from '../components/DrawerToggle';
+import { DrawerToggle, Header, Screen } from '../components';
+import { strings } from '../constants';
+import { Text, Title } from 'native-base';
 
 
-export default function Settings({ navigation }) {
+export default function Home({ navigation }) {
     const count = useSelector((state: State) => state.count)
     const dispatch = useDispatch()
 
@@ -16,7 +14,6 @@ export default function Settings({ navigation }) {
         () => dispatch({ type: 'INCREASE_COUNTER' }),
         [dispatch]
     )
-
 
     const decreaseCount = useCallback(
         () => dispatch({ type: 'DECREASE_COUNTER' }),

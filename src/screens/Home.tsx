@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { strings } from '../constants';
 import { useSelector, useDispatch } from 'react-redux';
 import { DrawerToggle, Header, Screen } from '../components';
+import { strings } from '../constants';
 import { Text, Title } from 'native-base';
 
 
