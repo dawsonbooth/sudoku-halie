@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import AppContainer from './src/AppContainer';
+import DrawerContainer from './src/navigation/DrawerContainer';
 
 
 const initialState: State = {
@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <AppContainer />
+      <DrawerContainer />
     </Provider>
   );
 }
