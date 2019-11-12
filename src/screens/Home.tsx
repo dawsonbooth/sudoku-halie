@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
-import { TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { DrawerToggle, Header, Screen } from '../components';
+import { DrawerToggle, Header } from '../components';
 import { strings } from '../constants';
-import { Text, Title } from 'native-base';
+import { Text, Title, Button, Container, Content } from 'native-base';
 
 
 export default function Home({ navigation }) {
@@ -20,20 +19,17 @@ export default function Home({ navigation }) {
         [dispatch]
     )
 
-    const header = (<Header
-        left={<DrawerToggle navigation={navigation} />}
-        body={<Title>{strings.HOME.TITLE}</Title>}
-    />);
-
     return (
-        <Screen header={header}>
-            <TouchableOpacity onPress={increaseCount}>
-                <Text>Increase</Text>
-            </TouchableOpacity>
-            <Text>{count}</Text>
-            <TouchableOpacity onPress={decreaseCount}>
-                <Text>Decrease</Text>
-            </TouchableOpacity>
-        </Screen>
+        <Container>
+            <Header
+                left={<DrawerToggle navigation={navigation} />}
+                body={<Title>{strings.HOME.TITLE}</Title>}
+            />
+            <Content>
+                <Button large full primary onPress={increaseCount}><Text>Increase</Text></Button>
+                <Text>{count}</Text>
+                <Button large full warning onPress={decreaseCount}><Text>Decrease</Text></Button>
+            </Content>
+        </Container>
     );
 }
