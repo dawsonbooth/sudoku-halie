@@ -1,7 +1,7 @@
-import Editor from './Editor';
+import Home from './Home';
 import Settings from './Settings';
 
 export {
-    Editor,
+    Home,
     Settings
 }

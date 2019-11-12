@@ -2,8 +2,8 @@ export default {
   APP: {
     TITLE: "Expo Boilerplate"
   },
-  EDITOR: {
-    TITLE: "Editor"
+  HOME: {
+    TITLE: "Home"
   },
   SETTINGS: {
     TITLE: "Settings"

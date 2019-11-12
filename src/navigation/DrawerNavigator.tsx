@@ -1,14 +1,14 @@
 import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
-import { Editor, Settings } from '../screens';
+import { Home, Settings } from '../screens';
 
 const DrawerConfig = {
 }
 
 const DrawerNavigator = createDrawerNavigator({
-    Editor: {
-        screen: Editor
+    Home: {
+        screen: Home
     },
     Settings: {
         screen: Settings

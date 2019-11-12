@@ -6,7 +6,7 @@ import { DrawerToggle, Header, Screen } from '../components';
 import { Text, Title } from 'native-base';
 
 
-export default function Editor({ navigation }) {
+export default function Home({ navigation }) {
     const count = useSelector((state: State) => state.count)
     const dispatch = useDispatch()
 
@@ -22,7 +22,7 @@ export default function Editor({ navigation }) {
 
     const header = (<Header
         left={<DrawerToggle navigation={navigation} />}
-        body={<Title>{strings.EDITOR.TITLE}</Title>}
+        body={<Title>{strings.HOME.TITLE}</Title>}
     />);
 
     return (
