@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, Content } from 'native-base';
 
-interface propTypes {
+interface PropTypes {
     children?: React.ReactNode;
     header?: React.ReactNode;
 }
 
-export default function Screen({ children, header }: propTypes) {
+export default function Screen({ children, header }: PropTypes) {
     return (
         <Container>
             {header}
