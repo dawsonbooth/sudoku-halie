@@ -1,12 +1,11 @@
 import React, { useCallback } from 'react';
-import { TouchableOpacity } from 'react-native';
-import strings from '../constants/strings.json';
 import { useSelector, useDispatch } from 'react-redux';
-import Header from '../components/Header';
-import { Container, Text, Title, Content } from 'native-base';
-import MenuButton from '../components/MenuButton';
+import { DrawerToggle, Header } from '../components';
+import { strings } from '../constants';
+import { Text, Title, Button, Container, Content } from 'native-base';
 
-export default function SettingsScreen({ navigation }) {
+
+export default function Settings({ navigation }) {
     const count = useSelector((state: State) => state.count)
     const dispatch = useDispatch()
 
@@ -15,27 +14,21 @@ export default function SettingsScreen({ navigation }) {
         [dispatch]
     )
 
-
     const decreaseCount = useCallback(
         () => dispatch({ type: 'DECREASE_COUNTER' }),
         [dispatch]
     )
 
-
     return (
         <Container>
             <Header
-                left={<MenuButton navigation={navigation} />}
+                left={<DrawerToggle navigation={navigation} />}
                 body={<Title>{strings.SETTINGS.TITLE}</Title>}
             />
             <Content>
-                <TouchableOpacity onPress={increaseCount}>
-                    <Text>Increase</Text>
-                </TouchableOpacity>
+                <Button large full primary onPress={increaseCount}><Text>Increase</Text></Button>
                 <Text>{count}</Text>
-                <TouchableOpacity onPress={decreaseCount}>
-                    <Text>Decrease</Text>
-                </TouchableOpacity>
+                <Button large full warning onPress={decreaseCount}><Text>Decrease</Text></Button>
             </Content>
         </Container>
     );

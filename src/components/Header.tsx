@@ -1,13 +1,13 @@
 import React from 'react';
 import { Header as _Header, Left, Body, Right } from 'native-base';
 
-interface propTypes {
+interface PropTypes {
     left?: React.ReactNode;
     body?: React.ReactNode;
     right?: React.ReactNode;
 }
 
-export default function Header({left, body, right}: propTypes) {
+export default function Header({left, body, right}: PropTypes) {
 
     return (
         <_Header>
