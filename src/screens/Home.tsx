@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { DrawerToggle, Header } from '../components';
+import { DrawerToggle, Header, Sudoku } from '../components';
 import { strings } from '../constants';
 import { Text, Title, Button, Container, Content } from 'native-base';
 
@@ -25,11 +25,7 @@ export default function Home({ navigation }) {
                 left={<DrawerToggle navigation={navigation} />}
                 body={<Title>{strings.HOME.TITLE}</Title>}
             />
-            <Content>
-                <Button large full primary onPress={increaseCount}><Text>Increase</Text></Button>
-                <Text>{count}</Text>
-                <Button large full warning onPress={decreaseCount}><Text>Decrease</Text></Button>
-            </Content>
+            <Sudoku />
         </Container>
     );
 }
