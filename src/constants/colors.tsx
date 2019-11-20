@@ -5,9 +5,8 @@ export default {
             PEER: "#B3E5FC",
             EQUAL: "#4FC3F7",
             CONFLICT: "#FFAB91",
-            SELECTED: "#81D4FA",
-
+            SELECTED: "#81D4FA"
         },
-        BORDER: "black",
+        BORDER: "black"
     }
-}
+};

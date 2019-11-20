@@ -1,16 +1,12 @@
-import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { View } from 'native-base';
-import NumberButton from './NumberButton';
-import { GestureResponderEvent } from 'react-native';
-
+import React from "react";
+import { View } from "native-base";
+import NumberButton from "./NumberButton";
 
 interface PropTypes {
     write: Function;
 }
 
 export default function Controls({ write }: PropTypes) {
-
     return (
         <View style={{ flexDirection: "row" }}>
             <NumberButton number={1} write={write} />
@@ -24,6 +20,4 @@ export default function Controls({ write }: PropTypes) {
             <NumberButton number={9} write={write} />
         </View>
     );
-
-
 }

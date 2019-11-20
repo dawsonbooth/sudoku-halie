@@ -1,9 +1,5 @@
-import DrawerToggle from './DrawerToggle';
-import Header from './Header';
-import Sudoku from './Sudoku';
+import DrawerToggle from "./DrawerToggle";
+import Header from "./Header";
+import Sudoku from "./Sudoku";
 
-export {
-    DrawerToggle,
-    Header,
-    Sudoku
-}
+export { DrawerToggle, Header, Sudoku };

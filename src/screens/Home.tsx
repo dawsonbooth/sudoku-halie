@@ -1,23 +1,11 @@
-import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { DrawerToggle, Header, Sudoku } from '../components';
-import { strings } from '../constants';
-import { Text, Title, Button, Container, Content } from 'native-base';
-
+import React from "react";
+import { useSelector } from "react-redux";
+import { Title, Container } from "native-base";
+import { DrawerToggle, Header, Sudoku } from "../components";
+import { strings } from "../constants";
 
 export default function Home({ navigation }) {
-    const count = useSelector((state: State) => state.count)
-    const dispatch = useDispatch()
-
-    const increaseCount = useCallback(
-        () => dispatch({ type: 'INCREASE_COUNTER' }),
-        [dispatch]
-    )
-
-    const decreaseCount = useCallback(
-        () => dispatch({ type: 'DECREASE_COUNTER' }),
-        [dispatch]
-    )
+    const settings = useSelector((state: Redux.State) => state.settings);
 
     return (
         <Container>
@@ -25,7 +13,7 @@ export default function Home({ navigation }) {
                 left={<DrawerToggle navigation={navigation} />}
                 body={<Title>{strings.HOME.TITLE}</Title>}
             />
-            <Sudoku />
+            <Sudoku settings={settings.sudoku} />
         </Container>
     );
 }

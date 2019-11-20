@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { DrawerToggle, Header } from "../components";
-import { strings } from "../constants";
 import {
     Text,
     Title,
@@ -11,8 +9,10 @@ import {
     CardItem,
     Right,
     Switch,
-    Left,
+    Left
 } from "native-base";
+import { DrawerToggle, Header } from "../components";
+import { strings } from "../constants";
 
 export default function Settings({ navigation }) {
     const [settings, setSettings] = useState(
@@ -33,7 +33,8 @@ export default function Settings({ navigation }) {
         updateSettings();
     };
 
-    return ( // TODO: Separate into components
+    return (
+        // TODO: Separate into components
         <Container>
             <Header
                 left={<DrawerToggle navigation={navigation} />}

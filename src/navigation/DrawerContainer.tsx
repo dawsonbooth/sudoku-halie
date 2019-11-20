@@ -1,18 +1,20 @@
-import { createAppContainer } from 'react-navigation';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createAppContainer } from "react-navigation";
+import { createDrawerNavigator } from "react-navigation-drawer";
 
-import { Home, Settings } from '../screens';
+import { Home, Settings } from "../screens";
 
-const DrawerConfig = {
-}
+const DrawerConfig = {};
 
-const DrawerNavigator = createDrawerNavigator({
-    Home: {
-        screen: Home
+const DrawerNavigator = createDrawerNavigator(
+    {
+        Home: {
+            screen: Home
+        },
+        Settings: {
+            screen: Settings
+        }
     },
-    Settings: {
-        screen: Settings
-    }
-}, DrawerConfig)
+    DrawerConfig
+);
 
 export default createAppContainer(DrawerNavigator);

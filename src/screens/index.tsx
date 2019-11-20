@@ -1,7 +1,4 @@
-import Home from './Home';
-import Settings from './Settings';
+import Home from "./Home";
+import Settings from "./Settings";
 
-export {
-    Home,
-    Settings
-}
+export { Home, Settings };

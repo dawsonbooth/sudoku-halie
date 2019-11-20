@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, Text } from 'native-base';
-import { colors } from '../../constants';
-import { TouchableWithoutFeedback } from 'react-native';
-import { GestureResponderEvent } from 'react-native';
+import React from "react";
+import { GestureResponderEvent, TouchableWithoutFeedback } from "react-native";
+import { View, Text } from "native-base";
+import { colors } from "../../constants";
 
 interface PropTypes {
     value?: Sudoku.Cell["value"];
@@ -16,7 +15,12 @@ interface PropTypes {
     onPress: (event: GestureResponderEvent) => void;
 }
 
-function getBackgroundColor(isSelected: boolean, isPeer: boolean, isEqual: boolean, hasConflict: boolean) {
+function getBackgroundColor( // TODO: Color logic in parent, make modular
+    isSelected: boolean,
+    isPeer: boolean,
+    isEqual: boolean,
+    hasConflict: boolean
+) {
     let backgroundColor = colors.SUDOKU.BACKGROUND.NORMAL;
     if (isSelected) backgroundColor = colors.SUDOKU.BACKGROUND.SELECTED;
     else if (isPeer) backgroundColor = colors.SUDOKU.BACKGROUND.PEER;
@@ -26,14 +30,38 @@ function getBackgroundColor(isSelected: boolean, isPeer: boolean, isEqual: boole
     return backgroundColor;
 }
 
-export default function Cell({ value, notes, isPrefilled, isSelected, isPeer, isEqual, hasConflict, fontSize, onPress }: PropTypes) {
-    const backgroundColor = getBackgroundColor(isSelected, isPeer, isEqual, hasConflict);
+export default function Cell({
+    value,
+    notes,
+    isPrefilled,
+    isSelected,
+    isPeer,
+    isEqual,
+    hasConflict,
+    fontSize,
+    onPress
+}: PropTypes) {
+    const backgroundColor = getBackgroundColor(
+        isSelected,
+        isPeer,
+        isEqual,
+        hasConflict
+    );
 
     return (
-        <TouchableWithoutFeedback onPress={onPress} style={{flex: 1}}>
-            <View style={{ flex: 1, backgroundColor, borderWidth: 1, borderColor: colors.SUDOKU.BORDER, alignItems: "center", justifyContent: "center" }}>
+        <TouchableWithoutFeedback onPress={onPress} style={{ flex: 1 }}>
+            <View
+                style={{
+                    flex: 1,
+                    backgroundColor,
+                    borderWidth: 1,
+                    borderColor: colors.SUDOKU.BORDER,
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}
+            >
                 <Text style={{ fontSize }}>{value}</Text>
             </View>
         </TouchableWithoutFeedback>
-    )
+    );
 }

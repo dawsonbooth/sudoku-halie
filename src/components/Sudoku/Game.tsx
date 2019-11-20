@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Board from './Board';
-import { View } from 'native-base';
-import Controls from './Controls';
+import React, { useState } from "react";
+import { View } from "native-base";
+import Board from "./Board";
+import Controls from "./Controls";
 
 interface PropTypes {
     settings: Sudoku.Settings;
