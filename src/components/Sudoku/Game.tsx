@@ -8,41 +8,41 @@ interface PropTypes {
 }
 
 export default function Game({ settings }: PropTypes) {
-    const game: Sudoku.Game = {
-        board: Array(9).fill(0).map(() => (
-            Array(9).fill(0).map(() => ({
-                value: null,
-                notes: Array<boolean>(10).fill(false),
-                isSelected: false,
-            }))
-        )),
+    const [game, setGame] = useState({
+        board: Array(9)
+            .fill(0)
+            .map(() =>
+                Array(9)
+                    .fill(0)
+                    .map(() => ({
+                        value: null,
+                        notes: Array<boolean>(10).fill(false),
+                        isSelected: false
+                    }))
+            ),
         selected: null
-    }
-    const [gameState, setGameState] = useState(game)
-
+    });
 
     const select = (i: number, j: number) => {
-        if (gameState.selected) {
-            gameState.selected.isSelected = false;
+        if (game.selected) {
+            game.selected.isSelected = false;
         }
-        gameState.board[i][j].isSelected = true;
-        gameState.selected = gameState.board[i][j];
-        setGameState({...gameState});
-    }
+        game.board[i][j].isSelected = true;
+        game.selected = game.board[i][j];
+        setGame({ ...game });
+    };
 
     const write = (number: number) => {
-        if (gameState.selected) {
-            gameState.selected.value = number;
-            setGameState({...gameState})
+        if (game.selected) {
+            game.selected.value = number;
+            setGame({ ...game });
         }
-    }
+    };
 
     return (
         <View style={{ alignItems: "center" }}>
-            <Board grid={gameState.board} size={300} select={select} />
+            <Board grid={game.board} size={300} select={select} />
             <Controls write={write} />
         </View>
     );
-
-
 }

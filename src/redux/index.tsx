@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStore } from 'redux';
 import { Provider as _Provider } from 'react-redux';
 
@@ -7,13 +6,11 @@ const initialState: Redux.State = {
     settings: {
         sudoku: {
             dotNotes: false,
-            feedback: {
-                correct: true,
-                incorrect: true
-            }
+            feedbackCorrect: true,
+            feedbackIncorrect: false
         },
         app: {
-
+            darkMode: false
         }
     }
 }

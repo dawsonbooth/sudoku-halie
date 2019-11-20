@@ -12,9 +12,7 @@ namespace Sudoku {
 
     interface Settings {
         dotNotes: boolean;
-        feedback: {
-            correct: boolean;
-            incorrect: boolean;
-        };
+        feedbackCorrect: boolean;
+        feedbackIncorrect: boolean;
     }
 }

@@ -5,7 +5,9 @@ namespace Redux {
 
     interface Settings {
         sudoku: Sudoku.Settings;
-        app: App.Settings;
+        app: {
+            darkMode: boolean;
+        };
     }
 
     interface Action {
