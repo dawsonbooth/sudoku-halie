@@ -93,8 +93,8 @@ export default function Settings({ navigation }) {
                                 value={settings.sudoku.feedbackCorrect}
                                 onValueChange={value =>
                                     changeSettings(
-                                        settings.sudoku.feedbackCorrect,
-                                        "correct",
+                                        settings.sudoku,
+                                        "feedbackCorrect",
                                         value
                                     )
                                 }
@@ -110,8 +110,8 @@ export default function Settings({ navigation }) {
                                 value={settings.sudoku.feedbackIncorrect}
                                 onValueChange={value =>
                                     changeSettings(
-                                        settings.sudoku.feedbackIncorrect,
-                                        "incorrect",
+                                        settings.sudoku,
+                                        "feedbackIncorrect",
                                         value
                                     )
                                 }

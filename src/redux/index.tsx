@@ -6,7 +6,7 @@ const initialState: Redux.State = {
         sudoku: {
             dotNotes: false,
             feedbackCorrect: true,
-            feedbackIncorrect: false
+            feedbackIncorrect: true
         },
         app: {
             darkMode: false
