@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Expo Boilerplate",
-    "slug": "expo-boilerplate",
+    "name": "Sudoku Halie",
+    "slug": "sudoku-halie",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
