@@ -9,6 +9,8 @@ interface PropTypes {
 }
 
 export default function Game({ dimension = 9, settings }: PropTypes) {
+    if (!(dimension >= 0 && Math.sqrt(dimension) % 1 === 0)) throw TypeError("dimension must be a perfect squre");
+    // TODO: Consider unit = 3 instead of dimension
     // TODO: Maybe update game state in redux, option to start new game with different screen
     const [game, setGame] = useState({
         board: [...Array(dimension)].map(() =>
