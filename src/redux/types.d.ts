@@ -1,25 +1,15 @@
-interface State {
-    game: Game;
-    count: number;
-}
+namespace Redux {
+    interface State {
+        settings: Redux.Settings;
+    }
 
-interface Game {
-    board: Cell[9][9];
-    selected: Address;
-}
+    interface Settings {
+        sudoku: Sudoku.Settings;
+        app: App.Settings;
+    }
 
-interface Cell {
-    value: number;
-    notes: boolean[10];
-    isSelected: boolean;
-}
-
-interface Address {
-    i: number;
-    j: number;
-}
-
-interface Action { // TODO: Maybe remove redux, consider moving Sudoku types to own area in Sudoku component
-    type: String;
-    game?: State["game"];
+    interface Action {
+        type: String;
+        settings?: Sudoku.Settings;
+    }
 }

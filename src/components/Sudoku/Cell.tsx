@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text } from 'native-base';
 import { colors } from '../../constants';
-import { TouchableOpacity } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
 import { GestureResponderEvent } from 'react-native';
 
 interface PropTypes {
-    value?: number;
-    notes?: Set<number>;
+    value?: Sudoku.Cell["value"];
+    notes?: Sudoku.Cell["notes"];
     isPrefilled?: boolean;
-    isSelected?: boolean;
+    isSelected?: Sudoku.Cell["isSelected"];
     isPeer?: boolean;
     isEqual?: boolean;
     hasConflict?: boolean;
@@ -30,10 +30,10 @@ export default function Cell({ value, notes, isPrefilled, isSelected, isPeer, is
     const backgroundColor = getBackgroundColor(isSelected, isPeer, isEqual, hasConflict);
 
     return (
-        <TouchableOpacity onPress={onPress} style={{flex: 1}}>
+        <TouchableWithoutFeedback onPress={onPress} style={{flex: 1}}>
             <View style={{ flex: 1, backgroundColor, borderWidth: 1, borderColor: colors.SUDOKU.BORDER, alignItems: "center", justifyContent: "center" }}>
                 <Text style={{ fontSize }}>{value}</Text>
             </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
     )
 }

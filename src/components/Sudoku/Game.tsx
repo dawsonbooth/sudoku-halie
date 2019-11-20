@@ -1,49 +1,41 @@
-import React, { useCallback, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import Board from './Board';
 import { View } from 'native-base';
 import Controls from './Controls';
 
-// TODO: Clean up code
+interface PropTypes {
+    settings: Sudoku.Settings;
+}
 
-export default function Game() {
-    const game = useSelector((reduxState: State) => reduxState.game)
+export default function Game({ settings }: PropTypes) {
+    const game: Sudoku.Game = {
+        board: Array(9).fill(0).map(() => (
+            Array(9).fill(0).map(() => ({
+                value: null,
+                notes: Array<boolean>(10).fill(false),
+                isSelected: false,
+            }))
+        )),
+        selected: null
+    }
     const [gameState, setGameState] = useState(game)
-    const dispatch = useDispatch()
 
-    const updateGame = useCallback( // TODO: Consider removing redux
-        () => dispatch({ type: 'UPDATE_GAME', game: gameState }),
-        [dispatch]
-    )
 
     const select = (i: number, j: number) => {
-        console.log(i, j)
-        let board = gameState.board;
         if (gameState.selected) {
-            const { i: iOld, j: jOld } = gameState.selected;
-            board[iOld][jOld].selected = false;
+            gameState.selected.isSelected = false;
         }
-        board[i][j].selected = true;
-        console.log(board)
-        setGameState({
-            board,
-            selected: { i, j }
-        })
+        gameState.board[i][j].isSelected = true;
+        gameState.selected = gameState.board[i][j];
+        setGameState({...gameState});
     }
 
     const write = (number: number) => {
         if (gameState.selected) {
-            const { i, j } = gameState.selected;
-            let board = gameState.board;
-            board[i][j].value = number;
-            setGameState({
-                board,
-                selected: { i, j } // TODO: Maybe remove somehow without messing up types
-            })
+            gameState.selected.value = number;
+            setGameState({...gameState})
         }
     }
-
-
 
     return (
         <View style={{ alignItems: "center" }}>

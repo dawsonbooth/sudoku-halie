@@ -3,27 +3,26 @@ import { createStore } from 'redux';
 import { Provider as _Provider } from 'react-redux';
 
 
-const initialState: State = {
-    game: {
-        board: Array(9).fill(0).map(() => (
-            Array(9).fill(0).map(() => ({
-                value: null,
-                notes: Array<boolean>(10).fill(false),
-                isSelected: false,
-            }))
-        )),
-        selected: null
-    },
-    count: 0
+const initialState: Redux.State = {
+    settings: {
+        sudoku: {
+            dotNotes: false,
+            feedback: {
+                correct: true,
+                incorrect: true
+            }
+        },
+        app: {
+
+        }
+    }
 }
 
-console.log(initialState);
-
-const reducer = (state: State = initialState, action: Action) => {
+const reducer = (state: Redux.State = initialState, action: Redux.Action) => {
     switch (action.type) {
-        case 'UPDATE_GAME':
+        case 'UPDATE_SETTINGS': // TODO: Use AsyncStorage logic in this update and in initialState
             return {
-                game: action
+                settings: action.settings
             }
     }
     return state;
