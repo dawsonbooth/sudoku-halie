@@ -43,11 +43,13 @@ export default function Settings({ navigation }) {
             <Content padder>
                 <Card>
                     <CardItem header>
-                        <Text>APPLICATION</Text>
+                        <Text>{strings.SETTINGS.APPLICATION.HEADER}</Text>
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>Dark mode</Text>
+                            <Text>
+                                {strings.SETTINGS.APPLICATION.DARK_MODE}
+                            </Text>
                         </Left>
                         <Right>
                             <Switch
@@ -65,11 +67,11 @@ export default function Settings({ navigation }) {
                 </Card>
                 <Card>
                     <CardItem header>
-                        <Text>SUDOKU</Text>
+                        <Text>{strings.SETTINGS.SUDOKU.HEADER}</Text>
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>Use dots instead of numbers for notes</Text>
+                            <Text>{strings.SETTINGS.SUDOKU.DOT_NOTES}</Text>
                         </Left>
                         <Right>
                             <Switch
@@ -86,7 +88,7 @@ export default function Settings({ navigation }) {
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>Show feedback on correct entry</Text>
+                        <Text>{strings.SETTINGS.SUDOKU.FEEDBACK_CORRECT}</Text>
                         </Left>
                         <Right>
                             <Switch
@@ -103,7 +105,7 @@ export default function Settings({ navigation }) {
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>Show feedback on incorrect entry</Text>
+                            <Text>{strings.SETTINGS.SUDOKU.FEEDBACK_INCORRECT}</Text>
                         </Left>
                         <Right>
                             <Switch

@@ -1,27 +1,37 @@
 import React, { useState } from "react";
-import { View } from "native-base";
+import { View, Col } from "native-base";
 import Board from "./Board";
 import Controls from "./Controls";
 
 interface PropTypes {
-    settings: Sudoku.Settings;
+    dimension?: number;
+    settings: Sudoku.Settings; // TODO: Consider unpacking settings, separate prop for each
 }
 
-export default function Game({ settings }: PropTypes) {
+export default function Game({ dimension = 9, settings }: PropTypes) {
+    // TODO: Maybe update game state in redux, option to start new game with different screen
     const [game, setGame] = useState({
-        board: Array(9)
-            .fill(0)
-            .map(() =>
-                Array(9)
-                    .fill(0)
-                    .map(() => ({
-                        value: null,
-                        notes: Array<boolean>(10).fill(false),
-                        isSelected: false
-                    }))
-            ),
-        selected: null
+        board: [...Array(dimension)].map(() =>
+            [...Array(dimension)].map(() => ({
+                value: null,
+                notes: Array<boolean>(dimension + 1).fill(false),
+                isPrefilled: false,
+                isSelected: false,
+                isPeer: false,
+                isEqual: false,
+                hasConflict: false
+            }))
+        ),
+        selected: null,
+        progress: [...Array(dimension + 1)].map(() => 0)
     });
+
+    const [size, setSize] = useState(0);
+
+    const updateSize = e => {
+        const { height, width } = e.nativeEvent.layout;
+        setSize(Math.min(height, width));
+    };
 
     const select = (i: number, j: number) => {
         if (game.selected) {
@@ -33,16 +43,30 @@ export default function Game({ settings }: PropTypes) {
     };
 
     const write = (number: number) => {
-        if (game.selected) {
+        if (game.selected && game.selected.value !== number) {
             game.selected.value = number;
+            game.progress[number] += 1 / dimension;
             setGame({ ...game });
         }
     };
 
     return (
-        <View style={{ alignItems: "center" }}>
-            <Board grid={game.board} size={300} select={select} />
-            <Controls write={write} />
+        <View
+            padder
+            onLayout={updateSize}
+            style={{
+                flex: 1
+            }}
+        >
+            <Col style={{ alignItems: "center" }}>
+                <Board grid={game.board} onSelectCell={select} size={size} />
+                <Controls
+                    dimension={dimension}
+                    progress={game.progress}
+                    size={size}
+                    handleNumberButtonPress={write}
+                />
+            </Col>
         </View>
     );
 }

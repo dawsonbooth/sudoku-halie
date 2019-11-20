@@ -1,23 +1,39 @@
 import React from "react";
-import { View } from "native-base";
+import { Row } from "native-base";
 import NumberButton from "./NumberButton";
 
 interface PropTypes {
-    write: Function;
+    dimension: number;
+    progress: number[];
+    size: number;
+    handleNumberButtonPress: Function;
 }
 
-export default function Controls({ write }: PropTypes) {
+export default function Controls({
+    dimension,
+    progress,
+    size,
+    handleNumberButtonPress
+}: PropTypes) {
     return (
-        <View style={{ flexDirection: "row" }}>
-            <NumberButton number={1} write={write} />
-            <NumberButton number={2} write={write} />
-            <NumberButton number={3} write={write} />
-            <NumberButton number={4} write={write} />
-            <NumberButton number={5} write={write} />
-            <NumberButton number={6} write={write} />
-            <NumberButton number={7} write={write} />
-            <NumberButton number={8} write={write} />
-            <NumberButton number={9} write={write} />
-        </View>
+        <Row
+            style={{
+                justifyContent: "space-evenly",
+                width: size
+            }}
+        >
+            {[...Array(dimension)].map((_, i) => {
+                const number = i + 1;
+                return (
+                    <NumberButton
+                        key={number}
+                        number={number}
+                        percent={progress[number] * 100}
+                        radius={size / 20}
+                        onPress={() => handleNumberButtonPress(number)}
+                    />
+                );
+            })}
+        </Row>
     );
 }

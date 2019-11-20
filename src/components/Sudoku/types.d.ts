@@ -1,13 +1,18 @@
 namespace Sudoku {
     interface Game {
-        board: Cell[9][9];
+        board: Cell[][];
         selected: Cell;
+        progress: number[];
     }
 
     interface Cell {
         value: number;
-        notes: boolean[10];
+        notes: boolean[];
+        isPrefilled: boolean;
         isSelected: boolean;
+        isPeer: boolean;
+        isEqual: boolean;
+        hasConflict: boolean;
     }
 
     interface Settings {

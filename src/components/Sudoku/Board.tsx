@@ -1,32 +1,30 @@
 import React from "react";
-import { Grid, Row, Col, View } from "native-base";
+import { Grid, Row, Col, Card } from "native-base";
 import Cell from "./Cell";
 
 interface PropTypes {
     grid: Sudoku.Game["board"];
+    onSelectCell: Function;
     size: number;
-    select: Function;
 }
 
-export default function Board({ grid, size, select }: PropTypes) {
+export default function Board({ grid, onSelectCell, size }: PropTypes) {
     return (
-        <View style={{ height: size, width: size }}>
+        <Card style={{ height: 0.8 * size, width: 0.8 * size }}>
             <Grid>
                 {grid.map((row: Sudoku.Cell[], i: React.ReactText) => (
                     <Row key={i}>
                         {row.map((cell: Sudoku.Cell, j: React.ReactText) => (
                             <Col key={j}>
                                 <Cell
-                                    value={cell.value}
-                                    isSelected={cell.isSelected}
-                                    fontSize={0.75 * (size / 9)}
-                                    onPress={() => select(i, j)}
+                                    {...cell}
+                                    onPress={() => onSelectCell(i, j)}
                                 />
                             </Col>
                         ))}
                     </Row>
                 ))}
             </Grid>
-        </View>
+        </Card>
     );
 }

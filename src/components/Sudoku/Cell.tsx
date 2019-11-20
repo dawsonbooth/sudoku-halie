@@ -1,6 +1,6 @@
-import React from "react";
-import { GestureResponderEvent, TouchableWithoutFeedback } from "react-native";
-import { View, Text } from "native-base";
+import React, { useState } from "react";
+import { GestureResponderEvent, TouchableOpacity } from "react-native";
+import { Text } from "native-base";
 import { colors } from "../../constants";
 
 interface PropTypes {
@@ -11,21 +11,22 @@ interface PropTypes {
     isPeer?: boolean;
     isEqual?: boolean;
     hasConflict?: boolean;
-    fontSize: number;
     onPress: (event: GestureResponderEvent) => void;
 }
 
-function getBackgroundColor( // TODO: Color logic in parent, make modular
+function getBackgroundColor( // TODO: Color logic in ancestor, make modular
     isSelected: boolean,
     isPeer: boolean,
     isEqual: boolean,
     hasConflict: boolean
 ) {
-    let backgroundColor = colors.SUDOKU.BACKGROUND.NORMAL;
-    if (isSelected) backgroundColor = colors.SUDOKU.BACKGROUND.SELECTED;
-    else if (isPeer) backgroundColor = colors.SUDOKU.BACKGROUND.PEER;
-    if (isEqual) backgroundColor = colors.SUDOKU.BACKGROUND.EQUAL;
-    if (hasConflict) backgroundColor = colors.SUDOKU.BACKGROUND.CONFLICT;
+    let backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.NORMAL;
+    if (isSelected)
+        backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.SELECTED;
+    else if (isPeer) backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.PEER;
+    if (isEqual) backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.EQUAL;
+    if (hasConflict)
+        backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.CONFLICT;
 
     return backgroundColor;
 }
@@ -38,9 +39,10 @@ export default function Cell({
     isPeer,
     isEqual,
     hasConflict,
-    fontSize,
     onPress
 }: PropTypes) {
+    const [fontSize, setFontSize] = useState();
+
     const backgroundColor = getBackgroundColor(
         isSelected,
         isPeer,
@@ -49,19 +51,28 @@ export default function Cell({
     );
 
     return (
-        <TouchableWithoutFeedback onPress={onPress} style={{ flex: 1 }}>
-            <View
+        <TouchableOpacity
+            onLayout={e => setFontSize(0.75 * e.nativeEvent.layout.height)}
+            onPress={onPress}
+            style={{
+                flex: 1,
+                backgroundColor,
+                borderWidth: 1,
+                borderColor: colors.SUDOKU.BOARD.BORDER,
+                alignItems: "center",
+                justifyContent: "center"
+            }}
+        >
+            <Text
                 style={{
-                    flex: 1,
-                    backgroundColor,
-                    borderWidth: 1,
-                    borderColor: colors.SUDOKU.BORDER,
-                    alignItems: "center",
-                    justifyContent: "center"
+                    color: isPrefilled
+                        ? colors.SUDOKU.BOARD.CELL.NUMBER.PREFILLED
+                        : colors.SUDOKU.BOARD.CELL.NUMBER.ENTRY,
+                    fontSize
                 }}
             >
-                <Text style={{ fontSize }}>{value}</Text>
-            </View>
-        </TouchableWithoutFeedback>
+                {value}
+            </Text>
+        </TouchableOpacity>
     );
 }
