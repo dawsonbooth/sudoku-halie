@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Col } from "native-base";
+import { Col, Grid } from "native-base";
 import Board from "./Board";
 import Controls from "./Controls";
 
@@ -44,31 +44,35 @@ export default function Game({ degree = 9, settings }: PropTypes) {
         setGame({ ...game });
     };
 
+    const erase = () => {
+        if (game.selected && game.selected.value !== null) {
+            game.progress[game.selected.value] -= 1 / degree;
+            game.selected.value = null;
+            setGame({ ...game });
+        }
+    };
+
     const write = (number: number) => {
         if (game.selected && game.selected.value !== number) {
+            erase();
             game.selected.value = number;
-            game.progress[number] += 1 / dimension;
+            game.progress[number] += 1 / degree;
             setGame({ ...game });
         }
     };
 
     return (
-        <View
-            padder
-            onLayout={updateSize}
-            style={{
-                flex: 1
-            }}
-        >
+        <Grid onLayout={updateSize}>
             <Col style={{ alignItems: "center" }}>
                 <Board grid={game.board} onSelectCell={select} size={size} />
                 <Controls
                     degree={degree}
                     progress={game.progress}
                     size={size}
+                    handleEraserButtonPress={erase}
                     handleNumberButtonPress={write}
                 />
             </Col>
-        </View>
+        </Grid>
     );
 }
