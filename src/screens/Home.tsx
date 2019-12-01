@@ -13,7 +13,7 @@ export default function Home({ navigation }) {
                 left={<DrawerToggle navigation={navigation} />}
                 body={<Title>{strings.HOME.TITLE}</Title>}
             />
-            <Sudoku dimension={10} settings={settings.sudoku}/>
+            <Sudoku degree={9} settings={settings.sudoku}/>
         </Container>
     );
 }

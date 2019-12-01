@@ -3,14 +3,14 @@ import { Row } from "native-base";
 import NumberButton from "./NumberButton";
 
 interface PropTypes {
-    dimension: number;
+    degree: number;
     progress: number[];
     size: number;
     handleNumberButtonPress: Function;
 }
 
 export default function Controls({
-    dimension,
+    degree,
     progress,
     size,
     handleNumberButtonPress
@@ -22,7 +22,7 @@ export default function Controls({
                 width: size
             }}
         >
-            {[...Array(dimension)].map((_, i) => {
+            {[...Array(degree)].map((_, i) => {
                 const number = i + 1;
                 return (
                     <NumberButton

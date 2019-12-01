@@ -4,19 +4,19 @@ import Board from "./Board";
 import Controls from "./Controls";
 
 interface PropTypes {
-    dimension?: number;
+    degree?: number;
     settings: Sudoku.Settings; // TODO: Consider unpacking settings, separate prop for each
 }
 
-export default function Game({ dimension = 9, settings }: PropTypes) {
-    if (!(dimension >= 0 && Math.sqrt(dimension) % 1 === 0)) throw TypeError("dimension must be a perfect squre");
-    // TODO: Consider unit = 3 instead of dimension
+export default function Game({ degree = 9, settings }: PropTypes) {
+    if (!(degree >= 0 && Math.sqrt(degree) % 1 === 0))
+        throw TypeError("degree prop must be a perfect square");
     // TODO: Maybe update game state in redux, option to start new game with different screen
     const [game, setGame] = useState({
-        board: [...Array(dimension)].map(() =>
-            [...Array(dimension)].map(() => ({
+        board: [...Array(degree)].map(() =>
+            [...Array(degree)].map(() => ({
                 value: null,
-                notes: Array<boolean>(dimension + 1).fill(false),
+                notes: Array<boolean>(degree + 1).fill(false),
                 isPrefilled: false,
                 isSelected: false,
                 isPeer: false,
@@ -25,7 +25,7 @@ export default function Game({ dimension = 9, settings }: PropTypes) {
             }))
         ),
         selected: null,
-        progress: [...Array(dimension + 1)].map(() => 0)
+        progress: [...Array(degree + 1)].map(() => 0)
     });
 
     const [size, setSize] = useState(0);
@@ -63,7 +63,7 @@ export default function Game({ dimension = 9, settings }: PropTypes) {
             <Col style={{ alignItems: "center" }}>
                 <Board grid={game.board} onSelectCell={select} size={size} />
                 <Controls
-                    dimension={dimension}
+                    degree={degree}
                     progress={game.progress}
                     size={size}
                     handleNumberButtonPress={write}
