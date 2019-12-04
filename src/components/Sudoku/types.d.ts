@@ -7,12 +7,12 @@ namespace Sudoku {
 
     interface Cell {
         value: number;
-        notes: boolean[];
-        isPrefilled: boolean;
-        isSelected: boolean;
-        isPeer: boolean;
-        isEqual: boolean;
-        hasConflict: boolean;
+        notes?: boolean[];
+        isPrefilled?: boolean;
+        isSelected?: boolean;
+        isPeer?: boolean;
+        isEqual?: boolean;
+        hasConflict?: boolean;
     }
 
     interface Colors {
@@ -46,5 +46,10 @@ namespace Sudoku {
         dotNotes: boolean;
         feedbackCorrect: boolean;
         feedbackIncorrect: boolean;
+    }
+
+    interface Location {
+        row: number;
+        col: number;
     }
 }

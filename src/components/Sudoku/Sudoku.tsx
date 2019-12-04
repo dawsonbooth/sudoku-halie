@@ -13,7 +13,7 @@ interface PropTypes {
 }
 
 export default function Sudoku({
-    prefilledRatio = .5,
+    prefilledRatio = .75,
     colors = defaultColors,
     settings = defaultSettings
 }: PropTypes) {
