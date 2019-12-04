@@ -12,18 +12,22 @@ export default function Board({ grid, handleCellPress, size }: PropTypes) {
     return (
         <Card style={{ height: 0.8 * size, width: 0.8 * size }}>
             <Grid>
-                {grid.map((row: Sudoku.Cell[], i: number) => (
-                    <Row key={i}>
-                        {row.map((cell: Sudoku.Cell, j: number) => (
-                            <Col key={j}>
-                                <Cell
-                                    row={i}
-                                    column={j}
-                                    {...cell}
-                                    onPress={() => handleCellPress(i, j)}
-                                />
-                            </Col>
-                        ))}
+                {grid.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
+                    <Row key={r}>
+                        {row.map(
+                            (cell: Sudoku.Cell, c: Sudoku.Location["col"]) => (
+                                <Col key={c}>
+                                    <Cell
+                                        row={r}
+                                        column={c}
+                                        {...cell}
+                                        onPress={() =>
+                                            handleCellPress({ row: r, col: c })
+                                        }
+                                    />
+                                </Col>
+                            )
+                        )}
                     </Row>
                 ))}
             </Grid>

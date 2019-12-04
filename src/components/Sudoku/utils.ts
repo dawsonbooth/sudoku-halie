@@ -5,15 +5,15 @@ export function findConflicts(
     { row, col }: Sudoku.Location,
     value: Sudoku.Cell["value"],
     degree: Sudoku.Settings["degree"]
-): Array<Sudoku.Location> {
-    const conflicts = new Array<Sudoku.Location>();
+): Array<Sudoku.Cell> {
+    const conflicts = new Array<Sudoku.Cell>();
     const unit = Math.sqrt(degree);
     for (let i = 0; i < degree; i++) {
         const m = unit * Math.floor(row / unit) + Math.floor(i / unit);
         const n = unit * Math.floor(col / unit) + (i % unit);
-        if (board[row][i].value == value) conflicts.push({ row, col: i });
-        if (board[i][col].value == value) conflicts.push({ row: i, col });
-        if (board[m][n].value == value) conflicts.push({ row: m, col: n });
+        if (board[row][i].value == value) conflicts.push(board[row][i]);
+        if (board[i][col].value == value) conflicts.push(board[i][col]);
+        if (board[m][n].value == value) conflicts.push(board[m][n]);
     }
     return conflicts;
 }

@@ -44,7 +44,7 @@ export default class Game {
                     this.progress[cell.value] += 1 / this.degree;
     }
 
-    select = (row: number, col: number) => {
+    select = ({ row, col }: Sudoku.Location) => {
         if (this.selected) {
             this.selected.isSelected = false;
         }

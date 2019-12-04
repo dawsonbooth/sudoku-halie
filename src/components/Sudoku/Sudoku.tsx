@@ -13,7 +13,7 @@ interface PropTypes {
 }
 
 export default function Sudoku({
-    prefilledRatio = .75,
+    prefilledRatio = 0.75,
     colors = defaultColors,
     settings = defaultSettings
 }: PropTypes) {
@@ -25,20 +25,26 @@ export default function Sudoku({
         setSize(Math.min(height, width));
     };
 
-    const handleCellPress = (row: number, col: number) => {
-        game.select(row, col);
-        setGame(Object.assign( Object.create( Object.getPrototypeOf(game)), game));
+    const handleCellPress = (location: Sudoku.Location) => {
+        game.select(location);
+        setGame(
+            Object.assign(Object.create(Object.getPrototypeOf(game)), game)
+        );
         // TODO: Find out why this is necessary
     };
 
     const handleEraserButtonPress = () => {
         game.erase();
-        setGame(Object.assign( Object.create( Object.getPrototypeOf(game)), game));
+        setGame(
+            Object.assign(Object.create(Object.getPrototypeOf(game)), game)
+        );
     };
 
     const handleNumberButtonPress = (number: number) => {
         game.write(number);
-        setGame(Object.assign( Object.create( Object.getPrototypeOf(game)), game));
+        setGame(
+            Object.assign(Object.create(Object.getPrototypeOf(game)), game)
+        );
     };
 
     return (
