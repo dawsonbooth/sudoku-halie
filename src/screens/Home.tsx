@@ -5,6 +5,7 @@ import { DrawerToggle, Header, Sudoku } from "../components";
 import { strings } from "../constants";
 
 export default function Home({ navigation }) { // TODO: Add colors that are also in redux; separate theming page like settings
+    // TODO: New game page, use redux for whether game is active and game state
     const settings = useSelector((state: Redux.State) => state.settings);
 
     return (

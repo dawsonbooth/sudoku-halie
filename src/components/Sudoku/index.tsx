@@ -1,8 +1,7 @@
-import Game from "./Game";
+import Sudoku from "./Sudoku";
 import colors from "./colors";
 import settings from "./settings";
 
-
 export { colors, settings };
 
-export default Game;
+export default Sudoku;
