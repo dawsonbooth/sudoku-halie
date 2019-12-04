@@ -13,11 +13,11 @@ interface PropTypes {
     column: number;
     value?: Sudoku.Cell["value"];
     notes?: Sudoku.Cell["notes"];
-    isPrefilled?: boolean;
+    isPrefilled?: Sudoku.Cell["isPrefilled"];
     isSelected?: Sudoku.Cell["isSelected"];
-    isPeer?: boolean;
-    isEqual?: boolean;
-    hasConflict?: boolean;
+    isPeer?: Sudoku.Cell["isPeer"];
+    isEqual?: Sudoku.Cell["isEqual"];
+    hasConflict?: Sudoku.Cell["hasConflict"];
     onPress: (event: GestureResponderEvent) => void;
 }
 
