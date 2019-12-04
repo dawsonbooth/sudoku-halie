@@ -13,6 +13,7 @@ namespace Sudoku {
         isPeer?: boolean;
         isEqual?: boolean;
         hasConflict?: boolean;
+        location: Sudoku.Location;
     }
 
     interface Colors {

@@ -1,4 +1,4 @@
-import { prefill, solvePuzzle } from "./utils";
+import { prefill, solvePuzzle, findConflicts } from "./utils";
 
 export default class Game {
     degree: Sudoku.Settings["degree"];
@@ -15,21 +15,23 @@ export default class Game {
 
         this.degree = degree;
 
-        this.solution = [...Array(degree)].map(() =>
-            [...Array(degree)].map(() => ({
-                value: null
+        this.solution = [...Array(degree)].map((row: Sudoku.Location["row"]) =>
+            [...Array(degree)].map((col: Sudoku.Location["col"]) => ({
+                value: null,
+                location: { row, col }
             }))
         );
 
-        this.board = [...Array(degree)].map(() =>
-            [...Array(degree)].map(() => ({
+        this.board = [...Array(degree)].map((row: Sudoku.Location["row"]) =>
+            [...Array(degree)].map((col: Sudoku.Location["col"]) => ({
                 value: null,
                 notes: Array<boolean>(degree + 1).fill(false),
                 isPrefilled: false,
                 isSelected: false,
                 isPeer: false,
                 isEqual: false,
-                hasConflict: false
+                hasConflict: false,
+                location: { row, col }
             }))
         );
         this.selected = null;
@@ -44,15 +46,50 @@ export default class Game {
                     this.progress[cell.value] += 1 / this.degree;
     }
 
-    select = ({ row, col }: Sudoku.Location) => {
+    removeConflicts = () => {
+        const conflicts = findConflicts(
+            this.board,
+            this.selected.location,
+            this.selected.value,
+            this.degree
+        );
+        for (let c of conflicts) {
+            c.hasConflict = false;
+        }
+    };
+
+    addConflicts = () => {
+        if (this.selected.value !== null) {
+            const conflicts = findConflicts(
+                this.board,
+                this.selected.location,
+                this.selected.value,
+                this.degree
+            );
+            for (let c of conflicts) {
+                c.hasConflict = true;
+            }
+        }
+    };
+
+    deselect = () => {
         if (this.selected) {
             this.selected.isSelected = false;
+            this.removeConflicts();
         }
+    };
+
+    select = ({ row, col }: Sudoku.Location) => {
+        this.deselect();
         this.board[row][col].isSelected = true;
         this.selected = this.board[row][col];
+        console.log(this.board[row][col].location);
+        this.selected.location = { row, col }; // TODO: Why is this necessary?
+        this.addConflicts();
     };
 
     erase = (): void => {
+        this.removeConflicts(); // TODO: Change to removeDetails; include all other details
         if (
             this.selected &&
             this.selected.value !== null &&
@@ -61,9 +98,11 @@ export default class Game {
             this.progress[this.selected.value] -= 1 / this.degree;
             this.selected.value = null;
         }
+        this.addConflicts();
     };
 
     write = (number: number): void => {
+        this.removeConflicts();
         if (
             this.selected &&
             !this.selected.isPrefilled &&
@@ -73,6 +112,7 @@ export default class Game {
             this.selected.value = number;
             this.progress[number] += 1 / this.degree;
         }
+        this.addConflicts();
     };
 
     solve = (): boolean => {

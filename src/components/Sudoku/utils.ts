@@ -11,34 +11,14 @@ export function findConflicts(
     for (let i = 0; i < degree; i++) {
         const m = unit * Math.floor(row / unit) + Math.floor(i / unit);
         const n = unit * Math.floor(col / unit) + (i % unit);
-        if (board[row][i].value == value) conflicts.push(board[row][i]);
-        if (board[i][col].value == value) conflicts.push(board[i][col]);
-        if (board[m][n].value == value) conflicts.push(board[m][n]);
+        if (i !== col && board[row][i].value == value)
+            conflicts.push(board[row][i]);
+        if (row !== i && board[i][col].value == value)
+            conflicts.push(board[i][col]);
+        if (m !== row && n !== col && board[m][n].value == value)
+            conflicts.push(board[m][n]);
     }
     return conflicts;
-}
-
-export function prefill(
-    board: Sudoku.Game["board"],
-    solution: Sudoku.Game["board"],
-    prefilledRatio: number,
-    degree: Sudoku.Settings["degree"]
-): void {
-    let filledRatio = 0;
-    while (filledRatio < prefilledRatio) {
-        for (let r = 0; r < degree && filledRatio < prefilledRatio; r++) {
-            for (let c = 0; c < degree && filledRatio < prefilledRatio; c++) {
-                if (
-                    board[r][c].value == null &&
-                    Math.random() < prefilledRatio
-                ) {
-                    board[r][c].value = solution[r][c].value;
-                    board[r][c].isPrefilled = true;
-                    filledRatio += 1 / (degree * degree);
-                }
-            }
-        }
-    }
 }
 
 export function solvePuzzle(
@@ -67,4 +47,27 @@ export function solvePuzzle(
         }
     }
     return true;
+}
+
+export function prefill(
+    board: Sudoku.Game["board"],
+    solution: Sudoku.Game["board"],
+    prefilledRatio: number,
+    degree: Sudoku.Settings["degree"]
+): void {
+    let filledRatio = 0;
+    while (filledRatio < prefilledRatio) {
+        for (let r = 0; r < degree && filledRatio < prefilledRatio; r++) {
+            for (let c = 0; c < degree && filledRatio < prefilledRatio; c++) {
+                if (
+                    board[r][c].value == null &&
+                    Math.random() < prefilledRatio
+                ) {
+                    board[r][c].value = solution[r][c].value;
+                    board[r][c].isPrefilled = true;
+                    filledRatio += 1 / (degree * degree);
+                }
+            }
+        }
+    }
 }

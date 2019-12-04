@@ -5,6 +5,7 @@ import Game from "./Game";
 import { Col, Grid } from "native-base";
 import Board from "./Board";
 import Controls from "./Controls";
+import _ from "lodash";
 
 interface PropTypes {
     prefilledRatio?: number;
@@ -27,24 +28,18 @@ export default function Sudoku({
 
     const handleCellPress = (location: Sudoku.Location) => {
         game.select(location);
-        setGame(
-            Object.assign(Object.create(Object.getPrototypeOf(game)), game)
-        );
+        setGame(_.clone(game));
         // TODO: Find out why this is necessary
     };
 
     const handleEraserButtonPress = () => {
         game.erase();
-        setGame(
-            Object.assign(Object.create(Object.getPrototypeOf(game)), game)
-        );
+        setGame(_.clone(game));
     };
 
     const handleNumberButtonPress = (number: number) => {
         game.write(number);
-        setGame(
-            Object.assign(Object.create(Object.getPrototypeOf(game)), game)
-        );
+        setGame(_.clone(game));
     };
 
     return (
