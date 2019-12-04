@@ -15,6 +15,32 @@ namespace Sudoku {
         hasConflict: boolean;
     }
 
+    interface Colors {
+        board: {
+            border: string;
+            cell: {
+                background: {
+                    normal: string;
+                    peer: string;
+                    equal: string;
+                    conflict: string;
+                    selected: string;
+                };
+                number: {
+                    prefilled: string;
+                    entry: string;
+                };
+            };
+        };
+        controls: {
+            number_button: {
+                background: string;
+                border: string;
+                progress: string;
+            };
+        };
+    }
+
     interface Settings {
         dotNotes: boolean;
         feedbackCorrect: boolean;

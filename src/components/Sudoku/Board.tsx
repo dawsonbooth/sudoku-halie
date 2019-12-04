@@ -4,11 +4,11 @@ import Cell from "./Cell";
 
 interface PropTypes {
     grid: Sudoku.Game["board"];
-    onSelectCell: Function;
+    handleCellPress: Function;
     size: number;
 }
 
-export default function Board({ grid, onSelectCell, size }: PropTypes) {
+export default function Board({ grid, handleCellPress, size }: PropTypes) {
     return (
         <Card style={{ height: 0.8 * size, width: 0.8 * size }}>
             <Grid>
@@ -18,7 +18,7 @@ export default function Board({ grid, onSelectCell, size }: PropTypes) {
                             <Col key={j}>
                                 <Cell
                                     {...cell}
-                                    onPress={() => onSelectCell(i, j)}
+                                    onPress={() => handleCellPress(i, j)}
                                 />
                             </Col>
                         ))}

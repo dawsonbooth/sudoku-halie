@@ -1,16 +1,24 @@
 import React, { useState } from "react";
+import defaultColors, { ColorsContext } from "./colors";
+import defaultSettings, { SettingsContext } from "./settings";
 import { Col, Grid } from "native-base";
 import Board from "./Board";
 import Controls from "./Controls";
 
 interface PropTypes {
     degree?: number;
-    settings: Sudoku.Settings; // TODO: Consider unpacking settings, separate prop for each
+    settings?: Sudoku.Settings;
+    colors?: Sudoku.Colors;
 }
 
-export default function Game({ degree = 9, settings }: PropTypes) {
+export default function Game({
+    degree = 9,
+    colors = defaultColors,
+    settings = defaultSettings
+}: PropTypes) {
     if (!(degree >= 0 && Math.sqrt(degree) % 1 === 0))
         throw TypeError("degree prop must be a perfect square");
+
     // TODO: Maybe update game state in redux, option to start new game with different screen
     const [game, setGame] = useState({
         board: [...Array(degree)].map(() =>
@@ -35,7 +43,7 @@ export default function Game({ degree = 9, settings }: PropTypes) {
         setSize(Math.min(height, width));
     };
 
-    const select = (i: number, j: number) => {
+    const select = (i: number, j: number) => { // TODO: Consider adding 'handle' functions (handleCellPress)
         if (game.selected) {
             game.selected.isSelected = false;
         }
@@ -62,17 +70,25 @@ export default function Game({ degree = 9, settings }: PropTypes) {
     };
 
     return (
-        <Grid onLayout={updateSize}>
-            <Col style={{ alignItems: "center" }}>
-                <Board grid={game.board} onSelectCell={select} size={size} />
-                <Controls
-                    degree={degree}
-                    progress={game.progress}
-                    size={size}
-                    handleEraserButtonPress={erase}
-                    handleNumberButtonPress={write}
-                />
-            </Col>
-        </Grid>
+        <ColorsContext.Provider value={colors}>
+            <SettingsContext.Provider value={settings}>
+                <Grid onLayout={updateSize}>
+                    <Col style={{ alignItems: "center" }}>
+                        <Board
+                            grid={game.board}
+                            handleCellPress={select}
+                            size={size}
+                        />
+                        <Controls
+                            degree={degree}
+                            progress={game.progress}
+                            size={size}
+                            handleEraserButtonPress={erase}
+                            handleNumberButtonPress={write}
+                        />
+                    </Col>
+                </Grid>
+            </SettingsContext.Provider>
+        </ColorsContext.Provider>
     );
 }

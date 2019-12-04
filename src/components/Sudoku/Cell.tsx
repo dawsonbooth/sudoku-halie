@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ColorsContext } from "./colors";
 import { GestureResponderEvent, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
-import { colors } from "../../constants";
 
 interface PropTypes {
     value?: Sudoku.Cell["value"];
@@ -12,23 +12,6 @@ interface PropTypes {
     isEqual?: boolean;
     hasConflict?: boolean;
     onPress: (event: GestureResponderEvent) => void;
-}
-
-function getBackgroundColor( // TODO: Color logic in ancestor, make modular
-    isSelected: boolean,
-    isPeer: boolean,
-    isEqual: boolean,
-    hasConflict: boolean
-) {
-    let backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.NORMAL;
-    if (isSelected)
-        backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.SELECTED;
-    else if (isPeer) backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.PEER;
-    if (isEqual) backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.EQUAL;
-    if (hasConflict)
-        backgroundColor = colors.SUDOKU.BOARD.CELL.BACKGROUND.CONFLICT;
-
-    return backgroundColor;
 }
 
 export default function Cell({
@@ -42,13 +25,13 @@ export default function Cell({
     onPress
 }: PropTypes) {
     const [fontSize, setFontSize] = useState();
+    const colors = useContext(ColorsContext);
 
-    const backgroundColor = getBackgroundColor(
-        isSelected,
-        isPeer,
-        isEqual,
-        hasConflict
-    );
+    let backgroundColor = colors.board.cell.background.normal;
+    if (isSelected) backgroundColor = colors.board.cell.background.selected;
+    else if (isPeer) backgroundColor = colors.board.cell.background.peer;
+    if (isEqual) backgroundColor = colors.board.cell.background.equal;
+    if (hasConflict) backgroundColor = colors.board.cell.background.conflict;
 
     return (
         <TouchableOpacity
@@ -58,7 +41,7 @@ export default function Cell({
                 flex: 1,
                 backgroundColor,
                 borderWidth: 1,
-                borderColor: colors.SUDOKU.BOARD.BORDER,
+                borderColor: colors.board.border,
                 alignItems: "center",
                 justifyContent: "center"
             }}
@@ -66,8 +49,8 @@ export default function Cell({
             <Text
                 style={{
                     color: isPrefilled
-                        ? colors.SUDOKU.BOARD.CELL.NUMBER.PREFILLED
-                        : colors.SUDOKU.BOARD.CELL.NUMBER.ENTRY,
+                        ? colors.board.cell.number.prefilled
+                        : colors.board.cell.number.entry,
                     fontSize
                 }}
             >
