@@ -42,6 +42,7 @@ namespace Sudoku {
     }
 
     interface Settings {
+        degree: number;
         dotNotes: boolean;
         feedbackCorrect: boolean;
         feedbackIncorrect: boolean;

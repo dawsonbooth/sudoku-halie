@@ -6,25 +6,23 @@ import Board from "./Board";
 import Controls from "./Controls";
 
 interface PropTypes {
-    degree?: number;
     settings?: Sudoku.Settings;
     colors?: Sudoku.Colors;
 }
 
 export default function Game({
-    degree = 9,
     colors = defaultColors,
     settings = defaultSettings
 }: PropTypes) {
-    if (!(degree >= 0 && Math.sqrt(degree) % 1 === 0))
-        throw TypeError("degree prop must be a perfect square");
+    if (!(settings.degree >= 0 && Math.sqrt(settings.degree) % 1 === 0))
+        throw TypeError("degree setting must be a perfect square");
 
     // TODO: Maybe update game state in redux, option to start new game with different screen
     const [game, setGame] = useState({
-        board: [...Array(degree)].map(() =>
-            [...Array(degree)].map(() => ({
+        board: [...Array(settings.degree)].map(() =>
+            [...Array(settings.degree)].map(() => ({
                 value: null,
-                notes: Array<boolean>(degree + 1).fill(false),
+                notes: Array<boolean>(settings.degree + 1).fill(false),
                 isPrefilled: false,
                 isSelected: false,
                 isPeer: false,
@@ -33,7 +31,7 @@ export default function Game({
             }))
         ),
         selected: null,
-        progress: [...Array(degree + 1)].map(() => 0)
+        progress: [...Array(settings.degree + 1)].map(() => 0)
     });
 
     const [size, setSize] = useState(0);
@@ -54,7 +52,7 @@ export default function Game({
 
     const erase = () => {
         if (game.selected && game.selected.value !== null) {
-            game.progress[game.selected.value] -= 1 / degree;
+            game.progress[game.selected.value] -= 1 / settings.degree;
             game.selected.value = null;
             setGame({ ...game });
         }
@@ -64,7 +62,7 @@ export default function Game({
         if (game.selected && game.selected.value !== number) {
             erase();
             game.selected.value = number;
-            game.progress[number] += 1 / degree;
+            game.progress[number] += 1 / settings.degree;
             setGame({ ...game });
         }
     };
@@ -80,7 +78,6 @@ export default function Game({
                             size={size}
                         />
                         <Controls
-                            degree={degree}
                             progress={game.progress}
                             size={size}
                             handleEraserButtonPress={erase}

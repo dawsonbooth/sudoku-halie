@@ -1,13 +1,10 @@
 import { createStore } from "redux";
 import { Provider as _Provider } from "react-redux";
+import { settings as sudokuSettings} from "../components/Sudoku";
 
 const initialState: Redux.State = {
     settings: {
-        sudoku: {
-            dotNotes: false,
-            feedbackCorrect: true,
-            feedbackIncorrect: true
-        },
+        sudoku: sudokuSettings,
         app: {
             darkMode: false
         }

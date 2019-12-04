@@ -13,7 +13,7 @@ export default function Home({ navigation }) { // TODO: Add colors that are also
                 left={<DrawerToggle navigation={navigation} />}
                 body={<Title>{strings.HOME.TITLE}</Title>}
             />
-            <Sudoku degree={9} settings={settings.sudoku}/>
+            <Sudoku settings={settings.sudoku}/>
         </Container>
     );
 }

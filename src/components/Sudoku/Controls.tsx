@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { SettingsContext } from "./settings";
 import { Row } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import NumberButton from "./NumberButton";
 
 interface PropTypes {
-    degree: number;
     progress: number[];
     size: number;
     handleEraserButtonPress: Function;
@@ -13,12 +13,13 @@ interface PropTypes {
 }
 
 export default function Controls({
-    degree,
     progress,
     size,
     handleEraserButtonPress,
     handleNumberButtonPress
 }: PropTypes) {
+    const settings = useContext(SettingsContext);
+
     return (
         <>
             <Row style={{ alignItems: "center", height: "auto" }}>
@@ -35,7 +36,7 @@ export default function Controls({
                     width: size
                 }}
             >
-                {[...Array(degree)].map((_, i) => {
+                {[...Array(settings.degree)].map((_, i) => {
                     const number = i + 1;
                     return (
                         <NumberButton
