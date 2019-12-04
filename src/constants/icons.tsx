@@ -1,5 +1,5 @@
 export default {
-    DRAWER: {
-        TOGGLE: "md-menu"
+    drawer: {
+        toggle: "md-menu"
     }
 };

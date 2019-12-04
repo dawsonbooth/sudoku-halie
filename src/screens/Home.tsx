@@ -11,7 +11,7 @@ export default function Home({ navigation }) { // TODO: Add colors that are also
         <Container>
             <Header
                 left={<DrawerToggle navigation={navigation} />}
-                body={<Title>{strings.HOME.TITLE}</Title>}
+                body={<Title>{strings.home.title}</Title>}
             />
             <Sudoku settings={settings.sudoku}/>
         </Container>

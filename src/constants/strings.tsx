@@ -1,21 +1,21 @@
 export default {
-    APP: {
-        TITLE: "Expo Boilerplate"
+    app: {
+        title: "Expo Boilerplate"
     },
-    HOME: {
-        TITLE: "Home"
+    home: {
+        title: "Home"
     },
-    SETTINGS: {
-        TITLE: "Settings",
-        APPLICATION: {
-            HEADER: "APPLICATION",
-            DARK_MODE: "Dark mode"
+    settings: {
+        title: "Settings",
+        application: {
+            header: "APPLICATION",
+            darkMode: "Dark mode"
         },
-        SUDOKU: {
-            HEADER: "SUDOKU",
-            DOT_NOTES: "Use dots instead of numbers for notes",
-            FEEDBACK_CORRECT: "Show feedback on correct entry",
-            FEEDBACK_INCORRECT: "Show feedback on incorrect entry",
+        sudoku: {
+            header: "SUDOKU",
+            dotNotes: "Use dots instead of numbers for notes",
+            feedbackCorrect: "Show feedback on correct entry",
+            feedbackIncorrect: "Show feedback on incorrect entry",
 
         }
 

@@ -5,7 +5,7 @@ import { icons } from "../constants";
 export default function DrawerToggle({ navigation }) {
     return (
         <Button transparent onPress={navigation.toggleDrawer}>
-            <Icon name={icons.DRAWER.TOGGLE} />
+            <Icon name={icons.drawer.toggle} />
         </Button>
     );
 }

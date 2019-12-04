@@ -38,17 +38,17 @@ export default function Settings({ navigation }) {
         <Container>
             <Header
                 left={<DrawerToggle navigation={navigation} />}
-                body={<Title>{strings.SETTINGS.TITLE}</Title>}
+                body={<Title>{strings.settings.title}</Title>}
             />
             <Content padder>
                 <Card>
                     <CardItem header>
-                        <Text>{strings.SETTINGS.APPLICATION.HEADER}</Text>
+                        <Text>{strings.settings.application.header}</Text>
                     </CardItem>
                     <CardItem>
                         <Left>
                             <Text>
-                                {strings.SETTINGS.APPLICATION.DARK_MODE}
+                                {strings.settings.application.darkMode}
                             </Text>
                         </Left>
                         <Right>
@@ -67,11 +67,11 @@ export default function Settings({ navigation }) {
                 </Card>
                 <Card>
                     <CardItem header>
-                        <Text>{strings.SETTINGS.SUDOKU.HEADER}</Text>
+                        <Text>{strings.settings.sudoku.header}</Text>
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>{strings.SETTINGS.SUDOKU.DOT_NOTES}</Text>
+                            <Text>{strings.settings.sudoku.dotNotes}</Text>
                         </Left>
                         <Right>
                             <Switch
@@ -88,7 +88,7 @@ export default function Settings({ navigation }) {
                     </CardItem>
                     <CardItem>
                         <Left>
-                        <Text>{strings.SETTINGS.SUDOKU.FEEDBACK_CORRECT}</Text>
+                        <Text>{strings.settings.sudoku.feedbackCorrect}</Text>
                         </Left>
                         <Right>
                             <Switch
@@ -105,7 +105,7 @@ export default function Settings({ navigation }) {
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>{strings.SETTINGS.SUDOKU.FEEDBACK_INCORRECT}</Text>
+                            <Text>{strings.settings.sudoku.feedbackIncorrect}</Text>
                         </Left>
                         <Right>
                             <Switch
