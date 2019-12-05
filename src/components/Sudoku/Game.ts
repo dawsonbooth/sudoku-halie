@@ -46,7 +46,7 @@ export default class Game {
                     this.progress[cell.value] += 1 / this.degree;
     }
 
-    unflagConflicts = () => {
+    unflagConflicts = (): void => {
         const conflicts = findConflicts(
             this.board,
             this.selected.location,
@@ -58,7 +58,7 @@ export default class Game {
         }
     };
 
-    flagConflicts = () => {
+    flagConflicts = (): void => {
         if (this.selected.value !== null) {
             const conflicts = findConflicts(
                 this.board,
@@ -72,22 +72,22 @@ export default class Game {
         }
     };
 
-    removeFlags = () => {
+    removeFlags = (): void => {
         this.unflagConflicts();
     };
 
-    addFlags = () => {
+    addFlags = (): void => {
         this.flagConflicts();
     };
 
-    deselect = () => {
+    deselect = (): void => {
         if (this.selected) {
             this.selected.isSelected = false;
             this.removeFlags();
         }
     };
 
-    select = ({ row, col }: Sudoku.Location) => {
+    select = ({ row, col }: Sudoku.Location): void => {
         this.deselect();
         this.board[row][col].isSelected = true;
         this.selected = this.board[row][col];
