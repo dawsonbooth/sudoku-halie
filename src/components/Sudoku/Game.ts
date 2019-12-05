@@ -30,7 +30,7 @@ export default class Game {
                 isSelected: false,
                 isPeer: false,
                 isEqual: false,
-                hasConflict: false,
+                isConflict: false,
                 location: { row, col }
             }))
         );
@@ -54,11 +54,11 @@ export default class Game {
             this.degree
         );
         for (let c of conflicts) {
-            c.hasConflict = false;
+            c.isConflict = false;
         }
     };
 
-    addConflicts = () => {
+    showConflicts = () => {
         if (this.selected.value !== null) {
             const conflicts = findConflicts(
                 this.board,
@@ -67,7 +67,7 @@ export default class Game {
                 this.degree
             );
             for (let c of conflicts) {
-                c.hasConflict = true;
+                c.isConflict = true;
             }
         }
     };
@@ -85,7 +85,7 @@ export default class Game {
         this.selected = this.board[row][col];
         console.log(this.board[row][col].location);
         this.selected.location = { row, col }; // TODO: Why is this necessary?
-        this.addConflicts();
+        this.showConflicts();
     };
 
     erase = (): void => {
@@ -98,7 +98,7 @@ export default class Game {
             this.progress[this.selected.value] -= 1 / this.degree;
             this.selected.value = null;
         }
-        this.addConflicts();
+        this.showConflicts();
     };
 
     write = (number: number): void => {
@@ -112,7 +112,7 @@ export default class Game {
             this.selected.value = number;
             this.progress[number] += 1 / this.degree;
         }
-        this.addConflicts();
+        this.showConflicts();
     };
 
     solve = (): boolean => {

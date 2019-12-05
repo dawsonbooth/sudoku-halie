@@ -12,7 +12,7 @@ namespace Sudoku {
         isSelected?: boolean;
         isPeer?: boolean;
         isEqual?: boolean;
-        hasConflict?: boolean;
+        isConflict?: boolean;
         location: Sudoku.Location;
     }
 

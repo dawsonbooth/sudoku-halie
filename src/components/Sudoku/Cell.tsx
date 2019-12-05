@@ -17,7 +17,7 @@ interface PropTypes {
     isSelected?: Sudoku.Cell["isSelected"];
     isPeer?: Sudoku.Cell["isPeer"];
     isEqual?: Sudoku.Cell["isEqual"];
-    hasConflict?: Sudoku.Cell["hasConflict"];
+    isConflict?: Sudoku.Cell["isConflict"];
     onPress: (event: GestureResponderEvent) => void;
 }
 
@@ -30,7 +30,7 @@ export default function Cell({
     isSelected,
     isPeer,
     isEqual,
-    hasConflict,
+    isConflict,
     onPress
 }: PropTypes) {
     const [fontSize, setFontSize] = useState();
@@ -41,7 +41,7 @@ export default function Cell({
     if (isSelected) backgroundColor = colors.board.cell.background.selected;
     else if (isPeer) backgroundColor = colors.board.cell.background.peer;
     if (isEqual) backgroundColor = colors.board.cell.background.equal;
-    if (hasConflict) backgroundColor = colors.board.cell.background.conflict;
+    if (isConflict) backgroundColor = colors.board.cell.background.conflict;
 
     const styles = StyleSheet.create({
         cell: {
