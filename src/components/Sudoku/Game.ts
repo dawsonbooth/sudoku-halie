@@ -46,7 +46,7 @@ export default class Game {
                     this.progress[cell.value] += 1 / this.degree;
     }
 
-    removeConflicts = () => {
+    unflagConflicts = () => {
         const conflicts = findConflicts(
             this.board,
             this.selected.location,
@@ -58,7 +58,7 @@ export default class Game {
         }
     };
 
-    showConflicts = () => {
+    flagConflicts = () => {
         if (this.selected.value !== null) {
             const conflicts = findConflicts(
                 this.board,
@@ -72,10 +72,18 @@ export default class Game {
         }
     };
 
+    removeFlags = () => {
+        this.unflagConflicts();
+    };
+
+    addFlags = () => {
+        this.flagConflicts();
+    };
+
     deselect = () => {
         if (this.selected) {
             this.selected.isSelected = false;
-            this.removeConflicts();
+            this.removeFlags();
         }
     };
 
@@ -83,13 +91,12 @@ export default class Game {
         this.deselect();
         this.board[row][col].isSelected = true;
         this.selected = this.board[row][col];
-        console.log(this.board[row][col].location);
         this.selected.location = { row, col }; // TODO: Why is this necessary?
-        this.showConflicts();
+        this.addFlags();
     };
 
     erase = (): void => {
-        this.removeConflicts(); // TODO: Change to removeDetails; include all other details
+        this.removeFlags();
         if (
             this.selected &&
             this.selected.value !== null &&
@@ -98,11 +105,11 @@ export default class Game {
             this.progress[this.selected.value] -= 1 / this.degree;
             this.selected.value = null;
         }
-        this.showConflicts();
+        this.addFlags();
     };
 
     write = (number: number): void => {
-        this.removeConflicts();
+        this.removeFlags();
         if (
             this.selected &&
             !this.selected.isPrefilled &&
@@ -112,7 +119,7 @@ export default class Game {
             this.selected.value = number;
             this.progress[number] += 1 / this.degree;
         }
-        this.showConflicts();
+        this.addFlags();
     };
 
     solve = (): boolean => {
