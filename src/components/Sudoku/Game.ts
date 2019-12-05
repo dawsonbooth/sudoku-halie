@@ -15,15 +15,15 @@ export default class Game {
 
         this.degree = degree;
 
-        this.solution = [...Array(degree)].map((row: Sudoku.Location["row"]) =>
-            [...Array(degree)].map((col: Sudoku.Location["col"]) => ({
+        this.solution = [...Array(degree)].map((_, row: Sudoku.Location["row"]) =>
+            [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
                 value: null,
                 location: { row, col }
             }))
         );
 
-        this.board = [...Array(degree)].map((row: Sudoku.Location["row"]) =>
-            [...Array(degree)].map((col: Sudoku.Location["col"]) => ({
+        this.board = [...Array(degree)].map((_, row: Sudoku.Location["row"]) =>
+            [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
                 value: null,
                 notes: Array<boolean>(degree + 1).fill(false),
                 isPrefilled: false,
@@ -34,6 +34,7 @@ export default class Game {
                 location: { row, col }
             }))
         );
+
         this.selected = null;
         this.progress = [...Array(degree + 1)].map(() => 0);
 
@@ -91,7 +92,6 @@ export default class Game {
         this.deselect();
         this.board[row][col].isSelected = true;
         this.selected = this.board[row][col];
-        this.selected.location = { row, col }; // TODO: Why is this necessary?
         this.addFlags();
     };
 
