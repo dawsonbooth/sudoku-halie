@@ -26,6 +26,7 @@ namespace Sudoku {
                     equal: string;
                     conflict: string;
                     selected: string;
+                    completed: string;
                 };
                 number: {
                     prefilled: string;
@@ -38,6 +39,7 @@ namespace Sudoku {
                 background: string;
                 border: string;
                 progress: string;
+                completed: string;
             };
         };
     }

@@ -9,7 +9,8 @@ const colors = {
                 peer: "#B3E5FC",
                 equal: "#4FC3F7",
                 conflict: "#FFAB91",
-                selected: "#81D4FA"
+                selected: "#81D4FA",
+                completed: "#00CCAF" // TODO: Add isCompleted flag for if cell is part of completed box, row, or column
             },
             number: {
                 prefilled: "black",
@@ -21,7 +22,8 @@ const colors = {
         number_button: {
             background: "white",
             border: "darkgrey",
-            progress: "#3E87F6"
+            progress: "#3E87F6",
+            completed: "#00CCAF"
         }
     }
 };
