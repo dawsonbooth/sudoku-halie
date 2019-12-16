@@ -6,23 +6,23 @@ const colors = {
         cell: {
             background: {
                 normal: "white",
-                peer: "#82d4fa",
+                peer: "#B1E4FD",
                 equal: "#4FC3F7",
-                conflict: "#FA8D82",
-                selected: "#58BFEE",
+                conflict: "#FF997E",
+                selected: "#5AC3F4",
                 completed: "#83FBA8"
             },
             number: {
                 prefilled: "black",
-                entry: "#3D3D3D"
+                entry: "#222222"
             }
         }
     },
     controls: {
         number_button: {
             background: "white",
-            border: "#BFBFBF",
-            progress: "#1296D4",
+            border: "#A5B1B8",
+            progress: "#01A3F2",
             completed: "#83FBA8"
         }
     }

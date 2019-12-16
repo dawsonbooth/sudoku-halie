@@ -1,4 +1,4 @@
-import { prefill, solvePuzzle, findConflicts } from "./utils";
+import { prefill, solvePuzzle, findConflicts, findPeers } from "./utils";
 
 export default class Game {
     degree: Sudoku.Settings["degree"];
@@ -49,6 +49,38 @@ export default class Game {
                     this.progress[cell.value] += 1 / this.degree;
     }
 
+    flagCompleted = (): void => {
+        this.board.forEach(row =>
+            row.forEach(cell => {
+                if (this.progress[cell.value] >= 1) cell.isCompleted = true;
+                else cell.isCompleted = false;
+            })
+        );
+    };
+
+    unflagCompleted = (): void => this.flagCompleted();
+
+    flagPeers = (): void => {
+        if (this.selected.value !== null) {
+            const peers = findPeers(
+                this.board,
+                this.selected.location,
+                this.degree
+            );
+            for (let c of peers) {
+                c.isPeer = true;
+            }
+        }
+    };
+
+    unflagPeers = (): void => {
+        this.board.forEach(row =>
+            row.forEach(cell => {
+                if (cell.isPeer) cell.isPeer = false;
+            })
+        );
+    };
+
     flagConflicts = (): void => {
         if (this.selected.value !== null) {
             const conflicts = findConflicts(
@@ -71,24 +103,15 @@ export default class Game {
         );
     };
 
-    flagCompleted = (): void => {
-        this.board.forEach(row =>
-            row.forEach(cell => {
-                if (this.progress[cell.value] >= 1) cell.isCompleted = true;
-                else cell.isCompleted = false;
-            })
-        );
-    };
-
-    unflagCompleted = (): void => this.flagCompleted();
-
     addFlags = (): void => {
         this.flagCompleted();
+        this.flagPeers();
         this.flagConflicts();
     };
 
     removeFlags = (): void => {
         this.unflagCompleted();
+        this.unflagPeers();
         this.unflagConflicts();
     };
 
