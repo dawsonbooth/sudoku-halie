@@ -10,6 +10,7 @@ namespace Sudoku {
         notes?: boolean[];
         isPrefilled?: boolean;
         isSelected?: boolean;
+        isCompleted?: boolean;
         isPeer?: boolean;
         isEqual?: boolean;
         isConflict?: boolean;

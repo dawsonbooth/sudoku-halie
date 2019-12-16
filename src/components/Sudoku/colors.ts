@@ -6,11 +6,11 @@ const colors = {
         cell: {
             background: {
                 normal: "white",
-                peer: "#B3E5FC",
+                peer: "#82d4fa",
                 equal: "#4FC3F7",
-                conflict: "#FFAB91",
-                selected: "#81D4FA",
-                completed: "#00CCAF" // TODO: Add isCompleted flag for if cell is part of completed box, row, or column
+                conflict: "#FA8D82",
+                selected: "#58BFEE",
+                completed: "#83FBA8"
             },
             number: {
                 prefilled: "black",
@@ -21,9 +21,9 @@ const colors = {
     controls: {
         number_button: {
             background: "white",
-            border: "darkgrey",
-            progress: "#3E87F6",
-            completed: "#00CCAF"
+            border: "#BFBFBF",
+            progress: "#1296D4",
+            completed: "#83FBA8"
         }
     }
 };

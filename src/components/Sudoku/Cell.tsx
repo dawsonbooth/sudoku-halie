@@ -8,16 +8,9 @@ import {
 } from "react-native";
 import { Text } from "native-base";
 
-interface PropTypes {
+interface PropTypes extends Sudoku.Cell {
     row: number;
     column: number;
-    value?: Sudoku.Cell["value"];
-    notes?: Sudoku.Cell["notes"];
-    isPrefilled?: Sudoku.Cell["isPrefilled"];
-    isSelected?: Sudoku.Cell["isSelected"];
-    isPeer?: Sudoku.Cell["isPeer"];
-    isEqual?: Sudoku.Cell["isEqual"];
-    isConflict?: Sudoku.Cell["isConflict"];
     onPress: (event: GestureResponderEvent) => void;
 }
 
@@ -27,6 +20,7 @@ export default function Cell({
     value,
     notes,
     isPrefilled,
+    isCompleted,
     isSelected,
     isPeer,
     isEqual,
@@ -38,6 +32,7 @@ export default function Cell({
     const settings = useContext(SettingsContext);
 
     let backgroundColor = colors.board.cell.background.normal;
+    if (isCompleted) backgroundColor = colors.board.cell.background.completed;
     if (isSelected) backgroundColor = colors.board.cell.background.selected;
     else if (isPeer) backgroundColor = colors.board.cell.background.peer;
     if (isEqual) backgroundColor = colors.board.cell.background.equal;

@@ -15,11 +15,12 @@ export default class Game {
 
         this.degree = degree;
 
-        this.solution = [...Array(degree)].map((_, row: Sudoku.Location["row"]) =>
-            [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
-                value: null,
-                location: { row, col }
-            }))
+        this.solution = [...Array(degree)].map(
+            (_, row: Sudoku.Location["row"]) =>
+                [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
+                    value: null,
+                    location: { row, col }
+                }))
         );
 
         this.board = [...Array(degree)].map((_, row: Sudoku.Location["row"]) =>
@@ -27,6 +28,7 @@ export default class Game {
                 value: null,
                 notes: Array<boolean>(degree + 1).fill(false),
                 isPrefilled: false,
+                isCompleted: false,
                 isSelected: false,
                 isPeer: false,
                 isEqual: false,
@@ -47,18 +49,6 @@ export default class Game {
                     this.progress[cell.value] += 1 / this.degree;
     }
 
-    unflagConflicts = (): void => {
-        const conflicts = findConflicts(
-            this.board,
-            this.selected.location,
-            this.selected.value,
-            this.degree
-        );
-        for (let c of conflicts) {
-            c.isConflict = false;
-        }
-    };
-
     flagConflicts = (): void => {
         if (this.selected.value !== null) {
             const conflicts = findConflicts(
@@ -73,12 +63,41 @@ export default class Game {
         }
     };
 
+    unflagConflicts = (): void => {
+        this.board.forEach(row =>
+            row.forEach(cell => {
+                if (cell.isConflict) cell.isConflict = false;
+            })
+        );
+    };
+
+    flagCompleted = (): void => {
+        this.board.forEach(row =>
+            row.forEach(cell => {
+                if (this.progress[cell.value] >= 1) cell.isCompleted = true;
+                else cell.isCompleted = false;
+            })
+        );
+    };
+
+    unflagCompleted = (): void => this.flagCompleted();
+
+    addFlags = (): void => {
+        this.flagCompleted();
+        this.flagConflicts();
+    };
+
     removeFlags = (): void => {
+        this.unflagCompleted();
         this.unflagConflicts();
     };
 
-    addFlags = (): void => {
-        this.flagConflicts();
+    increaseProgress = (number: number, selected: Sudoku.Cell) => {
+        this.progress[number] += 1 / this.degree;
+    };
+
+    decreaseProgress = (number: number, selected: Sudoku.Cell) => {
+        this.progress[number] -= 1 / this.degree;
     };
 
     deselect = (): void => {
@@ -102,7 +121,7 @@ export default class Game {
             this.selected.value !== null &&
             !this.selected.isPrefilled
         ) {
-            this.progress[this.selected.value] -= 1 / this.degree;
+            this.decreaseProgress(this.selected.value, this.selected);
             this.selected.value = null;
         }
         this.addFlags();
@@ -117,7 +136,7 @@ export default class Game {
         ) {
             this.erase();
             this.selected.value = number;
-            this.progress[number] += 1 / this.degree;
+            this.increaseProgress(number, this.selected);
         }
         this.addFlags();
     };
