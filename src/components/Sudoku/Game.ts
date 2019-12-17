@@ -52,8 +52,7 @@ export default class Game {
     flagCompleted = (): void => {
         this.board.forEach(row =>
             row.forEach(cell => {
-                if (this.progress[cell.value] >= 1) cell.isCompleted = true;
-                else cell.isCompleted = false;
+                cell.isCompleted = this.progress[cell.value] >= 1;
             })
         );
     };
@@ -73,12 +72,14 @@ export default class Game {
         }
     };
 
-    unflagPeers = (): void => {
-        this.board.forEach(row =>
-            row.forEach(cell => {
-                if (cell.isPeer) cell.isPeer = false;
-            })
-        );
+    flagEquals = (): void => {
+        if (this.selected.value !== null) {
+            this.board.forEach(row =>
+                row.forEach(cell => {
+                    cell.isEqual = this.selected.value === cell.value;
+                })
+            );
+        }
     };
 
     flagConflicts = (): void => {
@@ -95,31 +96,29 @@ export default class Game {
         }
     };
 
-    unflagConflicts = (): void => {
-        this.board.forEach(row =>
-            row.forEach(cell => {
-                if (cell.isConflict) cell.isConflict = false;
-            })
-        );
-    };
-
     addFlags = (): void => {
         this.flagCompleted();
         this.flagPeers();
+        this.flagEquals();
         this.flagConflicts();
     };
 
     removeFlags = (): void => {
         this.unflagCompleted();
-        this.unflagPeers();
-        this.unflagConflicts();
+        this.board.forEach(row =>
+            row.forEach(cell => {
+                cell.isPeer = false;
+                cell.isEqual = false;
+                cell.isConflict = false;
+            })
+        );
     };
 
-    increaseProgress = (number: number, selected: Sudoku.Cell) => {
+    increaseProgress = (number: number) => {
         this.progress[number] += 1 / this.degree;
     };
 
-    decreaseProgress = (number: number, selected: Sudoku.Cell) => {
+    decreaseProgress = (number: number) => {
         this.progress[number] -= 1 / this.degree;
     };
 
@@ -144,7 +143,7 @@ export default class Game {
             this.selected.value !== null &&
             !this.selected.isPrefilled
         ) {
-            this.decreaseProgress(this.selected.value, this.selected);
+            this.decreaseProgress(this.selected.value);
             this.selected.value = null;
         }
         this.addFlags();
@@ -159,7 +158,7 @@ export default class Game {
         ) {
             this.erase();
             this.selected.value = number;
-            this.increaseProgress(number, this.selected);
+            this.increaseProgress(number);
         }
         this.addFlags();
     };

@@ -7,9 +7,9 @@ const colors = {
             background: {
                 normal: "white",
                 peer: "#B1E4FD",
-                equal: "#4FC3F7",
+                equal: "#A2ABF8",
                 conflict: "#FF997E",
-                selected: "#5AC3F4",
+                selected: "#FFE499",
                 completed: "#83FBA8"
             },
             number: {
