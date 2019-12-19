@@ -7,7 +7,7 @@ const colors = {
             background: {
                 normal: "white",
                 peer: "#B1E4FD",
-                equal: "#A2ABF8",
+                equal: "#56C4F5",
                 conflict: "#FF997E",
                 selected: "#FFE499",
                 completed: "#83FBA8"
