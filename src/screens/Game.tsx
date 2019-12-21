@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Title, Container } from "native-base";
-import { DrawerToggle, Header, NewGame, Sudoku } from "../components";
+import { Drawer, Header, NewGame, Sudoku } from "../components";
 import { strings } from "../constants";
 
 interface PropTypes {
@@ -26,7 +26,7 @@ export default function Game({ navigation }: PropTypes) {
     return (
         <Container>
             <Header
-                left={<DrawerToggle navigation={navigation} />}
+                left={<Drawer.Button navigation={navigation} />}
                 body={<Title>{strings.game.title}</Title>}
                 right={
                     <NewGame.Button

@@ -11,7 +11,7 @@ import {
     Switch,
     Left
 } from "native-base";
-import { DrawerToggle, Header } from "../components";
+import { Drawer, Header } from "../components";
 import { strings } from "../constants";
 
 export default function Settings({ navigation }) {
@@ -37,7 +37,7 @@ export default function Settings({ navigation }) {
         // TODO: Separate into components
         <Container>
             <Header
-                left={<DrawerToggle navigation={navigation} />}
+                left={<Drawer.Button navigation={navigation} />}
                 body={<Title>{strings.settings.title}</Title>}
             />
             <Content padder>
@@ -47,9 +47,7 @@ export default function Settings({ navigation }) {
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>
-                                {strings.settings.application.darkMode}
-                            </Text>
+                            <Text>{strings.settings.application.darkMode}</Text>
                         </Left>
                         <Right>
                             <Switch
@@ -88,7 +86,9 @@ export default function Settings({ navigation }) {
                     </CardItem>
                     <CardItem>
                         <Left>
-                        <Text>{strings.settings.sudoku.feedbackCorrect}</Text>
+                            <Text>
+                                {strings.settings.sudoku.feedbackCorrect}
+                            </Text>
                         </Left>
                         <Right>
                             <Switch
@@ -105,7 +105,9 @@ export default function Settings({ navigation }) {
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>{strings.settings.sudoku.feedbackIncorrect}</Text>
+                            <Text>
+                                {strings.settings.sudoku.feedbackIncorrect}
+                            </Text>
                         </Left>
                         <Right>
                             <Switch
