@@ -23,7 +23,7 @@ const colors = {
             background: "white",
             border: "#A5B1B8",
             progress: "#01A3F2",
-            completed: "#83FBA8"
+            completed: "#42D760"
         }
     }
 };

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ColorsContext } from "./colors"
+import { ColorsContext } from "./colors";
 import { TouchableOpacity, GestureResponderEvent } from "react-native";
 import { Text } from "native-base";
 import ProgressCircle from "react-native-progress-circle";
@@ -11,7 +11,12 @@ interface PropTypes {
     onPress: (event: GestureResponderEvent) => void;
 }
 
-export default function NumberButton({ number, percent, radius, onPress }: PropTypes) {
+export default function NumberButton({
+    number,
+    percent,
+    radius,
+    onPress
+}: PropTypes) {
     const colors = useContext(ColorsContext);
 
     return (
@@ -20,11 +25,15 @@ export default function NumberButton({ number, percent, radius, onPress }: PropT
                 percent={percent}
                 radius={radius}
                 borderWidth={radius / 4}
-                color={colors.controls.number_button.progress}
+                color={
+                    percent < 100
+                        ? colors.controls.number_button.progress
+                        : colors.controls.number_button.completed
+                }
                 shadowColor={colors.controls.number_button.border}
                 bgColor={colors.controls.number_button.background}
             >
-                <Text style={{fontSize: radius}}>{number}</Text>
+                <Text style={{ fontSize: radius }}>{number}</Text>
             </ProgressCircle>
         </TouchableOpacity>
     );
