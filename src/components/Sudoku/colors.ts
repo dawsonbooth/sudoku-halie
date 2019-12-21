@@ -6,15 +6,15 @@ const colors = {
         cell: {
             background: {
                 normal: "white",
+                prefilled: "#EAEAEA",
                 peer: "#B1E4FD",
                 equal: "#56C4F5",
                 conflict: "#FF997E",
                 selected: "#FFE499",
-                completed: "#83FBA8"
+                completed: "#83FBA8",
             },
             number: {
-                prefilled: "black",
-                entry: "#222222"
+                entry: "#3A3A3A"
             }
         }
     },

@@ -32,6 +32,7 @@ export default function Cell({
     const settings = useContext(SettingsContext);
 
     let backgroundColor = colors.board.cell.background.normal;
+    if (isPrefilled) backgroundColor = colors.board.cell.background.prefilled;
     if (isPeer) backgroundColor = colors.board.cell.background.peer;
     if (isCompleted) backgroundColor = colors.board.cell.background.completed;
     if (isEqual) backgroundColor = colors.board.cell.background.equal;
@@ -53,9 +54,7 @@ export default function Cell({
             justifyContent: "center"
         },
         text: {
-            color: isPrefilled
-                ? colors.board.cell.number.prefilled
-                : colors.board.cell.number.entry,
+            color: colors.board.cell.number.entry,
             fontSize
         }
     });
