@@ -1,9 +1,23 @@
 export default {
+    alert: {
+        newGame: {
+            title: "New Game",
+            message:
+                "Are you sure you want to start a new game? This will end your current game."
+        },
+        cancel: "Cancel",
+        ok: "OK"
+    },
     app: {
         title: "Expo Boilerplate"
     },
-    home: {
-        title: "Home"
+    game: {
+        title: "Game",
+        newGame: {
+            title: "NEW GAME",
+            difficulties: ["Easy", "Medium", "Hard"],
+            button: "Start Game"
+        }
     },
     settings: {
         title: "Settings",
@@ -15,9 +29,7 @@ export default {
             header: "SUDOKU",
             dotNotes: "Use dots instead of numbers for notes",
             feedbackCorrect: "Show feedback on correct entry",
-            feedbackIncorrect: "Show feedback on incorrect entry",
-
+            feedbackIncorrect: "Show feedback on incorrect entry"
         }
-
     }
 };

@@ -6,19 +6,21 @@ import { Col, Grid } from "native-base";
 import Board from "./Board";
 import Controls from "./Controls";
 import _ from "lodash";
+import colors from "./colors";
+import settings from "./settings";
 
 interface PropTypes {
-    prefilledRatio?: number;
+    savedGame?: Sudoku.Game;
     settings?: Sudoku.Settings;
     colors?: Sudoku.Colors;
 }
 
-export default function Sudoku({
-    prefilledRatio = 0.4,
+export default function _Sudoku({
+    savedGame = null,
     colors = defaultColors,
     settings = defaultSettings
 }: PropTypes) {
-    const [game, setGame] = useState(new Game(settings.degree, prefilledRatio));
+    const [game, setGame] = useState(Game.load(savedGame) || Game.new(9, 0.4));
     const [size, setSize] = useState(0);
 
     const updateSize = e => {
@@ -64,3 +66,7 @@ export default function Sudoku({
         </ColorsContext.Provider>
     );
 }
+
+_Sudoku.Game = Game;
+_Sudoku.colors = colors;
+_Sudoku.settings = settings;

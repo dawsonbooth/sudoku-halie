@@ -1,10 +1,11 @@
 import { createStore } from "redux";
 import { Provider as _Provider } from "react-redux";
-import { settings as sudokuSettings} from "../components/Sudoku";
+import { Sudoku } from "../components";
 
 const initialState: Redux.State = {
+    game: null,
     settings: {
-        sudoku: sudokuSettings,
+        sudoku: Sudoku.settings,
         app: {
             darkMode: false
         }
@@ -13,9 +14,26 @@ const initialState: Redux.State = {
 
 const reducer = (state: Redux.State = initialState, action: Redux.Action) => {
     switch (action.type) {
+        case "END_GAME":
+            return {
+                ...state,
+                ...{
+                    game: null
+                }
+            };
+        case "SET_GAME_STATE":
+            return {
+                ...state,
+                ...{
+                    game: action.game
+                }
+            };
         case "UPDATE_SETTINGS": // TODO: Use AsyncStorage logic in this update and in initialState
             return {
-                settings: action.settings
+                ...state,
+                ...{
+                    settings: action.settings
+                }
             };
     }
     return state;

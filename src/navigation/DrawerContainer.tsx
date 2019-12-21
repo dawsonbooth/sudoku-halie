@@ -1,14 +1,14 @@
 import { createAppContainer } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
 
-import { Home, Settings } from "../screens";
+import { Game, Settings } from "../screens";
 
 const DrawerConfig = {};
 
 const DrawerNavigator = createDrawerNavigator(
     {
-        Home: {
-            screen: Home
+        Game: {
+            screen: Game
         },
         Settings: {
             screen: Settings
@@ -18,3 +18,4 @@ const DrawerNavigator = createDrawerNavigator(
 );
 
 export default createAppContainer(DrawerNavigator);
+// TODO: Place navigation and DrawerToggle together in ../components

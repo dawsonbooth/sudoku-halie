@@ -1,8 +1,10 @@
 namespace Sudoku {
     interface Game {
+        degree: Settings["degree"];
         board: Cell[][];
         selected: Cell;
         progress: number[];
+        solution: Cell[][];
     }
 
     interface Cell {

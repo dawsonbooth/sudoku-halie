@@ -1,21 +1,55 @@
 import { prefill, solvePuzzle, findConflicts, findPeers } from "./utils";
 
-export default class Game {
+export default class Game implements Sudoku.Game {
     degree: Sudoku.Settings["degree"];
-    board: Sudoku.Game["board"];
-    selected: Sudoku.Game["selected"];
-    progress: Sudoku.Game["progress"];
-    solution: Sudoku.Game["board"];
+    board: Sudoku.Cell[][];
+    selected: Sudoku.Cell;
+    progress: number[];
+    solution: Sudoku.Cell[][];
 
-    constructor(degree: number, prefilledRatio: number) {
+    constructor(
+        degree: Sudoku.Settings["degree"],
+        board: Sudoku.Cell[][],
+        selected: Sudoku.Cell,
+        progress: number[],
+        solution: Sudoku.Cell[][]
+    ) {
+        this.degree = degree;
+        this.board = board;
+        this.selected = selected;
+        this.progress = progress;
+        this.solution = solution;
+    }
+
+    static load(gameState: Sudoku.Game | null) {
+        if (gameState === null) return null;
+
+        const degree = gameState.progress.length - 1;
+        const solution = [...Array(degree)].map(
+            (_, row: Sudoku.Location["row"]) =>
+                [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
+                    value: gameState.board[row][col].value,
+                    location: { row, col }
+                }))
+        );
+        solvePuzzle(solution, degree);
+
+        return new this(
+            degree,
+            gameState.board,
+            gameState.selected,
+            gameState.progress,
+            solution
+        );
+    }
+
+    static new(degree: number, prefilledRatio: number) {
         if (!(degree >= 0 && Math.sqrt(degree) % 1 === 0))
             throw TypeError("degree setting must be a perfect square");
         if (prefilledRatio > 1 || prefilledRatio < 0)
             throw TypeError("prefilledRatio prop must be between 0 and 1");
 
-        this.degree = degree;
-
-        this.solution = [...Array(degree)].map(
+        const solution = [...Array(degree)].map(
             (_, row: Sudoku.Location["row"]) =>
                 [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
                     value: null,
@@ -23,7 +57,7 @@ export default class Game {
                 }))
         );
 
-        this.board = [...Array(degree)].map((_, row: Sudoku.Location["row"]) =>
+        const board = [...Array(degree)].map((_, row: Sudoku.Location["row"]) =>
             [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
                 value: null,
                 notes: Array<boolean>(degree + 1).fill(false),
@@ -37,16 +71,17 @@ export default class Game {
             }))
         );
 
-        this.selected = null;
-        this.progress = [...Array(degree + 1)].map(() => 0);
+        const selected = null;
+        const progress = [...Array(degree + 1)].map(() => 0);
 
-        solvePuzzle(this.solution, this.degree);
+        solvePuzzle(solution, degree);
 
-        prefill(this.board, this.solution, prefilledRatio, this.degree);
-        for (let r of this.board)
+        prefill(board, solution, prefilledRatio, degree);
+        for (let r of board)
             for (let cell of r)
-                if (cell.value !== null)
-                    this.progress[cell.value] += 1 / this.degree;
+                if (cell.value !== null) progress[cell.value] += 1 / degree;
+
+        return new this(degree, board, selected, progress, solution);
     }
 
     flagCompleted = (): void => {

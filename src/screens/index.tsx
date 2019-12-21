@@ -1,4 +1,4 @@
-import Home from "./Home";
+import Game from "./Game";
 import Settings from "./Settings";
 
-export { Home, Settings };
+export { Game, Settings };
