@@ -19,6 +19,8 @@ export default class Game implements Sudoku.Game {
         this.selected = selected;
         this.progress = progress;
         this.solution = solution;
+
+        this.addFlags();
     }
 
     static load(gameState: Sudoku.Game | null) {
@@ -95,7 +97,7 @@ export default class Game implements Sudoku.Game {
     unflagCompleted = (): void => this.flagCompleted();
 
     flagPeers = (): void => {
-        if (this.selected.value !== null) {
+        if (this.selected !== null) {
             const peers = findPeers(
                 this.board,
                 this.selected.location,
@@ -108,7 +110,7 @@ export default class Game implements Sudoku.Game {
     };
 
     flagEquals = (): void => {
-        if (this.selected.value !== null) {
+        if (this.selected !== null && this.selected.value !== null) {
             this.board.forEach(row =>
                 row.forEach(cell => {
                     cell.isEqual = this.selected.value === cell.value;
@@ -118,7 +120,7 @@ export default class Game implements Sudoku.Game {
     };
 
     flagConflicts = (): void => {
-        if (this.selected.value !== null) {
+        if (this.selected !== null && this.selected.value !== null) {
             const conflicts = findConflicts(
                 this.board,
                 this.selected.location,

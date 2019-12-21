@@ -32,10 +32,10 @@ export default function Cell({
     const settings = useContext(SettingsContext);
 
     let backgroundColor = colors.board.cell.background.normal;
+    if (isPeer) backgroundColor = colors.board.cell.background.peer;
     if (isCompleted) backgroundColor = colors.board.cell.background.completed;
+    if (isEqual) backgroundColor = colors.board.cell.background.equal;
     if (isSelected) backgroundColor = colors.board.cell.background.selected;
-    else if (isPeer) backgroundColor = colors.board.cell.background.peer;
-    else if (isEqual) backgroundColor = colors.board.cell.background.equal;
     if (isConflict) backgroundColor = colors.board.cell.background.conflict;
 
     const styles = StyleSheet.create({
