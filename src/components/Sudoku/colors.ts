@@ -14,7 +14,7 @@ const colors = {
                 completed: "#83FBA8",
             },
             number: {
-                entry: "#3A3A3A"
+                entry: "black"
             }
         }
     },
