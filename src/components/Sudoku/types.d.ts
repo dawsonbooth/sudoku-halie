@@ -25,6 +25,7 @@ namespace Sudoku {
             cell: {
                 background: {
                     normal: string;
+                    prefilled: string;
                     peer: string;
                     equal: string;
                     conflict: string;
@@ -32,7 +33,6 @@ namespace Sudoku {
                     completed: string;
                 };
                 number: {
-                    prefilled: string;
                     entry: string;
                 };
             };
