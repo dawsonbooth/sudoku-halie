@@ -10,7 +10,7 @@ interface PropTypes {
 }
 
 export default function Game({ navigation }: PropTypes) {
-    const game = useSelector((state: Redux.State) => state.game);
+    const board = useSelector((state: Redux.State) => state.board);
     const settings = useSelector((state: Redux.State) => state.settings);
 
     const dispatch = useDispatch();
@@ -50,8 +50,8 @@ export default function Game({ navigation }: PropTypes) {
                     ></NewGame.Button>
                 }
             />
-            {game ? (
-                <Sudoku savedGame={game} settings={settings.sudoku} />
+            {board ? (
+                <Sudoku board={board} settings={settings.sudoku} />
             ) : (
                 <NewGame />
             )}

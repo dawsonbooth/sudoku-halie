@@ -1,6 +1,6 @@
 namespace Redux {
     interface State {
-        game: Sudoku.Game | null;
+        board: Sudoku.Game["board"] | null;
         settings: Redux.Settings;
     }
 
@@ -13,7 +13,7 @@ namespace Redux {
 
     interface Action {
         type: String;
-        game?: Sudoku.Game;
+        board?: Sudoku.Game;
         settings?: Sudoku.Settings;
     }
 }

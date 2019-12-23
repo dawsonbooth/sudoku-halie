@@ -16,7 +16,7 @@ export default function NewGame() {
         () =>
             dispatch({
                 type: "SET_GAME_STATE",
-                game: Sudoku.Game.new(settings.sudoku.degree, prefilledRatio)
+                board: Sudoku.Game.new(settings.sudoku.degree, prefilledRatio).board
             }),
         [dispatch, prefilledRatio]
     );

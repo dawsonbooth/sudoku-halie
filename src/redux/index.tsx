@@ -3,7 +3,7 @@ import { Provider as _Provider } from "react-redux";
 import { Sudoku } from "../components";
 
 const initialState: Redux.State = {
-    game: null,
+    board: null,
     settings: {
         sudoku: Sudoku.settings,
         app: {
@@ -18,14 +18,14 @@ const reducer = (state: Redux.State = initialState, action: Redux.Action) => {
             return {
                 ...state,
                 ...{
-                    game: null
+                    board: null
                 }
             };
         case "SET_GAME_STATE":
             return {
                 ...state,
                 ...{
-                    game: action.game
+                    board: action.board
                 }
             };
         case "UPDATE_SETTINGS": // TODO: Use AsyncStorage logic in this update and in initialState

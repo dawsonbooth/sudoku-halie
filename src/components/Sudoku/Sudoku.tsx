@@ -10,17 +10,17 @@ import colors from "./colors";
 import settings from "./settings";
 
 interface PropTypes {
-    savedGame?: Sudoku.Game;
+    board?: Sudoku.Game["board"];
     settings?: Sudoku.Settings;
     colors?: Sudoku.Colors;
 }
 
 export default function _Sudoku({
-    savedGame = null,
+    board = null,
     colors = defaultColors,
     settings = defaultSettings
 }: PropTypes) {
-    const [game, setGame] = useState(Game.load(savedGame) || Game.new(9, 0.4));
+    const [game, setGame] = useState(Game.load(board) || Game.new(9, 0.4));
     const [size, setSize] = useState(0);
 
     const updateSize = e => {
