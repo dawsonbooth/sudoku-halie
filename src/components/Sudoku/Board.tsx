@@ -10,7 +10,7 @@ interface PropTypes {
 
 export default function Board({ grid, handleCellPress, size }: PropTypes) {
     return (
-        <Card style={{ height: 0.8 * size, width: 0.8 * size }}>
+        <Card style={{ height: 0.95 * size, width: 0.95 * size }}>
             <Grid>
                 {grid.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
                     <Row key={r}>

@@ -22,15 +22,22 @@ export default function Controls({
 
     return (
         <>
-            <Row style={{ alignItems: "center", height: "auto" }}>
+            <Row
+                style={{
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                    height: "auto",
+                    width: size
+                }}
+            >
                 <TouchableOpacity onPress={() => handleEraserButtonPress()}>
-                    <MaterialCommunityIcons name="eraser" size={size / 15} />
+                    <MaterialCommunityIcons name="eraser" size={size / 10} />
                 </TouchableOpacity>
             </Row>
             <Row
                 style={{
                     flexWrap: "wrap",
-                    justifyContent: "space-evenly",
+                    justifyContent: "center",
                     alignItems: "center",
                     height: "auto",
                     width: size
@@ -43,7 +50,7 @@ export default function Controls({
                             key={number}
                             number={number}
                             percent={progress[number] * 100}
-                            radius={size / 20}
+                            radius={size / 15}
                             onPress={() => handleNumberButtonPress(number)}
                         />
                     );

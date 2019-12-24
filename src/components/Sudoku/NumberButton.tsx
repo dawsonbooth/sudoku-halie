@@ -20,7 +20,7 @@ export default function NumberButton({
     const colors = useContext(ColorsContext);
 
     return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={onPress} style={{ margin: radius / 5}}>
             <ProgressCircle
                 percent={percent}
                 radius={radius}
