@@ -86,17 +86,15 @@ export default function Settings({ navigation }) {
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>
-                                {strings.settings.sudoku.feedbackCorrect}
-                            </Text>
+                            <Text>{strings.settings.sudoku.showCompleted}</Text>
                         </Left>
                         <Right>
                             <Switch
-                                value={settings.sudoku.feedbackCorrect}
+                                value={settings.sudoku.showCompleted}
                                 onValueChange={value =>
                                     changeSettings(
                                         settings.sudoku,
-                                        "feedbackCorrect",
+                                        "showCompleted",
                                         value
                                     )
                                 }
@@ -105,17 +103,49 @@ export default function Settings({ navigation }) {
                     </CardItem>
                     <CardItem>
                         <Left>
-                            <Text>
-                                {strings.settings.sudoku.feedbackIncorrect}
-                            </Text>
+                            <Text>{strings.settings.sudoku.showPeers}</Text>
                         </Left>
                         <Right>
                             <Switch
-                                value={settings.sudoku.feedbackIncorrect}
+                                value={settings.sudoku.showPeers}
                                 onValueChange={value =>
                                     changeSettings(
                                         settings.sudoku,
-                                        "feedbackIncorrect",
+                                        "showPeers",
+                                        value
+                                    )
+                                }
+                            />
+                        </Right>
+                    </CardItem>
+                    <CardItem>
+                        <Left>
+                            <Text>{strings.settings.sudoku.showEqual}</Text>
+                        </Left>
+                        <Right>
+                            <Switch
+                                value={settings.sudoku.showEqual}
+                                onValueChange={value =>
+                                    changeSettings(
+                                        settings.sudoku,
+                                        "showEqual",
+                                        value
+                                    )
+                                }
+                            />
+                        </Right>
+                    </CardItem>
+                    <CardItem>
+                        <Left>
+                            <Text>{strings.settings.sudoku.showConflicts}</Text>
+                        </Left>
+                        <Right>
+                            <Switch
+                                value={settings.sudoku.showConflicts}
+                                onValueChange={value =>
+                                    changeSettings(
+                                        settings.sudoku,
+                                        "showConflicts",
                                         value
                                     )
                                 }

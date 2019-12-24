@@ -27,9 +27,11 @@ export default {
         },
         sudoku: {
             header: "SUDOKU",
-            dotNotes: "Use dots instead of numbers for notes",
-            feedbackCorrect: "Show feedback on correct entry",
-            feedbackIncorrect: "Show feedback on incorrect entry"
+            dotNotes: "Dots for notes",
+            showCompleted: "Show completed",
+            showPeers: "Show peers",
+            showEqual: "Show equals",
+            showConflicts: "Show conflicts"
         }
     }
 };

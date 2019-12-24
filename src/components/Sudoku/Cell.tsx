@@ -33,10 +33,14 @@ export default function Cell({
 
     let backgroundColor = colors.board.cell.background.normal;
     if (isPrefilled) backgroundColor = colors.board.cell.background.prefilled;
-    if (isPeer) backgroundColor = colors.board.cell.background.peer;
-    if (isCompleted) backgroundColor = colors.board.cell.background.completed;
-    if (isEqual) backgroundColor = colors.board.cell.background.equal;
-    if (isConflict) backgroundColor = colors.board.cell.background.conflict;
+    if (isPeer && settings.showPeers)
+        backgroundColor = colors.board.cell.background.peer;
+    if (isCompleted && settings.showCompleted)
+        backgroundColor = colors.board.cell.background.completed;
+    if (isEqual && settings.showEqual)
+        backgroundColor = colors.board.cell.background.equal;
+    if (isConflict && settings.showConflicts)
+        backgroundColor = colors.board.cell.background.conflict;
     if (isSelected) backgroundColor = colors.board.cell.background.selected;
 
     const styles = StyleSheet.create({

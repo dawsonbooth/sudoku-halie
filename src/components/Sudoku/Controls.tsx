@@ -27,7 +27,7 @@ export default function Controls({
                     justifyContent: "space-evenly",
                     alignItems: "center",
                     height: "auto",
-                    width: size
+                    maxWidth: size
                 }}
             >
                 <TouchableOpacity onPress={() => handleEraserButtonPress()}>
@@ -40,7 +40,7 @@ export default function Controls({
                     justifyContent: "center",
                     alignItems: "center",
                     height: "auto",
-                    width: size
+                    maxWidth: size
                 }}
             >
                 {[...Array(settings.degree)].map((_, i) => {

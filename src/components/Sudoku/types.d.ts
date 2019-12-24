@@ -51,8 +51,10 @@ namespace Sudoku {
     interface Settings {
         degree: number;
         dotNotes: boolean;
-        feedbackCorrect: boolean;
-        feedbackIncorrect: boolean;
+        showCompleted: boolean;
+        showPeers: boolean;
+        showEqual: boolean;
+        showConflicts: boolean;
     }
 
     interface Location {
