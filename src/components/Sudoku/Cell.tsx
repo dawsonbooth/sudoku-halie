@@ -36,8 +36,8 @@ export default function Cell({
     if (isPeer) backgroundColor = colors.board.cell.background.peer;
     if (isCompleted) backgroundColor = colors.board.cell.background.completed;
     if (isEqual) backgroundColor = colors.board.cell.background.equal;
-    if (isSelected) backgroundColor = colors.board.cell.background.selected;
     if (isConflict) backgroundColor = colors.board.cell.background.conflict;
+    if (isSelected) backgroundColor = colors.board.cell.background.selected;
 
     const styles = StyleSheet.create({
         cell: {

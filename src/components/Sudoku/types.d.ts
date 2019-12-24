@@ -3,6 +3,7 @@ namespace Sudoku {
         degree: Settings["degree"];
         board: Cell[][];
         selected: Cell;
+        conflicts: Location[][];
         progress: number[];
         solution: Cell[][];
     }
