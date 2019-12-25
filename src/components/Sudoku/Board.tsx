@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Row, Col, Card } from "native-base";
+import { Grid, Row, Col, Card, View } from "native-base";
 import Cell from "./Cell";
 
 interface PropTypes {
@@ -9,8 +9,10 @@ interface PropTypes {
 }
 
 export default function Board({ grid, handleCellPress, size }: PropTypes) {
+    const boardSize = 0.95 * size;
+
     return (
-        <Card style={{ height: 0.95 * size, width: 0.95 * size }}>
+        <View style={{ height: boardSize, width: boardSize }}>
             <Grid>
                 {grid.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
                     <Row key={r}>
@@ -24,6 +26,7 @@ export default function Board({ grid, handleCellPress, size }: PropTypes) {
                                         onPress={() =>
                                             handleCellPress({ row: r, col: c })
                                         }
+                                        boardSize={boardSize}
                                     />
                                 </Col>
                             )
@@ -31,6 +34,6 @@ export default function Board({ grid, handleCellPress, size }: PropTypes) {
                     </Row>
                 ))}
             </Grid>
-        </Card>
+        </View>
     );
 }

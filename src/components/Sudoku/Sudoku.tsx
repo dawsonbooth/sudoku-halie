@@ -39,6 +39,11 @@ export default function _Sudoku({
         setGame(_.clone(game));
     };
 
+    const handleRevealButtonPress = () => {
+        game.reveal();
+        setGame(_.clone(game));
+    };
+
     const handleNumberButtonPress = (number: number) => {
         game.write(number);
         setGame(_.clone(game));
@@ -58,6 +63,7 @@ export default function _Sudoku({
                             progress={game.progress}
                             size={size}
                             handleEraserButtonPress={handleEraserButtonPress}
+                            handleRevealButtonPress={handleRevealButtonPress}
                             handleNumberButtonPress={handleNumberButtonPress}
                         />
                     </Col>

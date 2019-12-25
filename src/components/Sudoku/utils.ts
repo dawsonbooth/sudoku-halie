@@ -44,6 +44,7 @@ export function solvePuzzle(
                             .length == 0
                     ) {
                         board[r][c].value = value;
+                        board[r][c].solution = value;
                         if (solvePuzzle(board, degree)) {
                             return true;
                         } else {
@@ -60,7 +61,6 @@ export function solvePuzzle(
 
 export function prefill(
     board: Sudoku.Game["board"],
-    solution: Sudoku.Game["board"],
     prefilledRatio: number,
     degree: Sudoku.Settings["degree"]
 ): void {
@@ -68,11 +68,9 @@ export function prefill(
     while (filledRatio < prefilledRatio) {
         for (let r = 0; r < degree && filledRatio < prefilledRatio; r++) {
             for (let c = 0; c < degree && filledRatio < prefilledRatio; c++) {
-                if (
-                    board[r][c].value == null &&
-                    Math.random() < prefilledRatio
-                ) {
-                    board[r][c].value = solution[r][c].value;
+                board[r][c].value = null;
+                if (Math.random() < prefilledRatio) {
+                    board[r][c].value = board[r][c].solution;
                     board[r][c].isPrefilled = true;
                     filledRatio += 1 / (degree * degree);
                 }

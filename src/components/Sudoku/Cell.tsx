@@ -7,11 +7,13 @@ import {
     TouchableOpacity
 } from "react-native";
 import { Text } from "native-base";
+import Notes from "./Notes";
 
 interface PropTypes extends Sudoku.Cell {
     row: number;
     column: number;
     onPress: (event: GestureResponderEvent) => void;
+    boardSize: number;
 }
 
 export default function Cell({
@@ -25,9 +27,9 @@ export default function Cell({
     isPeer,
     isEqual,
     isConflict,
-    onPress
+    onPress,
+    boardSize
 }: PropTypes) {
-    const [fontSize, setFontSize] = useState();
     const colors = useContext(ColorsContext);
     const settings = useContext(SettingsContext);
 
@@ -59,17 +61,21 @@ export default function Cell({
         },
         text: {
             color: colors.board.cell.number.entry,
-            fontSize
+            fontSize: 0.75 * (boardSize / settings.degree)
+        },
+        note: {
+            fontSize: (0.75 / 3) * (boardSize / settings.degree)
         }
     });
 
     return (
-        <TouchableOpacity
-            onLayout={e => setFontSize(0.75 * e.nativeEvent.layout.height)}
-            onPress={onPress}
-            style={styles.cell}
-        >
-            <Text style={styles.text}>{value}</Text>
+        <TouchableOpacity onPress={onPress} style={styles.cell}>
+            {value ? (
+                <Text style={styles.text}>{value}</Text>
+            ) : (
+                // <Notes notes={notes} size={size} /> // TODO: Fix notes
+                null
+            )}
         </TouchableOpacity>
     );
 }

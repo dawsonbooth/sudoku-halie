@@ -6,22 +6,19 @@ export default class Game implements Sudoku.Game {
     selected: Sudoku.Game["selected"];
     conflicts: Sudoku.Game["conflicts"];
     progress: Sudoku.Game["progress"];
-    solution: Sudoku.Game["solution"];
 
     constructor(
         degree: Sudoku.Game["degree"],
         board: Sudoku.Game["board"],
         selected: Sudoku.Game["selected"],
         conflicts: Sudoku.Game["conflicts"],
-        progress: Sudoku.Game["progress"],
-        solution: Sudoku.Game["solution"]
+        progress: Sudoku.Game["progress"]
     ) {
         this.degree = degree;
         this.board = board;
         this.selected = selected;
         this.conflicts = conflicts;
         this.progress = progress;
-        this.solution = solution;
 
         this.addSelectionFlags();
         this.checkCompleted();
@@ -67,7 +64,7 @@ export default class Game implements Sudoku.Game {
 
         solvePuzzle(solution, degree);
 
-        return new this(degree, board, selected, conflicts, progress, solution);
+        return new this(degree, board, selected, conflicts, progress);
     }
 
     static new(degree: number, prefilledRatio: number) {
@@ -79,13 +76,26 @@ export default class Game implements Sudoku.Game {
         const board = [...Array(degree)].map((_, row: Sudoku.Location["row"]) =>
             [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
                 value: null,
-                notes: Array<boolean>(degree + 1).fill(false),
+                // notes: Array<boolean>(degree + 1).map(() => false), // TODO: Fix notes
+                notes: [
+                    false,
+                    true,
+                    false,
+                    true,
+                    false,
+                    true,
+                    false,
+                    true,
+                    false,
+                    true
+                ],
                 isPrefilled: false,
                 isCompleted: false,
                 isSelected: false,
                 isPeer: false,
                 isEqual: false,
                 isConflict: false,
+                solution: null,
                 location: { row, col }
             }))
         );
@@ -96,22 +106,14 @@ export default class Game implements Sudoku.Game {
 
         const progress = [...Array(degree + 1)].map(() => 0);
 
-        const solution = [...Array(degree)].map(
-            (_, row: Sudoku.Location["row"]) =>
-                [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
-                    value: null,
-                    location: { row, col }
-                }))
-        );
+        solvePuzzle(board, degree);
 
-        solvePuzzle(solution, degree);
-
-        prefill(board, solution, prefilledRatio, degree);
+        prefill(board, prefilledRatio, degree);
         for (let r of board)
             for (let cell of r)
                 if (cell.value) progress[cell.value] += 1 / degree;
 
-        return new this(degree, board, selected, conflicts, progress, solution);
+        return new this(degree, board, selected, conflicts, progress);
     }
 
     checkCompleted = (): void => {
@@ -271,7 +273,16 @@ export default class Game implements Sudoku.Game {
         }
     };
 
-    solve = (): boolean => {
-        return solvePuzzle(this.board, this.degree);
+    toggleNote = (number: number): void => {
+        if (this.selected) {
+            this.selected.notes[number] = !this.selected.notes[number];
+        }
+    };
+
+    reveal = (): void => {
+        if (this.selected) {
+            this.write(this.selected.solution);
+            this.selected.isPrefilled = true; // TODO: Maybe don't do this?
+        }
     };
 }

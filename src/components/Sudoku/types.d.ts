@@ -5,7 +5,6 @@ namespace Sudoku {
         selected: Cell;
         conflicts: Location[][];
         progress: number[];
-        solution: Cell[][];
     }
 
     interface Cell {
@@ -17,6 +16,7 @@ namespace Sudoku {
         isPeer?: boolean;
         isEqual?: boolean;
         isConflict?: boolean;
+        solution?: number;
         location: Sudoku.Location;
     }
 
