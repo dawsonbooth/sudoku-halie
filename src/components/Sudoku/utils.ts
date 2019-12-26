@@ -65,15 +65,16 @@ export function prefill(
     degree: Sudoku.Settings["degree"]
 ): void {
     let filledRatio = 0;
-    while (filledRatio < prefilledRatio) {
-        for (let r = 0; r < degree && filledRatio < prefilledRatio; r++) {
-            for (let c = 0; c < degree && filledRatio < prefilledRatio; c++) {
-                board[r][c].value = null;
-                if (Math.random() < prefilledRatio) {
-                    board[r][c].value = board[r][c].solution;
-                    board[r][c].isPrefilled = true;
-                    filledRatio += 1 / (degree * degree);
-                }
+    for (let r = 0; r < degree; r++) {
+        for (let c = 0; c < degree; c++) {
+            board[r][c].value = null;
+            if (
+                filledRatio < prefilledRatio &&
+                Math.random() < prefilledRatio
+            ) {
+                board[r][c].value = board[r][c].solution;
+                board[r][c].isPrefilled = true;
+                filledRatio += 1 / (degree * degree);
             }
         }
     }
