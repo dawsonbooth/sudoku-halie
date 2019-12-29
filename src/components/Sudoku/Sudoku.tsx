@@ -8,6 +8,7 @@ import Controls from "./Controls";
 import _ from "lodash";
 import colors from "./colors";
 import settings from "./settings";
+import { Alert } from "react-native";
 
 interface PropTypes {
     board?: Sudoku.Game["board"];
@@ -22,6 +23,7 @@ export default function _Sudoku({
 }: PropTypes) {
     const [game, setGame] = useState(Game.load(board) || Game.new(9, 0.4));
     const [size, setSize] = useState(0);
+    const [notesMode, setNotesMode] = useState(false);
 
     const updateSize = e => {
         const { height, width } = e.nativeEvent.layout;
@@ -34,18 +36,38 @@ export default function _Sudoku({
         // TODO: Find out why this is necessary
     };
 
+    const handleNotesButtonPress = () => {
+        setNotesMode(!notesMode);
+    };
+
     const handleEraserButtonPress = () => {
         game.erase();
         setGame(_.clone(game));
     };
 
-    const handleRevealButtonPress = () => {
-        game.reveal();
-        setGame(_.clone(game));
-    };
+    const handleRevealButtonPress = () =>
+        Alert.alert(
+            "Reveal",
+            "Are you sure you want to reveal this cell?",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "OK",
+                    onPress: () => {
+                        game.reveal();
+                        setGame(_.clone(game));
+                    }
+                }
+            ],
+            { cancelable: false }
+        );
 
     const handleNumberButtonPress = (number: number) => {
-        game.write(number);
+        if (notesMode) game.toggleNote(number);
+        else game.write(number);
         setGame(_.clone(game));
     };
 
@@ -62,6 +84,8 @@ export default function _Sudoku({
                         <Controls
                             progress={game.progress}
                             size={size}
+                            notesMode={notesMode}
+                            handleNotesButtonPress={handleNotesButtonPress}
                             handleEraserButtonPress={handleEraserButtonPress}
                             handleRevealButtonPress={handleRevealButtonPress}
                             handleNumberButtonPress={handleNumberButtonPress}

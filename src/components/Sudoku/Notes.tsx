@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { SettingsContext } from "./settings";
-import { Grid, Row, Col, Card, Text } from "native-base";
+import { Grid, Row, Col, Text, View } from "native-base";
 
 interface PropTypes {
     notes: Sudoku.Cell["notes"];
@@ -10,7 +10,7 @@ interface PropTypes {
 export default function Board({ notes, size }: PropTypes) {
     const settings = useContext(SettingsContext);
 
-    const fontSize = (0.75 / 3) * (size / settings.degree);
+    const fontSize = (0.75 / 2) * (size / settings.degree);
 
     const unit = Math.sqrt(settings.degree);
     const notesGrid = [...Array(unit)].map(() =>
@@ -18,34 +18,43 @@ export default function Board({ notes, size }: PropTypes) {
     );
 
     notes.forEach((isNote, i) => {
+        // TODO: Combine with above
         if (i !== 0)
             notesGrid[Math.floor((i - 1) / unit)][(i - 1) % unit] = isNote;
     });
 
     return (
-        <Grid>
-            {notesGrid.map((row, r) => (
-                <Row key={r}>
-                    {row.map((isNote, c) => (
-                        <Col key={c}>
-                            <Text
-                                style={{
-                                    flex: 1,
-                                    fontSize,
-                                    alignItems: "center",
-                                    justifyContent: "center"
-                                }}
-                            >
-                                {isNote
-                                    ? settings.dotNotes
-                                        ? "*"
-                                        : "N"
-                                    : null}
-                            </Text>
-                        </Col>
-                    ))}
-                </Row>
-            ))}
-        </Grid>
+        <View style={{ height: "100%", width: "100%", margin: 0, padding: 0 }}>
+            <Grid>
+                {notesGrid.map((row, r) => (
+                    <Row key={r}>
+                        {row.map((isNote, c) => (
+                            <Col key={c}>
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        alignItems: "center",
+                                        justifyContent: "center"
+                                    }}
+                                >
+                                    {isNote ? (
+                                        <Text
+                                            style={{
+                                                fontSize,
+                                                lineHeight: fontSize
+                                            }}
+                                        >
+                                            {settings.dotNotes
+                                                ? "•"
+                                                : r * unit + c + 1}
+                                        </Text>
+                                    ) : null}
+                                </View>
+                            </Col>
+                        ))}
+                    </Row>
+                ))}
+            </Grid>
+        </View>
     );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { ColorsContext } from "./colors";
 import { SettingsContext } from "./settings";
 import {
@@ -62,9 +62,6 @@ export default function Cell({
         text: {
             color: colors.board.cell.number.entry,
             fontSize: 0.75 * (boardSize / settings.degree)
-        },
-        note: {
-            fontSize: (0.75 / 3) * (boardSize / settings.degree)
         }
     });
 
@@ -72,10 +69,9 @@ export default function Cell({
         <TouchableOpacity onPress={onPress} style={styles.cell}>
             {value ? (
                 <Text style={styles.text}>{value}</Text>
-            ) : (
-                // <Notes notes={notes} size={size} /> // TODO: Fix notes
-                null
-            )}
+            ) : notes[0] ? (
+                <Notes notes={notes} size={boardSize} />
+            ) : null}
         </TouchableOpacity>
     );
 }

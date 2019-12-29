@@ -76,19 +76,7 @@ export default class Game implements Sudoku.Game {
         const board = [...Array(degree)].map((_, row: Sudoku.Location["row"]) =>
             [...Array(degree)].map((_, col: Sudoku.Location["col"]) => ({
                 value: null,
-                // notes: Array<boolean>(degree + 1).map(() => false), // TODO: Fix notes
-                notes: [
-                    false,
-                    true,
-                    false,
-                    true,
-                    false,
-                    true,
-                    false,
-                    true,
-                    false,
-                    true
-                ],
+                notes: Array<boolean>(degree + 1).map(() => false),
                 isPrefilled: false,
                 isCompleted: false,
                 isSelected: false,
@@ -275,14 +263,22 @@ export default class Game implements Sudoku.Game {
 
     toggleNote = (number: number): void => {
         if (this.selected) {
-            this.selected.notes[number] = !this.selected.notes[number];
+            if (!this.selected.notes[number]) {
+                this.selected.notes[number] = true;
+                this.selected.notes[0] = true;
+            } else {
+                this.selected.notes[number] = false;
+                this.selected.notes[0] = this.selected.notes
+                    .slice(1, -1)
+                    .reduce((agg, v) => agg || v);
+            }
         }
     };
 
     reveal = (): void => {
         if (this.selected) {
             this.write(this.selected.solution);
-            this.selected.isPrefilled = true; // TODO: Maybe don't do this?
+            this.selected.isPrefilled = true;
         }
     };
 }

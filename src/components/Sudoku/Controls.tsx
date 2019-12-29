@@ -1,21 +1,25 @@
 import React, { useContext } from "react";
 import { SettingsContext } from "./settings";
 import { Row } from "native-base";
-import { TouchableOpacity, Alert } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import NumberButton from "./NumberButton";
 
 interface PropTypes {
     progress: number[];
     size: number;
+    notesMode: boolean;
+    handleNotesButtonPress: () => void;
     handleEraserButtonPress: () => void;
     handleRevealButtonPress: () => void;
-    handleNumberButtonPress: () => void;
+    handleNumberButtonPress: (number: number) => void;
 }
 
 export default function Controls({
     progress,
     size,
+    notesMode,
+    handleNotesButtonPress,
     handleEraserButtonPress,
     handleRevealButtonPress,
     handleNumberButtonPress
@@ -32,29 +36,14 @@ export default function Controls({
                     maxWidth: size
                 }}
             >
+                <TouchableOpacity onPress={() => handleNotesButtonPress()}>
+                    <MaterialCommunityIcons name="pencil" size={size / 10} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleRevealButtonPress}>
+                    <MaterialCommunityIcons name="magnify" size={size / 10} />
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleEraserButtonPress()}>
                     <MaterialCommunityIcons name="eraser" size={size / 10} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() =>
-                        Alert.alert(
-                            "Reveal",
-                            "Are you sure you want to reveal this cell?",
-                            [
-                                {
-                                    text: "Cancel",
-                                    style: "cancel"
-                                },
-                                {
-                                    text: "OK",
-                                    onPress: handleRevealButtonPress
-                                }
-                            ],
-                            { cancelable: false }
-                        )
-                    }
-                >
-                    <MaterialCommunityIcons name="magnify" size={size / 10} />
                 </TouchableOpacity>
             </Row>
             <Row
@@ -74,6 +63,7 @@ export default function Controls({
                             number={number}
                             percent={progress[number] * 100}
                             radius={size / 15}
+                            notesMode={notesMode}
                             onPress={() => handleNumberButtonPress(number)}
                         />
                     );

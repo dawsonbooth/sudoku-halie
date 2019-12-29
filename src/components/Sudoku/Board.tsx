@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Row, Col, Card, View } from "native-base";
+import { Grid, Row, Col, View } from "native-base";
 import Cell from "./Cell";
 
 interface PropTypes {
