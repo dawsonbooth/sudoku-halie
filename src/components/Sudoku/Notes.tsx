@@ -13,15 +13,9 @@ export default function Board({ notes, size }: PropTypes) {
     const fontSize = (0.75 / 2) * (size / settings.degree);
 
     const unit = Math.sqrt(settings.degree);
-    const notesGrid = [...Array(unit)].map(() =>
-        [...Array(unit)].map(() => false)
+    const notesGrid = [...Array(unit)].map((_, r) =>
+        [...Array(unit)].map((_, c) => notes[r * unit + c + 1])
     );
-
-    notes.forEach((isNote, i) => {
-        // TODO: Combine with above
-        if (i !== 0)
-            notesGrid[Math.floor((i - 1) / unit)][(i - 1) % unit] = isNote;
-    });
 
     return (
         <View style={{ height: "100%", width: "100%", margin: 0, padding: 0 }}>

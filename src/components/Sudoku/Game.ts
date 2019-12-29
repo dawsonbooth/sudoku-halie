@@ -269,7 +269,7 @@ export default class Game implements Sudoku.Game {
             } else {
                 this.selected.notes[number] = false;
                 this.selected.notes[0] = this.selected.notes
-                    .slice(1, -1)
+                    .slice(1)
                     .reduce((agg, v) => agg || v);
             }
         }
