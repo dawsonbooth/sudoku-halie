@@ -1,14 +1,13 @@
 import React, { useState } from "react";
+import { Alert } from "react-native";
+import _ from "lodash";
+import { useScreenDimensions } from "./hooks";
 import defaultColors, { ColorsContext } from "./colors";
 import defaultSettings, { SettingsContext } from "./settings";
-import Game from "./Game";
 import { Col, Grid } from "native-base";
+import Game from "./Game";
 import Board from "./Board";
 import Controls from "./Controls";
-import _ from "lodash";
-import colors from "./colors";
-import settings from "./settings";
-import { Alert } from "react-native";
 
 interface PropTypes {
     board?: Sudoku.Game["board"];
@@ -22,13 +21,11 @@ export default function _Sudoku({
     settings = defaultSettings
 }: PropTypes) {
     const [game, setGame] = useState(Game.load(board) || Game.new(9, 0.4));
-    const [size, setSize] = useState(0);
     const [notesMode, setNotesMode] = useState(false);
+    const { height, width } = useScreenDimensions();
+    const boardSize = Math.min(height * 0.5, width);
 
-    const updateSize = e => {
-        const { height, width } = e.nativeEvent.layout;
-        setSize(Math.min(height, width));
-    };
+    const controlsSize = width;
 
     const handleCellPress = (location: Sudoku.Location) => {
         game.select(location);
@@ -74,16 +71,16 @@ export default function _Sudoku({
     return (
         <ColorsContext.Provider value={colors}>
             <SettingsContext.Provider value={settings}>
-                <Grid onLayout={updateSize}>
+                <Grid>
                     <Col style={{ alignItems: "center" }}>
                         <Board
                             grid={game.board}
                             handleCellPress={handleCellPress}
-                            size={size}
+                            size={boardSize}
                         />
                         <Controls
                             progress={game.progress}
-                            size={size}
+                            size={controlsSize}
                             notesMode={notesMode}
                             handleNotesButtonPress={handleNotesButtonPress}
                             handleEraserButtonPress={handleEraserButtonPress}
@@ -98,5 +95,5 @@ export default function _Sudoku({
 }
 
 _Sudoku.Game = Game;
-_Sudoku.colors = colors;
-_Sudoku.settings = settings;
+_Sudoku.colors = defaultColors;
+_Sudoku.settings = defaultSettings;

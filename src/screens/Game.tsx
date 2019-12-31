@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
-import { Alert } from "react-native";
+import { Alert, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { Title, Container } from "native-base";
+import { Title, Container, Content } from "native-base";
 import { Drawer, Header, NewGame, Sudoku } from "../components";
 import { strings } from "../constants";
 
@@ -50,11 +50,13 @@ export default function Game({ navigation }: PropTypes) {
                     ></NewGame.Button>
                 }
             />
-            {board ? (
-                <Sudoku board={board} settings={settings.sudoku} />
-            ) : (
-                <NewGame />
-            )}
+            <Content scrollEnabled={false}>
+                {board ? (
+                    <Sudoku board={board} settings={settings.sudoku} />
+                ) : (
+                    <NewGame />
+                )}
+            </Content>
         </Container>
     );
 }

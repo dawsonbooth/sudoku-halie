@@ -9,12 +9,8 @@ interface PropTypes {
 }
 
 export default function Board({ grid, handleCellPress, size }: PropTypes) {
-    const boardSize = 0.95 * size;
-
     return (
-        <View
-            style={{ height: boardSize, width: boardSize, margin: 0.05 * size }}
-        >
+        <View style={{ height: size, width: size, padding: 0.05 * size }}>
             <Grid>
                 {grid.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
                     <Row key={r}>
@@ -28,7 +24,7 @@ export default function Board({ grid, handleCellPress, size }: PropTypes) {
                                         onPress={() =>
                                             handleCellPress({ row: r, col: c })
                                         }
-                                        boardSize={boardSize}
+                                        boardSize={size}
                                     />
                                 </Col>
                             )

@@ -16,6 +16,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "orientation": "portrait",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
