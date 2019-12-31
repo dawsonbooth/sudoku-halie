@@ -2,6 +2,10 @@
 
 A Sudoku application for iOS and Android built with React Native using Expo.
 
+Initialized with <a href="https://github.com/dawsonbooth/expo-boilerplate">expo-boilerplate</a>
+
+TypeScript / React Native / Expo / React Redux / React Navigation / NativeBase
+
 # Installation
 
 First, clone the repository with the following command:
