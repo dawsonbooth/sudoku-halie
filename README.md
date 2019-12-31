@@ -1,6 +1,6 @@
 # Description
 
-This Node.js package is a collection of useful functions for searching through and filtering Slippi Replays.
+A Sudoku application for iOS and Android built with React Native using Expo.
 
 # Installation
 
