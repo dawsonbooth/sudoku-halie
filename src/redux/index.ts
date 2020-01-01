@@ -1,5 +1,4 @@
 import { createStore } from "redux";
-import { Provider as _Provider } from "react-redux";
 import { Sudoku } from "../components";
 
 const initialState: Redux.State = {
