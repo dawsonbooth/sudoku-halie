@@ -4658,6 +4658,11 @@ react-native-safe-area-view@^0.14.1:
   dependencies:
     debounce "^1.2.0"
 
+react-native-use-dimensions@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-use-dimensions/-/react-native-use-dimensions-1.0.4.tgz#9b1c9a10d41969be0c1757dc71fdf247658ac090"
+  integrity sha512-4BmhC16lKbEyrekPlMpIgLL/6+VkUNDczXRj9U5tFt2LirrYccsmiLCb7uASm8aGHW2yGCCtpBxFRCUHsV9ArA==
+
 react-native-vector-icons@^6.6.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.6.0.tgz#66cf004918eb05d90778d64bd42077c1800d481b"

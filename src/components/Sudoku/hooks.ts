@@ -1,28 +1,7 @@
-import { useState, useEffect } from "react";
-import { Dimensions, Alert, ScaledSize } from "react-native";
+import { useState } from "react";
+import { Alert } from "react-native";
 import Game from "./Game";
 import _ from "lodash";
-
-export const useScreenDimensions = () => {
-    const [screenData, setScreenData] = useState(Dimensions.get("screen"));
-
-    useEffect(() => {
-        const onChange = (result: {
-            window: ScaledSize;
-            screen: ScaledSize;
-        }): void => {
-            setScreenData(result.screen);
-        };
-
-        Dimensions.addEventListener("change", onChange);
-
-        return () => Dimensions.removeEventListener("change", onChange);
-    });
-
-    return {
-        ...screenData
-    };
-};
 
 export const useGame = (board: Sudoku.Game["board"]) => {
     const [game, setGame] = useState(Game.load(board) || Game.new(9, 0.4));

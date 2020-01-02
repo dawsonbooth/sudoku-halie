@@ -1,5 +1,6 @@
 import React from "react";
-import { useGame, useScreenDimensions } from "./hooks";
+import { useScreenDimensions } from "react-native-use-dimensions";
+import { useGame } from "./hooks";
 import defaultColors, { ColorsContext } from "./colors";
 import defaultSettings, { SettingsContext } from "./settings";
 import { Col, Grid } from "native-base";
