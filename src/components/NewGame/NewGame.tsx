@@ -2,33 +2,47 @@ import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { strings } from "../../constants";
 import { Slider } from "react-native";
-import { Container, Content, Card, CardItem, Text, Button } from "native-base";
+import {
+    Container,
+    Content,
+    Card,
+    CardItem,
+    Text,
+    Button,
+    Left,
+    Right,
+    Switch
+} from "native-base";
 import NewGameButton from "./NewGameButton";
-import Sudoku from "../Sudoku";
 
 export default function NewGame() {
-    const [prefilledRatio, setPrefilledRatio] = useState(0.4); // TODO: Default prefilled ratio in (sudoku) settings
-    const settings = useSelector((state: Redux.State) => state.settings);
+    const [settings, setSettings] = useState(
+        useSelector((state: Redux.State) => state.settings)
+    );
 
     const dispatch = useDispatch();
 
-    const newGame = useCallback(
-        () =>
-            dispatch({
-                type: "SET_GAME_STATE",
-                board: Sudoku.Game.new(settings.sudoku.degree, prefilledRatio).board
-            }),
-        [dispatch, prefilledRatio]
+    const startGame = useCallback(() => dispatch({ type: "START_GAME" }), [
+        dispatch
+    ]);
+
+    const updateSettings = useCallback(
+        () => dispatch({ type: "UPDATE_SETTINGS", settings }),
+        [dispatch]
     );
 
-    const updatePrefilledRatio = value => {
-        setPrefilledRatio(value);
+    const changeSettings = (object, key, value) => {
+        object[key] = value;
+        setSettings({
+            ...settings
+        });
+        updateSettings();
     };
 
     const difficulty =
         strings.game.newGame.difficulties[
             Math.round(
-                (1 - prefilledRatio) *
+                (1 - settings.sudoku.prefilledRatio) *
                     (strings.game.newGame.difficulties.length - 1)
             )
         ];
@@ -46,7 +60,9 @@ export default function NewGame() {
                     <CardItem>
                         <Text>
                             Prefilled Percentage:
-                            {` ${Math.round(prefilledRatio * 100)}%`}
+                            {` ${Math.round(
+                                settings.sudoku.prefilledRatio * 100
+                            )}%`}
                         </Text>
                     </CardItem>
                     <CardItem>
@@ -54,12 +70,103 @@ export default function NewGame() {
                             style={{ width: "100%" }}
                             minimumValue={0}
                             maximumValue={1}
-                            value={prefilledRatio}
-                            onValueChange={updatePrefilledRatio}
+                            value={settings.sudoku.prefilledRatio}
+                            onValueChange={value =>
+                                changeSettings(
+                                    settings.sudoku,
+                                    "prefilledRatio",
+                                    value
+                                )
+                            }
                         />
                     </CardItem>
+                    <CardItem>
+                        <Left>
+                            <Text>{strings.settings.sudoku.dotNotes}</Text>
+                        </Left>
+                        <Right>
+                            <Switch
+                                value={settings.sudoku.dotNotes}
+                                onValueChange={value =>
+                                    changeSettings(
+                                        settings.sudoku,
+                                        "dotNotes",
+                                        value
+                                    )
+                                }
+                            />
+                        </Right>
+                    </CardItem>
+                    <CardItem>
+                        <Left>
+                            <Text>{strings.settings.sudoku.showCompleted}</Text>
+                        </Left>
+                        <Right>
+                            <Switch
+                                value={settings.sudoku.showCompleted}
+                                onValueChange={value =>
+                                    changeSettings(
+                                        settings.sudoku,
+                                        "showCompleted",
+                                        value
+                                    )
+                                }
+                            />
+                        </Right>
+                    </CardItem>
+                    <CardItem>
+                        <Left>
+                            <Text>{strings.settings.sudoku.showPeers}</Text>
+                        </Left>
+                        <Right>
+                            <Switch
+                                value={settings.sudoku.showPeers}
+                                onValueChange={value =>
+                                    changeSettings(
+                                        settings.sudoku,
+                                        "showPeers",
+                                        value
+                                    )
+                                }
+                            />
+                        </Right>
+                    </CardItem>
+                    <CardItem>
+                        <Left>
+                            <Text>{strings.settings.sudoku.showEqual}</Text>
+                        </Left>
+                        <Right>
+                            <Switch
+                                value={settings.sudoku.showEqual}
+                                onValueChange={value =>
+                                    changeSettings(
+                                        settings.sudoku,
+                                        "showEqual",
+                                        value
+                                    )
+                                }
+                            />
+                        </Right>
+                    </CardItem>
+                    <CardItem>
+                        <Left>
+                            <Text>{strings.settings.sudoku.showConflicts}</Text>
+                        </Left>
+                        <Right>
+                            <Switch
+                                value={settings.sudoku.showConflicts}
+                                onValueChange={value =>
+                                    changeSettings(
+                                        settings.sudoku,
+                                        "showConflicts",
+                                        value
+                                    )
+                                }
+                            />
+                        </Right>
+                    </CardItem>
                 </Card>
-                <Button full onPress={newGame}>
+                <Button full onPress={startGame}>
                     <Text>{strings.game.newGame.button}</Text>
                 </Button>
             </Content>
