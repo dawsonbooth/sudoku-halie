@@ -7,7 +7,6 @@ export const useGame = (initial: Sudoku.Game) => {
     const [notesMode, setNotesMode] = useState(false);
 
     const updateGame = game => {
-        console.log(game.conflicts);
         setGame(_.clone(game)); // necessary because of Object.is comparison
     };
 
