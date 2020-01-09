@@ -27,7 +27,11 @@ export default function _Sudoku({
         handleEraserButtonPress,
         handleRevealButtonPress,
         handleNumberButtonPress
-    } = useGame(board);
+    } = useGame(() =>
+        board === null
+            ? Game.new(settings.degree, settings.prefilledRatio)
+            : Game.load(board)
+    );
 
     const { height, width } = useScreenDimensions();
     const boardSize = Math.min(height * 0.5, width);
