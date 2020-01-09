@@ -1,38 +1,90 @@
 import { prefill, solvePuzzle, findConflicts, findPeers } from "./utils";
 
-export default class Game implements Sudoku.Game {
-    degree: Sudoku.Game["degree"];
-    board: Sudoku.Game["board"];
-    selected: Sudoku.Game["selected"];
-    conflicts: Sudoku.Game["conflicts"];
-    progress: Sudoku.Game["progress"];
+class Conflicts {
+    sources: Sudoku.Cell[] = new Array<Sudoku.Cell>();
+    outer: Sudoku.Cell[][] = new Array<Sudoku.Cell[]>();
+
+    static find(
+        board: Sudoku.Game["board"],
+        { row, col }: Sudoku.Location,
+        value: Sudoku.Cell["value"],
+        degree: Sudoku.Settings["degree"],
+        callback?: (cell) => {}
+    ): Array<Sudoku.Cell> {
+        const conflicts = findPeers(board, { row, col }, degree).filter(
+            cell => cell.value == value
+        );
+        if (callback) conflicts.forEach(callback);
+        return conflicts;
+    }
+
+    add(source, leaves) {
+        const si = this.sources.indexOf(source);
+        if (si >= 0) {
+            this.outer[si] = leaves;
+            if (source.value !== this.sources[si].value)
+                this.sources[si].value = source.value;
+            return;
+        }
+
+        this.sources.push(source);
+        this.outer.push(leaves);
+    }
+
+    update(board: Sudoku.Game["board"], degree: Sudoku.Settings["degree"]) {
+        const newConflicts = new Conflicts();
+
+        this.sources.forEach((source, i) => {
+            if (source.value === null) return;
+
+            const leaves = Conflicts.find(
+                board,
+                source.location,
+                source.value,
+                degree
+            );
+
+            if (leaves.length > 0) {
+                newConflicts.add(source, leaves);
+            }
+        });
+
+        this.sources = newConflicts.sources;
+        this.outer = newConflicts.outer;
+    }
+
+    toSet() {
+        return new Set<Sudoku.Cell>([].concat(this.sources, ...this.outer));
+    }
+}
+
+export default class Game {
+    degree: Sudoku.Settings["degree"];
+    board: Sudoku.Cell[][];
+    selected: Sudoku.Cell;
+    conflicts: Conflicts;
+    progress: number[];
 
     constructor(
-        degree: Sudoku.Game["degree"],
-        board: Sudoku.Game["board"],
-        selected: Sudoku.Game["selected"],
-        conflicts: Sudoku.Game["conflicts"],
-        progress: Sudoku.Game["progress"]
+        degree: Sudoku.Settings["degree"],
+        board: Sudoku.Cell[][],
+        conflicts: Conflicts,
+        progress: number[]
     ) {
         this.degree = degree;
         this.board = board;
-        this.selected = selected;
+        this.selected = null;
         this.conflicts = conflicts;
         this.progress = progress;
 
-        this.addSelectionFlags();
         this.checkCompleted();
         this.checkConflicts();
     }
 
-    static load(board: Sudoku.Game["board"] | null) {
-        if (board === null) return null;
-
+    static load(board: Sudoku.Game["board"]) {
         const degree = board.length;
 
-        let selected: Sudoku.Cell;
-
-        const conflicts = [];
+        const conflicts = new Conflicts();
 
         const progress = [...Array(degree + 1)].map(() => 0);
 
@@ -40,19 +92,16 @@ export default class Game implements Sudoku.Game {
             (_, row: Sudoku.Location["row"]) =>
                 [...Array(degree)].map((_, col: Sudoku.Location["col"]) => {
                     const cell = board[row][col];
-                    if (cell.isSelected) selected = cell;
+                    if (cell.isSelected) cell.isSelected = false;
                     if (cell.isConflict) {
-                        const cellConflicts = findConflicts(
+                        const cellConflicts = Conflicts.find(
                             board,
                             cell.location,
                             cell.value,
                             degree
                         );
                         if (cellConflicts.length > 0)
-                            conflicts.push([
-                                cell.location,
-                                ...cellConflicts.map(c => c.location)
-                            ]);
+                            conflicts.add(cell, cellConflicts);
                     }
                     progress[board[row][col].value] += 1 / degree;
                     return {
@@ -64,7 +113,7 @@ export default class Game implements Sudoku.Game {
 
         solvePuzzle(solution, degree);
 
-        return new this(degree, board, selected, conflicts, progress);
+        return new this(degree, board, conflicts, progress);
     }
 
     static new(degree: number, prefilledRatio: number) {
@@ -88,9 +137,7 @@ export default class Game implements Sudoku.Game {
             }))
         );
 
-        const selected = null;
-
-        const conflicts = [];
+        const conflicts = new Conflicts();
 
         const progress = [...Array(degree + 1)].map(() => 0);
 
@@ -101,7 +148,7 @@ export default class Game implements Sudoku.Game {
             for (let cell of r)
                 if (cell.value) progress[cell.value] += 1 / degree;
 
-        return new this(degree, board, selected, conflicts, progress);
+        return new this(degree, board, conflicts, progress);
     }
 
     checkCompleted = (): void => {
@@ -113,36 +160,12 @@ export default class Game implements Sudoku.Game {
     };
 
     checkConflicts = (): void => {
-        const newConflicts = [];
+        this.conflicts.update(this.board, this.degree);
 
-        this.conflicts.forEach((locations, i) => {
-            const source = this.board[locations[0].row][locations[0].col];
-
-            const sourceConflicts = findConflicts(
-                this.board,
-                source.location,
-                source.value,
-                this.degree
-            );
-
-            const newLocations = [source.location];
-
-            for (let j = 1; j < locations.length; j++) {
-                if (
-                    sourceConflicts
-                        .map(cell => cell.location)
-                        .includes(locations[j])
-                )
-                    newLocations.push(locations[j]);
-            }
-
-            newConflicts.push(newLocations);
-        });
-        const conflictsSet = new Set([].concat(...this.conflicts));
+        const conflictsSet = this.conflicts.toSet();
         this.board.forEach(row =>
             row.forEach(cell => {
-                cell.isConflict =
-                    cell.value !== null && conflictsSet.has(cell.location);
+                cell.isConflict = cell.value !== null && conflictsSet.has(cell);
             })
         );
     };
@@ -161,10 +184,12 @@ export default class Game implements Sudoku.Game {
     };
 
     flagEquals = (): void => {
-        if (this.selected && this.selected.value) {
+        if (this.selected) {
             this.board.forEach(row =>
                 row.forEach(cell => {
-                    cell.isEqual = this.selected.value === cell.value;
+                    cell.isEqual =
+                        this.selected.value !== null &&
+                        this.selected.value === cell.value;
                 })
             );
         }
@@ -172,39 +197,34 @@ export default class Game implements Sudoku.Game {
 
     flagConflicts = (): void => {
         if (this.selected && this.selected.value) {
-            const cellConflicts = findConflicts(
+            const cellConflicts = Conflicts.find(
                 this.board,
                 this.selected.location,
                 this.selected.value,
                 this.degree
             );
-            if (
-                cellConflicts.length > 0 &&
-                !this.conflicts
-                    .map(arr => arr[0])
-                    .includes(this.selected.location)
-            ) {
+            if (cellConflicts.length > 0) {
                 this.selected.isConflict = true;
-                const locations = [this.selected.location];
                 cellConflicts.forEach(cell => {
                     cell.isConflict = true;
-                    locations.push(cell.location);
                 });
-                this.conflicts.push(locations);
+                this.conflicts.add(this.selected, cellConflicts);
             }
         }
     };
 
-    addSelectionFlags = (): void => {
-        this.flagPeers();
-        this.flagEquals();
+    unflagEquals = (): void => {
+        this.board.forEach(row =>
+            row.forEach(cell => {
+                cell.isEqual = false;
+            })
+        );
     };
 
-    removeSelectionFlags = (): void => {
+    unflagPeers = (): void => {
         this.board.forEach(row =>
             row.forEach(cell => {
                 cell.isPeer = false;
-                cell.isEqual = false;
             })
         );
     };
@@ -218,16 +238,30 @@ export default class Game implements Sudoku.Game {
     };
 
     deselect = (): void => {
-        this.removeSelectionFlags();
-        this.selected.isSelected = false;
-        this.selected = null;
+        if (this.selected) {
+            this.unflagEquals();
+            this.unflagPeers();
+            this.selected.isSelected = false;
+            this.selected = null;
+        }
     };
 
     select = ({ row, col }: Sudoku.Location): void => {
-        if (this.selected) this.deselect();
+        if (this.selected) {
+            if (
+                this.selected.location.row === row &&
+                this.selected.location.col === col
+            ) {
+                return;
+            } else {
+                this.deselect();
+            }
+        }
+
         this.selected = this.board[row][col];
         this.selected.isSelected = true;
-        this.addSelectionFlags();
+        this.flagPeers();
+        this.flagEquals();
     };
 
     erase = (): void => {
@@ -240,24 +274,24 @@ export default class Game implements Sudoku.Game {
             this.selected.value = null;
             this.checkCompleted();
             this.checkConflicts();
+            this.flagEquals();
         }
-        this.addSelectionFlags();
     };
 
     write = (number: number): void => {
-        this.removeSelectionFlags();
         if (
             this.selected &&
             !this.selected.isPrefilled &&
             this.selected.value !== number
         ) {
+            this.unflagEquals();
             this.decreaseProgress(this.selected.value);
             this.selected.value = number;
             this.increaseProgress(number);
             this.checkCompleted();
             this.flagConflicts();
             this.checkConflicts();
-            this.addSelectionFlags();
+            this.flagEquals();
         }
     };
 
@@ -276,7 +310,7 @@ export default class Game implements Sudoku.Game {
     };
 
     reveal = (): void => {
-        if (this.selected) {
+        if (this.selected && !this.selected.isPrefilled) {
             this.write(this.selected.solution);
             this.selected.isPrefilled = true;
         }
