@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { Alert } from "react-native";
-import Game from "./Game";
 import _ from "lodash";
 
-export const useGame = (board: Sudoku.Game["board"]) => {
-    const [game, setGame] = useState(Game.load(board) || Game.new(9, 0.4));
+export const useGame = (initial: Sudoku.Game) => {
+    const [game, setGame] = useState(initial);
     const [notesMode, setNotesMode] = useState(false);
+
+    const updateGame = game => {
+        console.log(game.conflicts);
+        setGame(_.clone(game)); // necessary because of Object.is comparison
+    };
 
     const handleCellPress = (location: Sudoku.Location): void => {
         game.select(location);
-        setGame(_.clone(game)); // necessary because of Object.is comparison
+        updateGame(game);
     };
 
     const handleNotesButtonPress = (): void => {
@@ -18,7 +22,7 @@ export const useGame = (board: Sudoku.Game["board"]) => {
 
     const handleEraserButtonPress = (): void => {
         game.erase();
-        setGame(_.clone(game));
+        updateGame(game);
     };
 
     const handleRevealButtonPress = (): void =>
@@ -34,7 +38,7 @@ export const useGame = (board: Sudoku.Game["board"]) => {
                     text: "OK",
                     onPress: () => {
                         game.reveal();
-                        setGame(_.clone(game));
+                        updateGame(game);
                     }
                 }
             ],
@@ -44,7 +48,7 @@ export const useGame = (board: Sudoku.Game["board"]) => {
     const handleNumberButtonPress = (number: number): void => {
         if (notesMode) game.toggleNote(number);
         else game.write(number);
-        setGame(_.clone(game));
+        updateGame(game);
     };
 
     return {
