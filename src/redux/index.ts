@@ -1,8 +1,15 @@
-import { createStore } from "redux";
+import { compose, createStore } from "redux";
 import { Sudoku } from "../components";
+
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
 
 const initialState: Redux.State = {
     board: null,
+    gameStarted: false,
     settings: {
         sudoku: Sudoku.settings,
         app: {
@@ -13,11 +20,19 @@ const initialState: Redux.State = {
 
 const reducer = (state: Redux.State = initialState, action: Redux.Action) => {
     switch (action.type) {
+        case "START_GAME":
+            return {
+                ...state,
+                ...{
+                    gameStarted: true
+                }
+            };
         case "END_GAME":
             return {
                 ...state,
                 ...{
-                    board: null
+                    board: null,
+                    gameStarted: false
                 }
             };
         case "SET_GAME_STATE":
@@ -37,4 +52,6 @@ const reducer = (state: Redux.State = initialState, action: Redux.Action) => {
     }
     return state;
 };
-export const store = createStore(reducer);
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store = createStore(reducer, composeEnhancers());

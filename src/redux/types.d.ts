@@ -1,6 +1,7 @@
 namespace Redux {
     interface State {
         board: Sudoku.Game["board"] | null;
+        gameStarted: boolean;
         settings: Redux.Settings;
     }
 

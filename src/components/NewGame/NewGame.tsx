@@ -22,21 +22,16 @@ export default function NewGame() {
 
     const dispatch = useDispatch();
 
-    const startGame = useCallback(() => dispatch({ type: "START_GAME" }), [
-        dispatch
-    ]);
-
-    const updateSettings = useCallback(
-        () => dispatch({ type: "UPDATE_SETTINGS", settings }),
-        [dispatch]
-    );
+    const startGame = useCallback(() => {
+        dispatch({ type: "UPDATE_SETTINGS", settings });
+        dispatch({ type: "START_GAME" });
+    }, [dispatch]);
 
     const changeSettings = (object, key, value) => {
         object[key] = value;
         setSettings({
             ...settings
         });
-        updateSettings();
     };
 
     const difficulty =
