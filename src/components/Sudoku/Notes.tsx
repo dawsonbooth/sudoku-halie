@@ -7,7 +7,7 @@ interface PropTypes {
     size: number;
 }
 
-export default function Board({ notes, size }: PropTypes) {
+export default function Notes({ notes, size }: PropTypes) {
     const settings = useContext(SettingsContext);
 
     const fontSize = (0.75 / 2) * (size / settings.degree);
