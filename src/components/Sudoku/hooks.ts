@@ -6,7 +6,7 @@ export const useGame = (initial: Sudoku.Game) => {
     const [game, setGame] = useState(initial);
     const [notesMode, setNotesMode] = useState(false);
 
-    const updateGame = game => {
+    const updateGame = (game: Sudoku.Game) => {
         setGame(_.clone(game)); // necessary because of Object.is comparison
     };
 

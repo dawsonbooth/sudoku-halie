@@ -1,6 +1,6 @@
-import { prefill, solvePuzzle, findConflicts, findPeers } from "./utils";
+import { prefill, solvePuzzle } from "./utils";
 
-class Conflicts {
+export class Conflicts {
     sources: Sudoku.Cell[] = new Array<Sudoku.Cell>();
     outer: Sudoku.Cell[][] = new Array<Sudoku.Cell[]>();
 
@@ -11,14 +11,33 @@ class Conflicts {
         degree: Sudoku.Settings["degree"],
         callback?: (cell) => {}
     ): Array<Sudoku.Cell> {
-        const conflicts = findPeers(board, { row, col }, degree).filter(
+        const conflicts = this.potential(board, { row, col }, degree).filter(
             cell => cell.value == value
         );
         if (callback) conflicts.forEach(callback);
         return conflicts;
     }
 
-    add(source, leaves) {
+    static potential(
+        board: Sudoku.Game["board"],
+        { row, col }: Sudoku.Location,
+        degree: Sudoku.Settings["degree"]
+    ): Array<Sudoku.Cell> {
+        const peers = new Array<Sudoku.Cell>();
+        const unit = Math.sqrt(degree);
+        const m_edge = unit * Math.floor(row / unit);
+        const n_edge = unit * Math.floor(col / unit);
+        for (let i = 0; i < degree; i++) {
+            const m = m_edge + Math.floor(i / unit);
+            const n = n_edge + (i % unit);
+            if (i !== col) peers.push(board[row][i]);
+            if (i !== row) peers.push(board[i][col]);
+            if (m !== row && n !== col) peers.push(board[m][n]);
+        }
+        return peers;
+    }
+
+    add(source: Sudoku.Cell, leaves: Sudoku.Cell[]) {
         const si = this.sources.indexOf(source);
         if (si >= 0) {
             this.outer[si] = leaves;
@@ -62,14 +81,14 @@ export default class Game {
     degree: Sudoku.Settings["degree"];
     board: Sudoku.Cell[][];
     selected: Sudoku.Cell;
-    conflicts: Conflicts;
+    conflicts: Sudoku.Conflicts;
     progress: number[];
 
     constructor(
-        degree: Sudoku.Settings["degree"],
-        board: Sudoku.Cell[][],
-        conflicts: Conflicts,
-        progress: number[]
+        degree: Sudoku.Game["degree"],
+        board: Sudoku.Game["board"],
+        conflicts: Sudoku.Game["conflicts"],
+        progress: Sudoku.Game["progress"]
     ) {
         this.degree = degree;
         this.board = board;
@@ -116,7 +135,10 @@ export default class Game {
         return new this(degree, board, conflicts, progress);
     }
 
-    static new(degree: number, prefilledRatio: number) {
+    static new(
+        degree: Sudoku.Settings["degree"],
+        prefilledRatio: Sudoku.Settings["prefilledRatio"]
+    ) {
         if (!(degree >= 0 && Math.sqrt(degree) % 1 === 0))
             throw TypeError("degree setting must be a perfect square");
         if (prefilledRatio > 1 || prefilledRatio < 0)
@@ -172,7 +194,7 @@ export default class Game {
 
     flagPeers = (): void => {
         if (this.selected) {
-            const peers = findPeers(
+            const peers = Conflicts.potential(
                 this.board,
                 this.selected.location,
                 this.degree

@@ -1,11 +1,7 @@
 namespace Sudoku {
-    interface Game {
-        degree: Settings["degree"];
-        board: Cell[][];
-        selected: Cell;
-        conflicts: Location[][];
-        progress: number[];
-    }
+    type Game = import("./Game");
+
+    type Conflicts = import("./Game").Conflicts;
 
     interface Cell {
         value: number;
@@ -50,6 +46,7 @@ namespace Sudoku {
 
     interface Settings {
         degree: number;
+        prefilledRatio: number;
         dotNotes: boolean;
         showCompleted: boolean;
         showPeers: boolean;
