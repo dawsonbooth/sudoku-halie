@@ -2,7 +2,7 @@
 
 A Sudoku application for iOS and Android built with React Native using Expo.
 
-Initialized with <a href="https://github.com/dawsonbooth/expo-boilerplate">expo-boilerplate</a>
+Initialized with [expo-boilerplate](https://github.com/dawsonbooth/expo-boilerplate)
 
 TypeScript / React Native / Expo / React Redux / React Navigation / NativeBase
 
@@ -14,7 +14,7 @@ First, clone the repository with the following command:
 git clone https://github.com/dawsonbooth/sudoku-halie.git
 ```
 
-Next, with Node.js installed (https://nodejs.org/en/download/), navigate to the directory and install the necessary packages.
+Next, with [Node.js](https://nodejs.org/en/download/) installed, navigate to the directory and install the necessary packages.
 
 ```bash
 cd sudoku-halie
@@ -42,5 +42,9 @@ Here are some screenshots of the iOS build.
   <img src="assets/screenshots/reveal.png" width="200"/>
   <img src="assets/screenshots/new_game.png" width="200" />
 </div>
+
+# License
+
+This software is released under the terms of [MIT license](LICENSE).
 
 🎄Merry Christmas, Halie!🎁
