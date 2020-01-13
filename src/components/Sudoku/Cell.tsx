@@ -4,9 +4,9 @@ import { SettingsContext } from "./settings";
 import {
     GestureResponderEvent,
     StyleSheet,
+    Text,
     TouchableOpacity
 } from "react-native";
-import { Text } from "native-base";
 import Notes from "./Notes";
 
 interface PropTypes extends Sudoku.Cell {
@@ -68,7 +68,9 @@ export default function Cell({
     return (
         <TouchableOpacity onPress={onPress} style={styles.cell}>
             {value ? (
-                <Text style={styles.text}>{value}</Text>
+                <Text allowFontScaling={false} style={styles.text}>
+                    {value}
+                </Text>
             ) : notes[0] ? (
                 <Notes notes={notes} size={boardSize} />
             ) : null}

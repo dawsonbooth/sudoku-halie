@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
+import { Text, View } from "react-native";
 import { SettingsContext } from "./settings";
-import { Grid, Row, Col, Text, View } from "native-base";
+import { Grid, Row, Col } from "react-native-easy-grid";
 
 interface PropTypes {
     notes: Sudoku.Cell["notes"];
@@ -33,6 +34,7 @@ export default function Notes({ notes, size }: PropTypes) {
                                 >
                                     {isNote ? (
                                         <Text
+                                            allowFontScaling={false}
                                             style={{
                                                 fontSize,
                                                 lineHeight: fontSize

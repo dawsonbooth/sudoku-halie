@@ -1,5 +1,6 @@
 import React from "react";
-import { Grid, Row, Col, View } from "native-base";
+import { View } from "react-native";
+import { Grid, Row, Col } from "react-native-easy-grid";
 import Cell from "./Cell";
 
 interface PropTypes {

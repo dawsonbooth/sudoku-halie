@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { SettingsContext } from "./settings";
-import { Row, Col, Grid } from "native-base";
+import { Row, Col, Grid } from "react-native-easy-grid";
 import { TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import NumberButton from "./NumberButton";

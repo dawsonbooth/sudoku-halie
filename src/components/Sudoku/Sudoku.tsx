@@ -3,7 +3,7 @@ import { useScreenDimensions } from "react-native-use-dimensions";
 import { useGame } from "./hooks";
 import defaultColors, { ColorsContext } from "./colors";
 import defaultSettings, { SettingsContext } from "./settings";
-import { Col, Grid } from "native-base";
+import { Col, Grid } from "react-native-easy-grid";
 import Game from "./Game";
 import Board from "./Board";
 import Controls from "./Controls";
