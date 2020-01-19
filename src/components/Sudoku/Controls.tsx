@@ -38,7 +38,8 @@ export default function Controls({
                         justifyContent: "center",
                         alignItems: "center",
                         height: "auto",
-                        maxWidth: size
+                        width: size,
+                        backgroundColor: "red"
                     }}
                 >
                     <TouchableOpacity onPress={() => handleNotesButtonPress()}>
@@ -66,7 +67,8 @@ export default function Controls({
                         justifyContent: "center",
                         alignItems: "center",
                         height: "auto",
-                        maxWidth: size
+                        width: size,
+                        backgroundColor: "green"
                     }}
                 >
                     {[...Array(settings.degree)].map((_, i) => {

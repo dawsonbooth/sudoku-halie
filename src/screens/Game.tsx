@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
 import { Alert, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { Title, Container, Content } from "native-base";
-import { Drawer, Header, NewGame, Sudoku } from "../components";
+import { NewGame, Sudoku } from "../components";
 import { strings } from "../constants";
+import { TopNavigation, Layout } from "@ui-kitten/components";
 
 interface PropTypes {
     navigation: any;
@@ -24,11 +24,11 @@ export default function Game({ navigation }: PropTypes) {
     );
 
     return (
-        <Container>
-            <Header
-                left={<Drawer.Button navigation={navigation} />}
-                body={<Title>{strings.game.title}</Title>}
-                right={
+        <SafeAreaView>
+            <TopNavigation
+                title={strings.game.title}
+                alignment="center"
+                rightControls={
                     <NewGame.Button
                         onPress={() =>
                             Alert.alert(
@@ -47,16 +47,16 @@ export default function Game({ navigation }: PropTypes) {
                                 { cancelable: false }
                             )
                         }
-                    ></NewGame.Button>
+                    />
                 }
             />
-            <Content scrollEnabled={false}>
+            <Layout>
                 {gameStarted ? (
                     <Sudoku settings={settings.sudoku} />
                 ) : (
                     <NewGame />
                 )}
-            </Content>
-        </Container>
+            </Layout>
+        </SafeAreaView>
     );
 }

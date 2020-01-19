@@ -1,18 +1,16 @@
 import React, { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    Text,
-    Title,
-    Container,
-    Content,
-    Card,
-    CardItem,
-    Right,
-    Switch,
-    Left
-} from "native-base";
-import { Drawer, Header } from "../components";
 import { strings } from "../constants";
+import {
+    Layout,
+    Text,
+    TopNavigation,
+    Toggle,
+    ListItem,
+    List,
+    Card
+} from "@ui-kitten/components";
+import { SafeAreaView } from "react-navigation";
 
 export default function Settings({ navigation }) {
     const [settings, setSettings] = useState(
@@ -33,127 +31,81 @@ export default function Settings({ navigation }) {
         updateSettings();
     };
 
-    return (
-        // TODO: Separate into components
-        <Container>
-            <Header
-                left={<Drawer.Button navigation={navigation} />}
-                body={<Title>{strings.settings.title}</Title>}
+    const appData = ["darkMode"];
+
+    const sudokuData = [
+        "dotNotes",
+        "showCompleted",
+        "showPeers",
+        "showEqual",
+        "showConflicts"
+    ];
+
+    const renderAppItemAccessory = (style, index) => {
+        const item = appData[index];
+
+        return (
+            <Toggle
+                style={style}
+                checked={settings.app[item]}
+                onChange={value => changeSettings(settings.app, item, value)}
             />
-            <Content padder>
+        );
+    };
+
+    const renderSudokuItemAccessory = (style, index) => {
+        const item = sudokuData[index];
+
+        return (
+            <Toggle
+                style={style}
+                checked={settings.sudoku[item]}
+                onChange={value => changeSettings(settings.sudoku, item, value)}
+            />
+        );
+    };
+
+    const renderAppItem = ({ item }) => (
+        <ListItem
+            title={strings.settings.application[item]}
+            accessory={renderAppItemAccessory}
+            onPress={() =>
+                changeSettings(settings.app, item, !settings.app[item])
+            }
+        />
+    );
+
+    const renderSudokuItem = ({ item }) => (
+        <ListItem
+            title={strings.settings.sudoku[item]}
+            accessory={renderSudokuItemAccessory}
+            onPress={() =>
+                changeSettings(settings.sudoku, item, !settings.sudoku[item])
+            }
+        />
+    );
+
+    return (
+        <SafeAreaView>
+            <TopNavigation title={strings.settings.title} alignment="center" />
+            <Layout>
                 <Card>
-                    <CardItem header>
-                        <Text>{strings.settings.application.header}</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Left>
-                            <Text>{strings.settings.application.darkMode}</Text>
-                        </Left>
-                        <Right>
-                            <Switch
-                                value={settings.app.darkMode}
-                                onValueChange={value =>
-                                    changeSettings(
-                                        settings.app,
-                                        "darkMode",
-                                        value
-                                    )
-                                }
-                            />
-                        </Right>
-                    </CardItem>
+                    <Text category="h6">Application</Text>
+                    <List
+                        data={appData}
+                        renderItem={renderAppItem}
+                        scrollEnabled={false}
+                    />
                 </Card>
                 <Card>
-                    <CardItem header>
-                        <Text>{strings.settings.sudoku.header}</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Left>
-                            <Text>{strings.settings.sudoku.dotNotes}</Text>
-                        </Left>
-                        <Right>
-                            <Switch
-                                value={settings.sudoku.dotNotes}
-                                onValueChange={value =>
-                                    changeSettings(
-                                        settings.sudoku,
-                                        "dotNotes",
-                                        value
-                                    )
-                                }
-                            />
-                        </Right>
-                    </CardItem>
-                    <CardItem>
-                        <Left>
-                            <Text>{strings.settings.sudoku.showCompleted}</Text>
-                        </Left>
-                        <Right>
-                            <Switch
-                                value={settings.sudoku.showCompleted}
-                                onValueChange={value =>
-                                    changeSettings(
-                                        settings.sudoku,
-                                        "showCompleted",
-                                        value
-                                    )
-                                }
-                            />
-                        </Right>
-                    </CardItem>
-                    <CardItem>
-                        <Left>
-                            <Text>{strings.settings.sudoku.showPeers}</Text>
-                        </Left>
-                        <Right>
-                            <Switch
-                                value={settings.sudoku.showPeers}
-                                onValueChange={value =>
-                                    changeSettings(
-                                        settings.sudoku,
-                                        "showPeers",
-                                        value
-                                    )
-                                }
-                            />
-                        </Right>
-                    </CardItem>
-                    <CardItem>
-                        <Left>
-                            <Text>{strings.settings.sudoku.showEqual}</Text>
-                        </Left>
-                        <Right>
-                            <Switch
-                                value={settings.sudoku.showEqual}
-                                onValueChange={value =>
-                                    changeSettings(
-                                        settings.sudoku,
-                                        "showEqual",
-                                        value
-                                    )
-                                }
-                            />
-                        </Right>
-                    </CardItem>
-                    <CardItem>
-                        <Left>
-                            <Text>{strings.settings.sudoku.showConflicts}</Text>
-                        </Left>
-                        <Right>
-                            <Switch
-                                value={settings.sudoku.showConflicts}
-                                onValueChange={value =>
-                                    changeSettings(
-                                        settings.sudoku,
-                                        "showConflicts",
-                                        value
-                                    )
-                                }
-                            />
-                        </Right>
-                    </CardItem>
+                    <Text category="h6">Sudoku</Text>
+                    <List
+                        data={sudokuData}
+                        renderItem={renderSudokuItem}
+                        scrollEnabled={false}
+                    />
                 </Card>
-            </Content>
-        </Container>
+            </Layout>
+        </SafeAreaView>
     );
 }

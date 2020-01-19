@@ -1,25 +1,18 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { store } from "./src/redux";
-import { Drawer } from "./src/components";
-import { Game, Settings } from "./src/screens";
-
-const navigationConfig = {
-    RouteConfigs: {
-        Game: {
-            screen: Game
-        },
-        Settings: {
-            screen: Settings
-        }
-    },
-    DrawerNavigatorConfig: {}
-};
+import AppNavigator from "./src/navigation/AppNavigator";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import { mapping, light } from "@eva-design/eva";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
 export default function App() {
     return (
         <Provider store={store}>
-            <Drawer {...navigationConfig} />
+            <IconRegistry icons={EvaIconsPack} />
+            <ApplicationProvider mapping={mapping} theme={light}>
+                <AppNavigator />
+            </ApplicationProvider>
         </Provider>
     );
 }
