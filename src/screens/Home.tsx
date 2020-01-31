@@ -1,31 +1,27 @@
-import React, { useCallback } from "react";
-import { Alert, SafeAreaView } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { NewGame, Sudoku } from "../components";
-import { strings } from "../constants";
-import { TopNavigation, Layout, Button } from "@ui-kitten/components";
+import React from "react";
+import { SafeAreaView } from "react-native";
+import { Layout, Button } from "@ui-kitten/components";
 
 interface PropTypes {
-    navigation: any;
+  navigation: any;
 }
 
-export default function Home({ navigation }: PropTypes) {
-    return (
-        <SafeAreaView>
-            <Layout>
-                <Button
-                    appearance="ghost"
-                    onPress={() => navigation.navigate("Game")}
-                >
-                    Game
-                </Button>
-                <Button
-                    appearance="ghost"
-                    onPress={() => navigation.navigate("Settings")}
-                >
-                    Settings
-                </Button>
-            </Layout>
-        </SafeAreaView>
-    );
-}
+const Home: React.FC<PropTypes> = ({ navigation }) => {
+  return (
+    <Layout style={{ padding: 10 }}>
+      <SafeAreaView style={{ height: "100%", width: "100%" }}>
+        <Button appearance="ghost" onPress={() => navigation.navigate("Game")}>
+          Game
+        </Button>
+        <Button
+          appearance="ghost"
+          onPress={() => navigation.navigate("Settings")}
+        >
+          Settings
+        </Button>
+      </SafeAreaView>
+    </Layout>
+  );
+};
+
+export default Home;

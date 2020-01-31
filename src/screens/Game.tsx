@@ -6,27 +6,27 @@ import { NewGame, Sudoku, Header } from "../components";
 import { Layout } from "@ui-kitten/components";
 
 interface PropTypes {
-    navigation: any;
+  navigation: any;
 }
 
-export default function Game({ navigation }: PropTypes) {
-    const gameStarted = useSelector((state: Redux.State) => state.gameStarted);
-    const settings = useSelector((state: Redux.State) => state.settings);
+const Game: React.FC<PropTypes> = ({ navigation }) => {
+  const gameStarted = useSelector((state: Redux.State) => state.gameStarted);
+  const settings = useSelector((state: Redux.State) => state.settings);
 
-    return (
-        <SafeAreaView>
-            <Header
-                title={strings.game.title}
-                rightControls={<NewGame.Button />}
-                navigation={navigation}
-            />
-            <Layout>
-                {gameStarted ? (
-                    <Sudoku settings={settings.sudoku} />
-                ) : (
-                    <NewGame />
-                )}
-            </Layout>
-        </SafeAreaView>
-    );
-}
+  return (
+    <Layout>
+      <SafeAreaView style={{ height: "100%", width: "100%" }}>
+        <Header
+          title={strings.game.title}
+          rightControls={<NewGame.Button />}
+          navigation={navigation}
+        />
+        <Layout>
+          {gameStarted ? <Sudoku settings={settings.sudoku} /> : <NewGame />}
+        </Layout>
+      </SafeAreaView>
+    </Layout>
+  );
+};
+
+export default Game;
