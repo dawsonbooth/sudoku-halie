@@ -60,7 +60,7 @@ export default function Cell({
             justifyContent: "center"
         },
         text: {
-            color: colors.board.cell.number.entry,
+            color: colors.board.cell.number,
             fontSize: 0.75 * (boardSize / settings.degree)
         }
     });
