@@ -11,6 +11,7 @@ import {
     Card
 } from "@ui-kitten/components";
 import { SafeAreaView } from "react-navigation";
+import { Header } from "../components";
 
 export default function Settings({ navigation }) {
     const [settings, setSettings] = useState(
@@ -87,7 +88,7 @@ export default function Settings({ navigation }) {
 
     return (
         <SafeAreaView>
-            <TopNavigation title={strings.settings.title} alignment="center" />
+            <Header title={strings.settings.title} navigation={navigation} />
             <Layout>
                 <Card>
                     <Text category="h6">Application</Text>
