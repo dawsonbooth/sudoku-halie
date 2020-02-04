@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import _ from "lodash";
 
-export const useGame = (onChange, initial: Sudoku.Game) => {
+export const useGame = (
+  onChange: (board: Sudoku.Game["board"]) => void,
+  initial: Sudoku.Game
+) => {
   const [game, setGame] = useState(initial);
   const [notesMode, setNotesMode] = useState(false);
 

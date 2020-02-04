@@ -3,10 +3,10 @@ import { useScreenDimensions } from "react-native-use-dimensions";
 import { useGame } from "./hooks";
 import defaultColors, { ColorsContext } from "./colors";
 import defaultSettings, { SettingsContext } from "./settings";
-import { Col, Grid } from "react-native-easy-grid";
 import Game from "./Game";
 import Board from "./Board";
 import Controls from "./Controls";
+import { View } from "react-native";
 
 interface PropTypes {
   board?: Sudoku.Game["board"];
@@ -43,24 +43,22 @@ export default function _Sudoku({
   return (
     <ColorsContext.Provider value={colors}>
       <SettingsContext.Provider value={settings}>
-        <Grid>
-          <Col style={{ alignItems: "center" }}>
-            <Board
-              grid={game.board}
-              handleCellPress={handleCellPress}
-              size={boardSize}
-            />
-            <Controls
-              progress={game.progress}
-              size={controlsSize}
-              notesMode={notesMode}
-              handleNotesButtonPress={handleNotesButtonPress}
-              handleEraserButtonPress={handleEraserButtonPress}
-              handleRevealButtonPress={handleRevealButtonPress}
-              handleNumberButtonPress={handleNumberButtonPress}
-            />
-          </Col>
-        </Grid>
+        <View style={{ height: "100%", width: "100%" }}>
+          <Board
+            grid={game.board}
+            handleCellPress={handleCellPress}
+            size={boardSize}
+          />
+          <Controls
+            progress={game.progress}
+            size={controlsSize}
+            notesMode={notesMode}
+            handleNotesButtonPress={handleNotesButtonPress}
+            handleEraserButtonPress={handleEraserButtonPress}
+            handleRevealButtonPress={handleRevealButtonPress}
+            handleNumberButtonPress={handleNumberButtonPress}
+          />
+        </View>
       </SettingsContext.Provider>
     </ColorsContext.Provider>
   );
