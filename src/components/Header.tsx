@@ -7,42 +7,38 @@ import {
   TopNavigationActionElement
 } from "@ui-kitten/components";
 
-const BackIcon = style => <Icon {...style} name="arrow-back" />;
-
-const MenuIcon = style => <Icon {...style} name="more-vertical" />;
-
-const InfoIcon = style => <Icon {...style} name="info" />;
-
-const LogoutIcon = style => <Icon {...style} name="log-out" />;
-
 interface PropTypes {
   title: string;
   rightControls?: TopNavigationActionElement;
   navigation: any;
 }
 
-export default function Header({
-  title,
-  rightControls,
-  navigation
-}: PropTypes) {
+const MenuIcon: React.FC = style => <Icon {...style} name="more-vertical" />;
+
+const HomeIcon: React.FC = style => <Icon {...style} name="home" />;
+
+const GameIcon: React.FC = style => <Icon {...style} name="browser" />;
+
+const SettingsIcon: React.FC = style => <Icon {...style} name="settings" />;
+
+const Header: React.FC<PropTypes> = ({ title, rightControls, navigation }) => {
   const [menuVisible, setMenuVisible] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(null);
 
   const menuData = [
-    {
-      title: "Home",
-      icon: InfoIcon
-    },
     title == "Game"
       ? {
           title: "Settings",
-          icon: LogoutIcon
+          icon: SettingsIcon
         }
       : {
           title: "Game",
-          icon: BackIcon
-        }
+          icon: GameIcon
+        },
+    {
+      title: "Home",
+      icon: HomeIcon
+    }
   ];
 
   const toggleMenu = () => {
@@ -78,4 +74,6 @@ export default function Header({
       rightControls={rightControls}
     />
   );
-}
+};
+
+export default Header;
