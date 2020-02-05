@@ -34,13 +34,14 @@ npm run start
 Here are some screenshots of the iOS build.
 
 <div float="left" align="middle">
-  <img src="assets/screenshots/settings.png" width="200" />
-  <img src="assets/screenshots/drawer.png" width="200"/>
-  <img src="assets/screenshots/start_game.png" width="200" />
-  <img src="assets/screenshots/game.png" width="200"/>
-  <img src="assets/screenshots/notes.png" width="200" />
-  <img src="assets/screenshots/reveal.png" width="200"/>
-  <img src="assets/screenshots/new_game.png" width="200" />
+  <img src="docs/screenshots/settings_light.png" width="200" />
+  <img src="docs/screenshots/settings_dark.png" width="200" />
+  <img src="docs/screenshots/game_light.png" width="200"/>
+  <img src="docs/screenshots/game_dark.png" width="200"/>
+  <img src="docs/screenshots/newgame_light.png" width="200" />
+  <img src="docs/screenshots/newgame_dark.png" width="200"/>
+  <img src="docs/screenshots/game_colorful_light.png" width="200" />
+  <img src="docs/screenshots/game_colorful_dark.png" width="200"/>
 </div>
 
 # License
