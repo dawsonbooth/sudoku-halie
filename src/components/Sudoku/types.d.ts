@@ -17,19 +17,16 @@ namespace Sudoku {
   }
 
   interface Colors {
+    text: string;
     board: {
       border: string;
       cell: {
-        background: {
-          normal: string;
-          prefilled: string;
-          peer: string;
-          equal: string;
-          conflict: string;
-          selected: string;
-          completed: string;
-        };
-        number: string;
+        normal: string;
+        peer: string;
+        equal: string;
+        conflict: string;
+        selected: string;
+        completed: string;
       };
     };
     controls: {
@@ -38,7 +35,6 @@ namespace Sudoku {
         border: string;
         progress: string;
         completed: string;
-        number: string;
       };
     };
   }

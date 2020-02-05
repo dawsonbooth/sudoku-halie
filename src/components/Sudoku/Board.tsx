@@ -19,7 +19,8 @@ const Board: React.FC<PropTypes> = ({ grid, handleCellPress, size }) => {
         maxWidth: size,
         backgroundColor: colors.board.border,
         margin: 0.05 * size,
-        borderWidth: 2
+        borderWidth: 2,
+        borderColor: colors.board.border
       }}
     >
       {grid.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (

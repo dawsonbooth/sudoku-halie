@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { SettingsContext } from "./settings";
+import { ColorsContext } from "./colors";
 import { TouchableOpacity, View } from "react-native";
 import { Icon } from "@ui-kitten/components";
 import NumberButton from "./NumberButton";
@@ -24,6 +25,7 @@ const Controls: React.FC<PropTypes> = ({
   handleNumberButtonPress
 }) => {
   const settings = useContext(SettingsContext);
+  const colors = useContext(ColorsContext);
 
   return (
     <>
@@ -35,13 +37,28 @@ const Controls: React.FC<PropTypes> = ({
         }}
       >
         <TouchableOpacity onPress={handleNotesButtonPress}>
-          <Icon name="edit-outline" width={size / 8} height={size / 8} />
+          <Icon
+            name="edit-outline"
+            width={size / 8}
+            height={size / 8}
+            fill={colors.text}
+          />
         </TouchableOpacity>
         <TouchableOpacity onPress={handleRevealButtonPress}>
-          <Icon name="search-outline" width={size / 8} height={size / 8} />
+          <Icon
+            name="search-outline"
+            width={size / 8}
+            height={size / 8}
+            fill={colors.text}
+          />
         </TouchableOpacity>
         <TouchableOpacity onPress={handleEraserButtonPress}>
-          <Icon name="trash-outline" width={size / 8} height={size / 8} />
+          <Icon
+            name="trash-outline"
+            width={size / 8}
+            height={size / 8}
+            fill={colors.text}
+          />
         </TouchableOpacity>
       </View>
       <View

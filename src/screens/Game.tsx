@@ -24,19 +24,16 @@ const Game: React.FC<PropTypes> = ({ navigation }) => {
   const light = !settings.app.darkMode;
 
   const lightColors = {
+    text: "#101426",
     board: {
       border: "#101426",
       cell: {
-        background: {
-          normal: "#FFFFFF",
-          prefilled: "#EDF1F7",
-          peer: "#C7E2FF",
-          equal: "#94CBFF",
-          conflict: "#FFA8B4",
-          selected: "#FFF1C2",
-          completed: "#B3FFD6"
-        },
-        number: "#101426"
+        normal: "#FFFFFF",
+        peer: "#C7E2FF",
+        equal: "#94CBFF",
+        conflict: "#FFA8B4",
+        selected: "#FFF1C2",
+        completed: "#B3FFD6"
       }
     },
     controls: {
@@ -44,35 +41,30 @@ const Game: React.FC<PropTypes> = ({ navigation }) => {
         background: "#FFFFFF",
         border: "#C5CEE0",
         progress: "#42AAFF",
-        completed: "#51F0B0",
-        number: "#101426"
+        completed: "#51F0B0"
       }
     }
   };
 
   const darkColors = {
+    text: "#FFFFFF",
     board: {
-      border: "#FFFFFF",
+      border: "#101426",
       cell: {
-        background: {
-          normal: "#101426",
-          prefilled: "#1A2138",
-          peer: "#0057C2",
-          equal: "#0041A8",
-          conflict: "#B81D5B",
-          selected: "#703C00",
-          completed: "#007566"
-        },
-        number: "#FFFFFF"
+        normal: "#222B45",
+        peer: "#2E3A59",
+        equal: "#1A2138",
+        conflict: "#FF708D",
+        selected: "#598BFF",
+        completed: "#00B383"
       }
     },
     controls: {
       number_button: {
         background: "#101426",
         border: "#2E3A59",
-        progress: "#006FD6",
-        completed: "#00B383",
-        number: "#FFFFFF"
+        progress: "#598BFF",
+        completed: "#00B383"
       }
     }
   };

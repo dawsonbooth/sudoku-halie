@@ -43,7 +43,7 @@ export default function NumberButton({
             allowFontScaling={false}
             style={{
               fontSize: radius * 1.25,
-              color: colors.controls.number_button.number
+              color: colors.text
             }}
           >
             {number}
