@@ -11,19 +11,22 @@ interface PropTypes {
   onPress: (event: GestureResponderEvent) => void;
 }
 
-export default function NumberButton({
+const NumberButton: React.FC<PropTypes> = ({
   number,
   percent,
   radius,
   notesMode,
   onPress
-}: PropTypes) {
+}) => {
   const colors = useContext(ColorsContext);
 
   return (
     <TouchableOpacity onPress={onPress} style={{ margin: radius / 5 }}>
       {notesMode ? (
-        <Text allowFontScaling={false} style={{ fontSize: radius * 1.5 }}>
+        <Text
+          allowFontScaling={false}
+          style={{ fontSize: radius * 1.5, color: colors.text }}
+        >
           {number}
         </Text>
       ) : (
@@ -52,4 +55,6 @@ export default function NumberButton({
       )}
     </TouchableOpacity>
   );
-}
+};
+
+export default NumberButton;
