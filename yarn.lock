@@ -3999,15 +3999,6 @@ needle@^2.2.1:
     iconv-lite "^0.4.4"
     sax "^1.2.4"
 
-needle@^2.2.1:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/needle/-/needle-2.3.2.tgz#3342dea100b7160960a450dc8c22160ac712a528"
-  integrity sha512-DUzITvPVDUy6vczKKYTnWc/pBZ0EnjMJnQ3y+Jo5zfKFimJs7S3HFCxCRZYB9FUZcrzUQr3WsmvZgddMEIZv6w==
-  dependencies:
-    debug "^3.2.6"
-    iconv-lite "^0.4.4"
-    sax "^1.2.4"
-
 negotiator@0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
@@ -4666,7 +4657,7 @@ react-native-svg@9.13.3:
     css-select "^2.0.2"
     css-tree "^1.0.0-alpha.37"
 
-react-native-use-dimensions@^1.0.4:
+react-native-use-dimensions@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/react-native-use-dimensions/-/react-native-use-dimensions-1.2.5.tgz#56a3728bc9d34114cb94f3327b1ba3232538fe89"
   integrity sha512-DtVXTi6EoKlfDswr2KKkp18tKxDOoVtOlASN5D3e0gZvmwyJ4GgLU3Zym1xNH3Ug9cqnY5AjFuUX3pEnZ0IKFQ==
