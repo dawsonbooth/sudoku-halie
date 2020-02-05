@@ -1,25 +1,14 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { store } from "./src/redux";
-import { Drawer } from "./src/components";
-import { Game, Settings } from "./src/screens";
+import AppNavigator from "./src/navigation/AppNavigator";
 
-const navigationConfig = {
-    RouteConfigs: {
-        Game: {
-            screen: Game
-        },
-        Settings: {
-            screen: Settings
-        }
-    },
-    DrawerNavigatorConfig: {}
+const App: React.FC = () => {
+  return (
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
+  );
 };
 
-export default function App() {
-    return (
-        <Provider store={store}>
-            <Drawer {...navigationConfig} />
-        </Provider>
-    );
-}
+export default App;

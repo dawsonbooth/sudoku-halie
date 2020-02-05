@@ -35,7 +35,7 @@ const reducer = (state: Redux.State = initialState, action: Redux.Action) => {
                     gameStarted: false
                 }
             };
-        case "SET_GAME_STATE":
+        case "SET_BOARD":
             return {
                 ...state,
                 ...{

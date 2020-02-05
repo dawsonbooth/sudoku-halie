@@ -14,7 +14,7 @@ namespace Redux {
 
     interface Action {
         type: String;
-        board?: Sudoku.Game;
+        board?: Sudoku.Game["board"];
         settings?: Sudoku.Settings;
     }
 }
