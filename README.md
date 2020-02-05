@@ -4,21 +4,19 @@ A Sudoku application for iOS and Android built with React Native using Expo.
 
 Initialized with [expo-boilerplate](https://github.com/dawsonbooth/expo-boilerplate)
 
-TypeScript / React Native / Expo / React Redux / React Navigation / NativeBase
-
 # Installation
 
-First, clone the repository with the following command:
+First, clone and navigate to the repository with the following command:
 
 ```bash
 git clone https://github.com/dawsonbooth/sudoku-halie.git
+cd sudoku-halie
 ```
 
-Next, with [Node.js](https://nodejs.org/en/download/) installed, navigate to the directory and install the necessary packages.
+Next, with [Node.js](https://nodejs.org/en/download/) and [Yarn](https://yarnpkg.com/getting-started) installed, install the necessary packages.
 
 ```bash
-cd sudoku-halie
-npm install
+yarn install
 ```
 
 # Usage
@@ -26,7 +24,7 @@ npm install
 Once the packages are installed, you can run the application using Expo with the following command:
 
 ```bash
-npm run start
+yarn start
 ```
 
 # Screenshots
@@ -34,14 +32,14 @@ npm run start
 Here are some screenshots of the iOS build.
 
 <div float="left" align="middle">
-  <img src="docs/screenshots/settings_light.png" width="200" />
-  <img src="docs/screenshots/settings_dark.png" width="200" />
-  <img src="docs/screenshots/game_light.png" width="200"/>
-  <img src="docs/screenshots/game_dark.png" width="200"/>
-  <img src="docs/screenshots/newgame_light.png" width="200" />
-  <img src="docs/screenshots/newgame_dark.png" width="200"/>
-  <img src="docs/screenshots/game_colorful_light.png" width="200" />
-  <img src="docs/screenshots/game_colorful_dark.png" width="200"/>
+  <img src="https://raw.githubusercontent.com/dawsonbooth/sudoku-halie/master/docs/screenshots/settings_light.png" width="200" />
+  <img src="https://raw.githubusercontent.com/dawsonbooth/sudoku-halie/master/docs/screenshots/settings_dark.png" width="200" />
+  <img src="https://raw.githubusercontent.com/dawsonbooth/sudoku-halie/master/docs/screenshots/game_light.png" width="200"/>
+  <img src="https://raw.githubusercontent.com/dawsonbooth/sudoku-halie/master/docs/screenshots/game_dark.png" width="200"/>
+  <img src="https://raw.githubusercontent.com/dawsonbooth/sudoku-halie/master/docs/screenshots/newgame_light.png" width="200" />
+  <img src="https://raw.githubusercontent.com/dawsonbooth/sudoku-halie/master/docs/screenshots/newgame_dark.png" width="200"/>
+  <img src="https://raw.githubusercontent.com/dawsonbooth/sudoku-halie/master/docs/screenshots/game_colorful_light.png" width="200" />
+  <img src="https://raw.githubusercontent.com/dawsonbooth/sudoku-halie/master/docs/screenshots/game_colorful_dark.png" width="200"/>
 </div>
 
 # License
