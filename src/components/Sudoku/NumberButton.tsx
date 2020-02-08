@@ -25,7 +25,11 @@ const NumberButton: React.FC<PropTypes> = ({
       {notesMode ? (
         <Text
           allowFontScaling={false}
-          style={{ fontSize: radius * 1.5, color: colors.text }}
+          style={{
+            marginHorizontal: radius * 0.4,
+            fontSize: radius * 2,
+            color: colors.text
+          }}
         >
           {number}
         </Text>
