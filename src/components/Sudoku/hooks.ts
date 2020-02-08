@@ -9,6 +9,8 @@ export const useGame = (
   const [game, setGame] = useState(initial);
   const [notesMode, setNotesMode] = useState(false);
 
+  onChange(game.board);
+
   const updateGame = (game: Sudoku.Game) => {
     onChange(game.board);
     setGame(_.clone(game)); // necessary because of Object.is comparison
