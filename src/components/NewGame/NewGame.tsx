@@ -83,8 +83,9 @@ const NewGame: React.FC & { Button: React.FC } = () => {
         <Slider
           minimumValue={0}
           maximumValue={1}
+          minimumTrackTintColor="#3466FF"
           value={settings.sudoku.prefilledRatio}
-          onValueChange={value =>
+          onSlidingComplete={value =>
             changeSettings(settings.sudoku, "prefilledRatio", value)
           }
         />
