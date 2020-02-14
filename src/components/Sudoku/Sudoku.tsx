@@ -15,12 +15,12 @@ interface PropTypes {
   colors?: Sudoku.Colors;
 }
 
-export default function _Sudoku({
+const _Sudoku: React.FC<PropTypes> = ({
   board = null,
   onChange = () => {},
   colors = defaultColors,
   settings = defaultSettings
-}: PropTypes) {
+}) => {
   const {
     game,
     notesMode,
@@ -62,8 +62,6 @@ export default function _Sudoku({
       </SettingsContext.Provider>
     </ColorsContext.Provider>
   );
-}
+};
 
-_Sudoku.Game = Game;
-_Sudoku.colors = defaultColors;
-_Sudoku.settings = defaultSettings;
+export default _Sudoku;
