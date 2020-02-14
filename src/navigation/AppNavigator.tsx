@@ -4,7 +4,7 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { mapping, dark, light } from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import { useSelector } from "react-redux";
+import { useSettings } from "../redux";
 
 const Container = createAppContainer(
   createSwitchNavigator(
@@ -24,9 +24,8 @@ const Container = createAppContainer(
 );
 
 const AppNavigator: React.FC = () => {
-  const darkMode = useSelector(
-    (state: Redux.State) => state.settings.app.darkMode
-  );
+  const { settings } = useSettings();
+  const darkMode = settings.app.darkMode;
 
   return (
     <>

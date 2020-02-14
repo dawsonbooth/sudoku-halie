@@ -1,5 +1,4 @@
-import React, { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { strings } from "../../constants";
 import { Slider, View } from "react-native";
 import {
@@ -12,25 +11,11 @@ import {
   Divider
 } from "@ui-kitten/components";
 import NewGameButton from "./NewGameButton";
+import { useSettings, useGame } from "../../redux";
 
 const NewGame: React.FC & { Button: React.FC } = () => {
-  const [settings, setSettings] = useState(
-    useSelector((state: Redux.State) => state.settings)
-  );
-
-  const dispatch = useDispatch();
-
-  const startGame = useCallback(() => {
-    dispatch({ type: "UPDATE_SETTINGS", settings });
-    dispatch({ type: "START_GAME" });
-  }, [dispatch]);
-
-  const changeSettings = (object, key, value) => {
-    object[key] = value;
-    setSettings({
-      ...settings
-    });
-  };
+  const { settings, changeSettings } = useSettings();
+  const { startGame } = useGame();
 
   const difficulty =
     strings.game.newGame.difficulties[

@@ -1,5 +1,4 @@
-import React, { useCallback, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import { strings } from "../constants";
 import { View } from "react-native";
 import { SafeAreaView } from "react-navigation";
@@ -12,29 +11,14 @@ import {
   Divider
 } from "@ui-kitten/components";
 import { Header } from "../components";
+import { useSettings } from "../redux";
 
 interface PropTypes {
   navigation: any;
 }
 
 const Settings: React.FC<PropTypes> = ({ navigation }) => {
-  const [settings, setSettings] = useState(
-    useSelector((state: Redux.State) => state.settings)
-  );
-  const dispatch = useDispatch();
-
-  const updateSettings = useCallback(
-    () => dispatch({ type: "UPDATE_SETTINGS", settings }),
-    [dispatch]
-  );
-
-  const changeSettings = (object, key, value) => {
-    object[key] = value;
-    setSettings({
-      ...settings
-    });
-    updateSettings();
-  };
+  const { settings, changeSettings } = useSettings();
 
   const appData = ["darkMode"];
 

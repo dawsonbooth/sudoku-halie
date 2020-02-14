@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import _ from "lodash";
 
@@ -9,7 +9,9 @@ export const useGame = (
   const [game, setGame] = useState(initial);
   const [notesMode, setNotesMode] = useState(false);
 
-  onChange(game.board);
+  useEffect(() => {
+    onChange(game.board);
+  }, []);
 
   const updateGame = (game: Sudoku.Game) => {
     onChange(game.board);

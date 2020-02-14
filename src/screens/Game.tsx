@@ -1,25 +1,17 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { strings } from "../constants";
 import { SafeAreaView } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
 import { NewGame, Sudoku, Header } from "../components";
 import { Layout } from "@ui-kitten/components";
+import { useGame, useSettings } from "../redux";
 
 interface PropTypes {
   navigation: any;
 }
 
 const Game: React.FC<PropTypes> = ({ navigation }) => {
-  const gameStarted = useSelector((state: Redux.State) => state.gameStarted);
-  const board = useSelector((state: Redux.State) => state.board);
-  const settings = useSelector((state: Redux.State) => state.settings);
-
-  const dispatch = useDispatch();
-
-  const saveBoard = useCallback(
-    board => dispatch({ type: "SET_BOARD", board }),
-    [dispatch]
-  );
+  const { game, saveGame } = useGame();
+  const { settings } = useSettings();
 
   const light = !settings.app.darkMode;
 
@@ -78,10 +70,10 @@ const Game: React.FC<PropTypes> = ({ navigation }) => {
           navigation={navigation}
         />
         <Layout>
-          {gameStarted ? (
+          {game.started ? (
             <Sudoku
-              board={board}
-              onChange={saveBoard}
+              board={game.board}
+              onChange={saveGame}
               settings={settings.sudoku}
               colors={light ? lightColors : darkColors}
             />
