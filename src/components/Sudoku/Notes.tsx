@@ -3,9 +3,10 @@ import { Text, View } from "react-native";
 import { SettingsContext } from "./settings";
 import { ColorsContext } from "./colors";
 import { Grid, Row, Col } from "react-native-easy-grid";
+import { Cell } from "./types";
 
 interface PropTypes {
-  notes: Sudoku.Cell["notes"];
+  notes: Cell["notes"];
   size: number;
 }
 
