@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { game as actions } from "../actions";
-import { State } from "../types";
+import { State, Game } from "../types";
 
 export const useGame = () => {
   const game = useSelector((state: State) => state.game);
@@ -17,7 +17,7 @@ export const useGame = () => {
   ]);
 
   const saveGame = useCallback(
-    (board: Sudoku.Game["board"]) => dispatch({ type: actions.SAVE, board }),
+    (board: Game["board"]) => dispatch({ type: actions.SAVE, board }),
     [dispatch]
   );
 

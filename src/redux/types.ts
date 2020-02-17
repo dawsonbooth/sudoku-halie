@@ -1,3 +1,5 @@
+import * as Sudoku from "../components/Sudoku";
+
 export interface State {
   game: Game;
   settings: Settings;

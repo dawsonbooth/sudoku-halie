@@ -1,6 +1,7 @@
 import React from "react";
+import { Colors } from "./types";
 
-const colors: Sudoku.Colors = {
+const colors: Colors = {
   text: "black",
   board: {
     border: "black",

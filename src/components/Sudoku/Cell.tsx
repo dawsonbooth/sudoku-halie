@@ -8,6 +8,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import Notes from "./Notes";
+import * as Sudoku from "./types";
 
 interface PropTypes extends Sudoku.Cell {
   row: number;

@@ -3,19 +3,19 @@ import { useScreenDimensions } from "react-native-use-dimensions";
 import { useGame } from "./hooks";
 import defaultColors, { ColorsContext } from "./colors";
 import defaultSettings, { SettingsContext } from "./settings";
-import Game from "./Game";
 import Board from "./Board";
 import Controls from "./Controls";
 import { View } from "react-native";
+import { Game, Settings, Colors } from "./types";
 
 interface PropTypes {
-  board?: Sudoku.Game["board"];
-  onChange?: (board: Sudoku.Game["board"]) => void;
-  settings?: Sudoku.Settings;
-  colors?: Sudoku.Colors;
+  board?: Game["board"];
+  onChange?: (board: Game["board"]) => void;
+  settings?: Settings;
+  colors?: Colors;
 }
 
-const _Sudoku: React.FC<PropTypes> = ({
+const Sudoku: React.FC<PropTypes> = ({
   board = null,
   onChange = () => {},
   colors = defaultColors,
@@ -45,7 +45,7 @@ const _Sudoku: React.FC<PropTypes> = ({
       <SettingsContext.Provider value={settings}>
         <View style={{ height: "100%", width: "100%" }}>
           <Board
-            grid={game.board}
+            board={game.board}
             handleCellPress={handleCellPress}
             size={boardSize}
           />
@@ -64,4 +64,4 @@ const _Sudoku: React.FC<PropTypes> = ({
   );
 };
 
-export default _Sudoku;
+export default Sudoku;

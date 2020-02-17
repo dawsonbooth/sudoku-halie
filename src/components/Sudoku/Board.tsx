@@ -2,14 +2,15 @@ import React, { useContext } from "react";
 import { Grid, Row, Col } from "react-native-easy-grid";
 import Cell from "./Cell";
 import { ColorsContext } from "./colors";
+import * as Sudoku from "./types";
 
 interface PropTypes {
-  grid: Sudoku.Game["board"];
+  board: Sudoku.Game["board"];
   handleCellPress: Function;
   size: number;
 }
 
-const Board: React.FC<PropTypes> = ({ grid, handleCellPress, size }) => {
+const Board: React.FC<PropTypes> = ({ board, handleCellPress, size }) => {
   const colors = useContext(ColorsContext);
 
   return (
@@ -23,7 +24,7 @@ const Board: React.FC<PropTypes> = ({ grid, handleCellPress, size }) => {
         borderColor: colors.board.border
       }}
     >
-      {grid.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
+      {board.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
         <Row key={r}>
           {row.map((cell: Sudoku.Cell, c: Sudoku.Location["col"]) => (
             <Col key={c}>
