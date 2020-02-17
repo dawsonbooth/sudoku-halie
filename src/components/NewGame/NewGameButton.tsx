@@ -1,21 +1,13 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { strings } from "../../constants";
 import { Alert } from "react-native";
 import { Icon, TopNavigationAction } from "@ui-kitten/components";
+import { useGame } from "../../redux";
 
 const PencilIcon = style => <Icon {...style} name="edit" />;
 
-export default function NewGameButton() {
-  const dispatch = useDispatch();
-
-  const endGame = useCallback(
-    () =>
-      dispatch({
-        type: "END_GAME"
-      }),
-    [dispatch]
-  );
+const NewGameButton: React.FC = () => {
+  const { endGame } = useGame();
 
   return (
     <TopNavigationAction
@@ -39,4 +31,6 @@ export default function NewGameButton() {
       icon={PencilIcon}
     />
   );
-}
+};
+
+export default NewGameButton;
