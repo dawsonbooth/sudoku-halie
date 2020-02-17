@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { StyleSheet } from "react-native";
 import { Grid, Row, Col } from "react-native-easy-grid";
 import Cell from "./Cell";
 import { ColorsContext } from "./colors";
@@ -13,17 +14,18 @@ interface PropTypes {
 const Board: React.FC<PropTypes> = ({ board, handleCellPress, size }) => {
   const colors = useContext(ColorsContext);
 
+  const styles = StyleSheet.create({
+    grid: {
+      maxHeight: size,
+      maxWidth: size,
+      margin: 0.05 * size,
+      borderWidth: 2,
+      borderColor: colors.board.border
+    }
+  });
+
   return (
-    <Grid
-      style={{
-        maxHeight: size,
-        maxWidth: size,
-        backgroundColor: colors.board.border,
-        margin: 0.05 * size,
-        borderWidth: 2,
-        borderColor: colors.board.border
-      }}
-    >
+    <Grid style={styles.grid}>
       {board.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
         <Row key={r}>
           {row.map((cell: Sudoku.Cell, c: Sudoku.Location["col"]) => (
