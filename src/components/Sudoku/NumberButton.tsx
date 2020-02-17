@@ -1,6 +1,11 @@
 import React, { useContext } from "react";
 import { ColorsContext } from "./colors";
-import { Text, TouchableOpacity, GestureResponderEvent } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  GestureResponderEvent,
+  PixelRatio
+} from "react-native";
 import ProgressCircle from "react-native-progress-circle";
 
 interface PropTypes {
@@ -36,7 +41,7 @@ const NumberButton: React.FC<PropTypes> = ({
       ) : (
         <ProgressCircle
           percent={percent}
-          radius={radius}
+          radius={PixelRatio.roundToNearestPixel(radius)}
           borderWidth={radius / 4}
           color={
             percent < 100
