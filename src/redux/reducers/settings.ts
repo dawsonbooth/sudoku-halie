@@ -12,7 +12,10 @@ const initialState: State["settings"] = {
 function settings(state = initialState, action: Action) {
   switch (action.type) {
     case actions.UPDATE: // TODO: Use AsyncStorage logic in this update and in initialState
-      return action.settings;
+      return {
+        ...state,
+        ...action.settings
+      };
     default:
       return state;
   }
