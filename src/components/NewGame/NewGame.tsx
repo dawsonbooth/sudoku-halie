@@ -1,6 +1,6 @@
 import React from "react";
 import { strings } from "../../constants";
-import { Slider, View } from "react-native";
+import { View } from "react-native";
 import {
   Layout,
   Toggle,
@@ -11,6 +11,7 @@ import {
   Divider
 } from "@ui-kitten/components";
 import NewGameButton from "./NewGameButton";
+import Slider from "../Slider";
 import { useSettings, useGame } from "../../redux";
 
 const NewGame: React.FC & { Button: React.FC } = () => {
@@ -66,11 +67,7 @@ const NewGame: React.FC & { Button: React.FC } = () => {
           </Text>
         </View>
         <Slider
-          minimumValue={0}
-          maximumValue={1}
-          minimumTrackTintColor="#3466FF"
-          value={settings.sudoku.prefilledRatio}
-          onSlidingComplete={value =>
+          onComplete={value =>
             changeSettings(settings.sudoku, "prefilledRatio", value)
           }
         />
