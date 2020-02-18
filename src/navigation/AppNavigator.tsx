@@ -5,6 +5,7 @@ import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { mapping, dark, light } from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { useSettings } from "../redux";
+import { StatusBar } from "react-native";
 
 const Container = createAppContainer(
   createSwitchNavigator(
@@ -31,6 +32,7 @@ const AppNavigator: React.FC = () => {
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider mapping={mapping} theme={darkMode ? dark : light}>
+        <StatusBar barStyle={darkMode ? "light-content" : "dark-content"} />
         <Container />
       </ApplicationProvider>
     </>
