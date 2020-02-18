@@ -67,6 +67,7 @@ const NewGame: React.FC & { Button: React.FC } = () => {
           </Text>
         </View>
         <Slider
+          value={settings.sudoku.prefilledRatio}
           onComplete={value =>
             changeSettings(settings.sudoku, "prefilledRatio", value)
           }
