@@ -16,8 +16,8 @@ interface PropTypes {
 }
 
 const Sudoku: React.FC<PropTypes> = ({
-  board = null,
-  onChange = () => {},
+  board,
+  onChange,
   colors = defaultColors,
   settings = defaultSettings
 }) => {
@@ -30,9 +30,9 @@ const Sudoku: React.FC<PropTypes> = ({
     handleRevealButtonPress,
     handleNumberButtonPress
   } = useGame(onChange, () =>
-    board === null
-      ? Game.new(settings.degree, settings.prefilledRatio)
-      : Game.load(board)
+    board
+      ? Game.load(board)
+      : Game.new(settings.degree, settings.prefilledRatio)
   );
 
   const { height, width } = useScreenDimensions();
