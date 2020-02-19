@@ -164,12 +164,13 @@ export class Game {
   constructor(
     degree: Game["degree"],
     board: Game["board"],
+    selected: Game["selected"],
     conflicts: Game["conflicts"],
     progress: Game["progress"]
   ) {
     this.degree = degree;
     this.board = board;
-    this.selected = null;
+    this.selected = selected;
     this.conflicts = conflicts;
     this.progress = progress;
 
@@ -180,6 +181,8 @@ export class Game {
   static load(board: Game["board"]) {
     const degree = board.length;
 
+    let selected = null;
+
     const conflicts = new Conflicts();
 
     const progress = [...Array(degree + 1)].map(() => 0);
@@ -187,7 +190,7 @@ export class Game {
     const solution = [...Array(degree)].map((_, row: Location["row"]) =>
       [...Array(degree)].map((_, col: Location["col"]) => {
         const cell = board[row][col];
-        if (cell.isSelected) cell.isSelected = false;
+        if (cell.isSelected) selected = cell;
         if (cell.isConflict) {
           const cellConflicts = Conflicts.find(
             board,
@@ -207,7 +210,7 @@ export class Game {
 
     solvePuzzle(solution, degree);
 
-    return new this(degree, board, conflicts, progress);
+    return new this(degree, board, selected, conflicts, progress);
   }
 
   static new(
@@ -244,7 +247,7 @@ export class Game {
     for (let r of board)
       for (let cell of r) if (cell.value) progress[cell.value] += 1 / degree;
 
-    return new this(degree, board, conflicts, progress);
+    return new this(degree, board, null, conflicts, progress);
   }
 
   checkCompleted = (): void => {
