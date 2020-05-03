@@ -3,7 +3,6 @@
     "name": "Sudoku Halie",
     "slug": "sudoku-halie",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
