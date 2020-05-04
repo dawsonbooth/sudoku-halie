@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet } from "react-native";
-import { Grid, Row, Col } from "react-native-easy-grid";
+import { StyleSheet, View } from "react-native";
 import Cell from "./Cell";
 import { ColorsContext } from "./colors";
 import * as Sudoku from "./types";
@@ -16,32 +15,38 @@ const Board: React.FC<PropTypes> = ({ board, handleCellPress, size }) => {
 
   const styles = StyleSheet.create({
     grid: {
-      maxHeight: size,
-      maxWidth: size,
+      display: "flex",
+      flexDirection: "column",
+
+      height: size,
+      width: size,
       margin: 0.05 * size,
       borderWidth: 2,
-      borderColor: colors.board.border
-    }
+      borderColor: colors.board.border,
+    },
+    row: {
+      flex: 1,
+      flexDirection: "row",
+    },
   });
 
   return (
-    <Grid style={styles.grid}>
+    <View style={styles.grid}>
       {board.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
-        <Row key={r}>
+        <View key={r} style={styles.row}>
           {row.map((cell: Sudoku.Cell, c: Sudoku.Location["col"]) => (
-            <Col key={c}>
-              <Cell
-                row={r}
-                column={c}
-                {...cell}
-                onPress={() => handleCellPress({ row: r, col: c })}
-                boardSize={size}
-              />
-            </Col>
+            <Cell
+              key={c}
+              row={r}
+              column={c}
+              {...cell}
+              onPress={() => handleCellPress({ row: r, col: c })}
+              boardSize={size}
+            />
           ))}
-        </Row>
+        </View>
       ))}
-    </Grid>
+    </View>
   );
 };
 
