@@ -1,0 +1,4 @@
+- [ ] Design Home screen
+- [ ] Use useTheme hook for theme colors in Game screen
+- [ ] Use sudoku-tools
+- [ ] Add undo and redo buttons to game
