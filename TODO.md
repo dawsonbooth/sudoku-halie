@@ -2,3 +2,4 @@
 - [ ] Use useTheme hook for theme colors in Game screen
 - [ ] Use sudoku-tools
 - [ ] Add undo and redo buttons to game
+- [ ] 3-way dark mode setting (system, dark, light)
