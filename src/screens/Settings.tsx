@@ -1,10 +1,10 @@
 import React from "react";
-import { View } from "react-native";
-import { SafeAreaView } from "react-navigation";
+import { View, SafeAreaView } from "react-native";
 import { Layout, Text, Toggle, ListItem, List } from "@ui-kitten/components";
 import Header from "../components/Header";
 import { useSettings } from "../redux";
 import i18n from "i18n-js";
+import { BackButton } from "../navigation/buttons";
 
 interface PropTypes {
   navigation: any;
@@ -86,7 +86,7 @@ const Settings: React.FC<PropTypes> = ({ navigation }) => {
   return (
     <Layout>
       <SafeAreaView style={{ height: "100%", width: "100%" }}>
-        <Header title={strings.title} navigation={navigation} />
+        <Header title={strings.title} accessoryLeft={() => <BackButton />} />
         <Layout>
           <View style={{ padding: 10 }}>
             <Text category="h6">{strings.app.header}</Text>

@@ -17,9 +17,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "CFBundleAllowMixedLocalizations": true
+      "supportsTablet": true
     },
     "description": ""
+  },
+  "ios": {
+    "CFBundleAllowMixedLocalizations": true
   }
 }

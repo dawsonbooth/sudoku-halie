@@ -11,14 +11,14 @@
     "title": "Sudoku Halie"
   },
   "game": {
-    "title": "Game",
-    "newGame": {
-      "title": "New Game",
-      "easy": "Easy",
-      "medium": "Medium",
-      "hard": "Hard",
-      "button": "Start Game"
-    }
+    "title": "Game"
+  },
+  "newGame": {
+    "title": "New Game",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "button": "Start Game"
   },
   "settings": {
     "title": "Settings",

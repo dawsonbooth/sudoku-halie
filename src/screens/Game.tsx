@@ -1,11 +1,11 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
-import NewGame from "./NewGame";
-import Header from "../../components/Header";
-import Sudoku from "../../sudoku";
+import Header from "../components/Header";
+import Sudoku from "../sudoku";
 import { Layout } from "@ui-kitten/components";
-import { useGame, useSettings } from "../../redux";
+import { useGame, useSettings } from "../redux";
 import i18n from "i18n-js";
+import { NewGameButton, SettingsButton } from "../navigation/buttons";
 
 const lightColors = {
   text: "#101426",
@@ -58,7 +58,7 @@ interface PropTypes {
 }
 
 const Game: React.FC<PropTypes> = ({ navigation }) => {
-  const { game, saveGame } = useGame();
+  const { /*game,*/ saveGame } = useGame();
   const { settings } = useSettings();
 
   const light = !settings.app.darkMode;
@@ -68,20 +68,16 @@ const Game: React.FC<PropTypes> = ({ navigation }) => {
       <SafeAreaView style={{ height: "100%", width: "100%" }}>
         <Header
           title={i18n.t("game.title")}
-          accessoryRight={() => <NewGame.Button />}
-          navigation={navigation}
+          accessoryLeft={() => <SettingsButton />}
+          accessoryRight={() => <NewGameButton />}
         />
         <Layout>
-          {game.started ? (
-            <Sudoku
-              // board={game.board}
-              onChange={saveGame}
-              settings={settings.sudoku}
-              colors={light ? lightColors : darkColors}
-            />
-          ) : (
-            <NewGame />
-          )}
+          <Sudoku
+            // board={game.board}
+            onChange={saveGame}
+            settings={settings.sudoku}
+            colors={light ? lightColors : darkColors}
+          />
         </Layout>
       </SafeAreaView>
     </Layout>
