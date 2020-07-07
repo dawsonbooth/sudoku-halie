@@ -1,4 +1,4 @@
-import * as Sudoku from "../components/Sudoku";
+import * as Sudoku from "../sudoku";
 
 export interface State {
   game: Game;

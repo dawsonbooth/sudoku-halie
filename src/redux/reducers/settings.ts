@@ -1,6 +1,6 @@
 import { settings as actions } from "../actions";
 import { State, Action } from "../types";
-import { settings as SudokuSettings } from "../../components/Sudoku";
+import { settings as SudokuSettings } from "../../sudoku";
 
 const initialState: State["settings"] = {
   sudoku: SudokuSettings,
@@ -11,7 +11,7 @@ const initialState: State["settings"] = {
 
 function settings(state = initialState, action: Action) {
   switch (action.type) {
-    case actions.UPDATE: // TODO: Use AsyncStorage logic in this update and in initialState
+    case actions.UPDATE:
       return {
         ...state,
         ...action.settings

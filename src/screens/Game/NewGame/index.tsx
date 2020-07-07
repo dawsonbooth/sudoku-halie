@@ -1,5 +1,4 @@
 import React from "react";
-import { strings } from "../../constants";
 import { View } from "react-native";
 import {
   Layout,
@@ -8,21 +7,26 @@ import {
   Button,
   ListItem,
   List,
-  Divider
 } from "@ui-kitten/components";
 import NewGameButton from "./NewGameButton";
-import Slider from "../Slider";
-import { useSettings, useGame } from "../../redux";
+import Slider from "../../../components/Slider";
+import { useSettings, useGame } from "../../../redux";
+import i18n from "i18n-js";
 
 const NewGame: React.FC & { Button: React.FC } = () => {
   const { settings, changeSettings } = useSettings();
   const { startGame } = useGame();
 
+  const difficulties = [
+    i18n.t("game.newGame.easy"),
+    i18n.t("game.newGame.medium"),
+    i18n.t("game.newGame.hard"),
+  ];
+
   const difficulty =
-    strings.game.newGame.difficulties[
+    difficulties[
       Math.round(
-        (1 - settings.sudoku.prefilledRatio) *
-          (strings.game.newGame.difficulties.length - 1)
+        (1 - settings.sudoku.prefilledRatio) * (difficulties.length - 1)
       )
     ];
 
@@ -31,25 +35,19 @@ const NewGame: React.FC & { Button: React.FC } = () => {
     "showCompleted",
     "showPeers",
     "showEqual",
-    "showConflicts"
+    "showConflicts",
   ];
-
-  const renderItemAccessory = (style, index) => {
-    const item = data[index];
-
-    return (
-      <Toggle
-        style={style}
-        checked={settings.sudoku[item]}
-        onChange={value => changeSettings(settings.sudoku, item, value)}
-      />
-    );
-  };
 
   const renderItem = ({ item }) => (
     <ListItem
-      title={strings.settings.sudoku[item]}
-      accessory={renderItemAccessory}
+      title={i18n.t(`settings.sudoku.items.${item}`)}
+      accessoryRight={(evaProps) => (
+        <Toggle
+          {...evaProps}
+          checked={settings.sudoku[item]}
+          onChange={(value) => changeSettings(settings.sudoku, item, value)}
+        />
+      )}
       onPress={() =>
         changeSettings(settings.sudoku, item, !settings.sudoku[item])
       }
@@ -68,15 +66,14 @@ const NewGame: React.FC & { Button: React.FC } = () => {
         </View>
         <Slider
           value={settings.sudoku.prefilledRatio}
-          onComplete={value =>
+          onComplete={(value) =>
             changeSettings(settings.sudoku, "prefilledRatio", value)
           }
         />
-        <Divider />
         <List data={data} renderItem={renderItem} scrollEnabled={false} />
       </View>
       <Button onPress={startGame} style={{ margin: 10 }}>
-        {strings.game.newGame.button}
+        {i18n.t("game.newGame.button")}
       </Button>
     </Layout>
   );

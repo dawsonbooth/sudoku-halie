@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import Cell from "./Cell";
-import { ColorsContext } from "./colors";
-import * as Sudoku from "./types";
+import { ColorsContext } from "../colors";
+import * as Sudoku from "../types";
 
 interface PropTypes {
   board: Sudoku.Game["board"];

@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Alert } from "react-native";
+import * as Sudoku from "./types";
 import _ from "lodash";
 
 export const useGame = (
   onChange: (board: Sudoku.Game["board"]) => void,
   initial: Sudoku.Game
 ) => {
-  const [game, setGame] = useState(initial);
+  const [game, setGame] = useState(() => initial);
   const [notesMode, setNotesMode] = useState(false);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export const useGame = (
 
   const updateGame = (game: Sudoku.Game) => {
     onChange(game.board);
+    // setGame(Object.defineProperties(game, {}));
     setGame(_.clone(game)); // necessary because of Object.is comparison
   };
 
@@ -39,15 +41,15 @@ export const useGame = (
       [
         {
           text: "Cancel",
-          style: "cancel"
+          style: "cancel",
         },
         {
           text: "OK",
           onPress: () => {
             game.reveal();
             updateGame(game);
-          }
-        }
+          },
+        },
       ],
       { cancelable: false }
     );
@@ -65,6 +67,6 @@ export const useGame = (
     handleNotesButtonPress,
     handleEraserButtonPress,
     handleRevealButtonPress,
-    handleNumberButtonPress
+    handleNumberButtonPress,
   };
 };

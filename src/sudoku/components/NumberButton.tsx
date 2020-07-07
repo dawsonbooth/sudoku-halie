@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ColorsContext } from "./colors";
+import { ColorsContext } from "../colors";
 import {
   Text,
   TouchableOpacity,

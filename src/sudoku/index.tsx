@@ -1,4 +1,4 @@
-import Sudoku from "./Sudoku";
+import Sudoku from "./components/Sudoku";
 import colors from "./colors";
 import settings from "./settings";
 

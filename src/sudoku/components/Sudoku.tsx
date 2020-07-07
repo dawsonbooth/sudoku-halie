@@ -1,12 +1,12 @@
 import React from "react";
 import { useScreenDimensions } from "react-native-use-dimensions";
-import { useGame } from "./hooks";
-import defaultColors, { ColorsContext } from "./colors";
-import defaultSettings, { SettingsContext } from "./settings";
+import { useGame } from "../hooks";
+import defaultColors, { ColorsContext } from "../colors";
+import defaultSettings, { SettingsContext } from "../settings";
 import Board from "./Board";
 import Controls from "./Controls";
 import { View } from "react-native";
-import { Game, Settings, Colors } from "./types";
+import { Game, Settings, Colors } from "../types";
 
 interface PropTypes {
   board?: Game["board"];
@@ -15,11 +15,11 @@ interface PropTypes {
   colors?: Colors;
 }
 
-const Sudoku: React.FC<PropTypes> = ({
+const Sudoku: React.FC<PropTypes> = ({ // TODO: Game prop, game save/load, access Game class outside of Sudoku?
   board,
   onChange,
   colors = defaultColors,
-  settings = defaultSettings
+  settings = defaultSettings,
 }) => {
   const {
     game,
@@ -28,8 +28,9 @@ const Sudoku: React.FC<PropTypes> = ({
     handleNotesButtonPress,
     handleEraserButtonPress,
     handleRevealButtonPress,
-    handleNumberButtonPress
-  } = useGame(onChange, () =>
+    handleNumberButtonPress,
+  } = useGame(
+    onChange,
     board
       ? Game.load(board)
       : Game.new(settings.degree, settings.prefilledRatio)

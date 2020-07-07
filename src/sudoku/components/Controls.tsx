@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { SettingsContext } from "./settings";
-import { ColorsContext } from "./colors";
+import { SettingsContext } from "../settings";
+import { ColorsContext } from "../colors";
 import { TouchableOpacity, View } from "react-native";
 import { Icon } from "@ui-kitten/components";
 import NumberButton from "./NumberButton";

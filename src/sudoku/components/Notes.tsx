@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { SettingsContext } from "./settings";
-import { ColorsContext } from "./colors";
-import { Cell } from "./types";
+import { SettingsContext } from "../settings";
+import { ColorsContext } from "../colors";
+import { Cell } from "../types";
 
 interface PropTypes {
   notes: Cell["notes"];

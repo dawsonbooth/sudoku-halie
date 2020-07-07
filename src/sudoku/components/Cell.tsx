@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { ColorsContext } from "./colors";
-import { SettingsContext } from "./settings";
+import { ColorsContext } from "../colors";
+import { SettingsContext } from "../settings";
 import {
   GestureResponderEvent,
   StyleSheet,
@@ -8,7 +8,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import Notes from "./Notes";
-import * as Sudoku from "./types";
+import * as Sudoku from "../types";
 
 interface PropTypes extends Sudoku.Cell {
   row: number;
