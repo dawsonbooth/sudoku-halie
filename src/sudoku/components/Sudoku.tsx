@@ -15,7 +15,8 @@ interface PropTypes {
   colors?: Colors;
 }
 
-const Sudoku: React.FC<PropTypes> = ({ // TODO: Game prop, game save/load, access Game class outside of Sudoku?
+const Sudoku: React.FC<PropTypes> = ({
+  // TODO: Game prop, game save/load, access Game class outside of Sudoku?
   board,
   onChange,
   colors = defaultColors,
@@ -37,7 +38,7 @@ const Sudoku: React.FC<PropTypes> = ({ // TODO: Game prop, game save/load, acces
   );
 
   const { height, width } = useScreenDimensions();
-  const boardSize = Math.min(height * 0.5, width);
+  const boardSize = Math.min(height * 0.5, width * 0.9);
 
   const controlsSize = width;
 

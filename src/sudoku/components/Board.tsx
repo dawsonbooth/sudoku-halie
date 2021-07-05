@@ -19,7 +19,6 @@ const Board: React.FC<PropTypes> = ({ board, handleCellPress, size }) => {
       flexDirection: "column",
 
       height: size,
-      width: size,
       margin: 0.05 * size,
       borderWidth: 2,
       borderColor: colors.board.border,
