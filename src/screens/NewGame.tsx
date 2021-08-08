@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, SafeAreaView } from "react-native";
 import {
   Layout,
@@ -22,6 +22,10 @@ const NewGame: React.FC<PropTypes> = ({ navigation }) => {
   const { settings, changeSettings } = useSettings();
   const { startGame } = useGame();
 
+  const [prefilledRatio, setPrefilledRatio] = useState<number>(
+    settings.sudoku.prefilledRatio
+  );
+
   const difficulties = [
     i18n.t("newGame.easy"),
     i18n.t("newGame.medium"),
@@ -29,11 +33,7 @@ const NewGame: React.FC<PropTypes> = ({ navigation }) => {
   ];
 
   const difficulty =
-    difficulties[
-      Math.round(
-        (1 - settings.sudoku.prefilledRatio) * (difficulties.length - 1)
-      )
-    ];
+    difficulties[Math.round((1 - prefilledRatio) * (difficulties.length - 1))];
 
   const data = [
     "dotNotes",
@@ -74,11 +74,12 @@ const NewGame: React.FC<PropTypes> = ({ navigation }) => {
               <Text>{`Difficulty: ${difficulty}`}</Text>
               <Text>
                 Prefilled:
-                {` ${Math.round(settings.sudoku.prefilledRatio * 100)}%`}
+                {` ${Math.round(prefilledRatio * 100)}%`}
               </Text>
             </View>
             <Slider
               value={settings.sudoku.prefilledRatio}
+              onChange={setPrefilledRatio}
               onComplete={(value) =>
                 changeSettings(settings.sudoku, "prefilledRatio", value)
               }
