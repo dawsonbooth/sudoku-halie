@@ -21,7 +21,10 @@ const AppNavigator: React.FC = () => {
       <ApplicationProvider mapping={mapping} theme={darkMode ? dark : light}>
         <StatusBar barStyle={darkMode ? "light-content" : "dark-content"} />
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home" headerMode="none">
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{ headerShown: false }}
+          >
             <Stack.Screen name="Home" component={screens.Home} />
             <Stack.Screen name="Game" component={screens.Game} />
             <Stack.Screen name="NewGame" component={screens.NewGame} />
