@@ -13,9 +13,11 @@ import { useSettings, useGame } from "../redux";
 import i18n from "i18n-js";
 import Header from "../components/Header";
 import { SettingsButton } from "../navigation/buttons";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackParamList } from "../navigation/AppNavigator";
 
 interface NewGameProps {
-  navigation: any;
+  navigation: StackNavigationProp<StackParamList>;
 }
 
 const NewGame: React.FC<NewGameProps> = ({ navigation }) => {

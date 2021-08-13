@@ -22,7 +22,7 @@ const Controls: React.FC<ControlsProps> = ({
   handleNotesButtonPress,
   handleEraserButtonPress,
   handleRevealButtonPress,
-  handleNumberButtonPress
+  handleNumberButtonPress,
 }) => {
   const settings = useContext(SettingsContext);
   const colors = useContext(ColorsContext);
@@ -33,7 +33,7 @@ const Controls: React.FC<ControlsProps> = ({
         style={{
           flexDirection: "row",
           justifyContent: "center",
-          margin: size * 0.02
+          margin: size * 0.02,
         }}
       >
         <TouchableOpacity onPress={handleNotesButtonPress}>
@@ -66,7 +66,7 @@ const Controls: React.FC<ControlsProps> = ({
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "center",
-          margin: size * 0.02
+          margin: size * 0.02,
         }}
       >
         {[...Array(settings.degree)].map((_, i) => {

@@ -6,13 +6,21 @@ import _ from "lodash";
 export const useGame = (
   onChange: (board: Sudoku.Game["board"]) => void,
   initial: Sudoku.Game
-) => {
+): {
+  game: Sudoku.Game;
+  notesMode: boolean;
+  handleCellPress: (location: Sudoku.Location) => void;
+  handleNotesButtonPress: () => void;
+  handleEraserButtonPress: () => void;
+  handleRevealButtonPress: () => void;
+  handleNumberButtonPress: (number: number) => void;
+} => {
   const [game, setGame] = useState(() => initial);
   const [notesMode, setNotesMode] = useState(false);
 
   useEffect(() => {
     onChange(game.board);
-  }, []);
+  }, [game.board, onChange]);
 
   const updateGame = (game: Sudoku.Game) => {
     onChange(game.board);

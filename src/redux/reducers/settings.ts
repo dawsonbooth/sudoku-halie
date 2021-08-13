@@ -5,16 +5,16 @@ import { settings as SudokuSettings } from "../../sudoku";
 const initialState: State["settings"] = {
   sudoku: SudokuSettings,
   app: {
-    darkMode: false
-  }
+    darkMode: false,
+  },
 };
 
-function settings(state = initialState, action: Action) {
+function settings(state = initialState, action: Action): State["settings"] {
   switch (action.type) {
     case actions.UPDATE:
       return {
         ...state,
-        ...action.settings
+        ...action.settings,
       };
     default:
       return state;

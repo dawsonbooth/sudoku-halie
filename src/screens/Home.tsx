@@ -2,9 +2,11 @@ import React from "react";
 import { SafeAreaView } from "react-native";
 import { Layout, Button } from "@ui-kitten/components";
 import { useGame } from "../redux";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackParamList } from "../navigation/AppNavigator";
 
 interface HomeProps {
-  navigation: any;
+  navigation: StackNavigationProp<StackParamList>;
 }
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {

@@ -4,7 +4,7 @@ import {
   Text,
   TouchableOpacity,
   GestureResponderEvent,
-  PixelRatio
+  PixelRatio,
 } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
 
@@ -21,7 +21,7 @@ const NumberButton: React.FC<NumberButtonProps> = ({
   percent,
   radius,
   notesMode,
-  onPress
+  onPress,
 }) => {
   const colors = useContext(ColorsContext);
 
@@ -33,7 +33,7 @@ const NumberButton: React.FC<NumberButtonProps> = ({
           style={{
             marginHorizontal: radius * 0.4,
             fontSize: radius * 2,
-            color: colors.text
+            color: colors.text,
           }}
         >
           {number}
@@ -55,7 +55,7 @@ const NumberButton: React.FC<NumberButtonProps> = ({
             allowFontScaling={false}
             style={{
               fontSize: radius * 1.25,
-              color: colors.text
+              color: colors.text,
             }}
           >
             {number}

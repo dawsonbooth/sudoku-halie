@@ -4,6 +4,8 @@ import { TopNavigationAction, Icon } from "@ui-kitten/components";
 import { useGame } from "../redux";
 import i18n from "i18n-js";
 import { useNavigation } from "@react-navigation/native";
+import { StackParamList } from "./AppNavigator";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 const BackIcon: React.FC<Partial<ImageProps>> = (style) => (
   <Icon {...style} name="arrow-ios-back" />
@@ -25,7 +27,7 @@ export const BackButton: React.FC = () => {
 
 export const NewGameButton: React.FC = () => {
   const { endGame } = useGame();
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<StackNavigationProp<StackParamList>>();
 
   return (
     <TopNavigationAction
@@ -55,7 +57,7 @@ export const NewGameButton: React.FC = () => {
 };
 
 export const SettingsButton: React.FC = () => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<StackNavigationProp<StackParamList>>();
 
   return (
     <TopNavigationAction

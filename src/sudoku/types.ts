@@ -26,7 +26,7 @@ function findConflicts(
   degree: Settings["degree"]
 ): Array<Cell> {
   const conflicts = findPeers(board, { row, col }, degree).filter(
-    cell => cell.value == value
+    (cell) => cell.value == value
   );
   return conflicts;
 }
@@ -39,7 +39,7 @@ function solvePuzzle(
   for (let r = 0; r < degree; r++) {
     for (let c = 0; c < degree; c++) {
       if (board[r][c].value == null) {
-        for (let value of values) {
+        for (const value of values) {
           if (
             findConflicts(board, { row: r, col: c }, value, degree).length == 0
           ) {
@@ -86,10 +86,10 @@ export class Conflicts {
     { row, col }: Location,
     value: Cell["value"],
     degree: Settings["degree"],
-    callback?: (cell: Cell) => {}
+    callback?: (cell: Cell) => void
   ): Array<Cell> {
     const conflicts = this.potential(board, { row, col }, degree).filter(
-      cell => cell.value == value
+      (cell) => cell.value == value
     );
     if (callback) conflicts.forEach(callback);
     return conflicts;
@@ -114,7 +114,7 @@ export class Conflicts {
     return peers;
   }
 
-  add(source: Cell, leaves: Cell[]) {
+  add(source: Cell, leaves: Cell[]): void {
     const si = this.sources.indexOf(source);
     if (si >= 0) {
       this.outer[si] = leaves;
@@ -127,10 +127,10 @@ export class Conflicts {
     this.outer.push(leaves);
   }
 
-  update(board: Game["board"], degree: Settings["degree"]) {
+  update(board: Game["board"], degree: Settings["degree"]): void {
     const newConflicts = new Conflicts();
 
-    this.sources.forEach((source, i) => {
+    this.sources.forEach((source) => {
       if (source.value === null) return;
 
       const leaves = Conflicts.find(
@@ -149,7 +149,7 @@ export class Conflicts {
     this.outer = newConflicts.outer;
   }
 
-  toSet() {
+  toSet(): Set<Cell> {
     return new Set<Cell>([].concat(this.sources, ...this.outer));
   }
 }
@@ -178,7 +178,7 @@ export class Game {
     this.checkConflicts();
   }
 
-  static load(board: Game["board"]) {
+  static load(board: Game["board"]): Game {
     const degree = board.length;
 
     let selected = null;
@@ -203,7 +203,7 @@ export class Game {
         progress[board[row][col].value] += 1 / degree;
         return {
           value: null,
-          location: { row, col }
+          location: { row, col },
         };
       })
     );
@@ -216,7 +216,7 @@ export class Game {
   static new(
     degree: Settings["degree"],
     prefilledRatio: Settings["prefilledRatio"]
-  ) {
+  ): Game {
     if (!(degree >= 0 && Math.sqrt(degree) % 1 === 0))
       throw TypeError("degree setting must be a perfect square");
     if (prefilledRatio > 1 || prefilledRatio < 0)
@@ -233,7 +233,7 @@ export class Game {
         isEqual: false,
         isConflict: false,
         solution: null,
-        location: { row, col }
+        location: { row, col },
       }))
     );
 
@@ -244,15 +244,15 @@ export class Game {
     solvePuzzle(board, degree);
 
     prefill(board, prefilledRatio, degree);
-    for (let r of board)
-      for (let cell of r) if (cell.value) progress[cell.value] += 1 / degree;
+    for (const r of board)
+      for (const cell of r) if (cell.value) progress[cell.value] += 1 / degree;
 
     return new this(degree, board, null, conflicts, progress);
   }
 
   checkCompleted = (): void => {
-    this.board.forEach(row =>
-      row.forEach(cell => {
+    this.board.forEach((row) =>
+      row.forEach((cell) => {
         cell.isCompleted = this.progress[cell.value] >= 1;
       })
     );
@@ -262,8 +262,8 @@ export class Game {
     this.conflicts.update(this.board, this.degree);
 
     const conflictsSet = this.conflicts.toSet();
-    this.board.forEach(row =>
-      row.forEach(cell => {
+    this.board.forEach((row) =>
+      row.forEach((cell) => {
         cell.isConflict = cell.value !== null && conflictsSet.has(cell);
       })
     );
@@ -276,7 +276,7 @@ export class Game {
         this.selected.location,
         this.degree
       );
-      for (let c of peers) {
+      for (const c of peers) {
         c.isPeer = true;
       }
     }
@@ -284,8 +284,8 @@ export class Game {
 
   flagEquals = (): void => {
     if (this.selected) {
-      this.board.forEach(row =>
-        row.forEach(cell => {
+      this.board.forEach((row) =>
+        row.forEach((cell) => {
           cell.isEqual =
             this.selected.value !== null && this.selected.value === cell.value;
         })
@@ -303,7 +303,7 @@ export class Game {
       );
       if (cellConflicts.length > 0) {
         this.selected.isConflict = true;
-        cellConflicts.forEach(cell => {
+        cellConflicts.forEach((cell) => {
           cell.isConflict = true;
         });
         this.conflicts.add(this.selected, cellConflicts);
@@ -312,26 +312,26 @@ export class Game {
   };
 
   unflagEquals = (): void => {
-    this.board.forEach(row =>
-      row.forEach(cell => {
+    this.board.forEach((row) =>
+      row.forEach((cell) => {
         cell.isEqual = false;
       })
     );
   };
 
   unflagPeers = (): void => {
-    this.board.forEach(row =>
-      row.forEach(cell => {
+    this.board.forEach((row) =>
+      row.forEach((cell) => {
         cell.isPeer = false;
       })
     );
   };
 
-  increaseProgress = (number: number) => {
+  increaseProgress = (number: number): void => {
     this.progress[number] += 1 / this.degree;
   };
 
-  decreaseProgress = (number: number) => {
+  decreaseProgress = (number: number): void => {
     this.progress[number] -= 1 / this.degree;
   };
 

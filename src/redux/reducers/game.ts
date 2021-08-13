@@ -3,32 +3,32 @@ import { State, Action } from "../types";
 
 const initialState: State["game"] = {
   started: false,
-  board: null
+  board: null,
 };
 
-function game(state = initialState, action: Action) {
+function game(state = initialState, action: Action): State["game"] {
   switch (action.type) {
     case actions.START:
       return {
         ...state,
         ...{
-          started: true
-        }
+          started: true,
+        },
       };
     case actions.END:
       return {
         ...state,
         ...{
           board: null,
-          started: false
-        }
+          started: false,
+        },
       };
     case actions.SAVE:
       return {
         ...state,
         ...{
-          board: action.board
-        }
+          board: action.board,
+        },
       };
     default:
       return state;

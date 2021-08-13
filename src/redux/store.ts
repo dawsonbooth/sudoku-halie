@@ -11,7 +11,7 @@ declare global {
 
 const preloadedState: State = {
   game: undefined,
-  settings: undefined
+  settings: undefined,
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

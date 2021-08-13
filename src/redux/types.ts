@@ -18,7 +18,7 @@ export interface Settings {
 }
 
 export interface Action {
-  type: String;
+  type: string;
   board?: Sudoku.Game["board"];
   settings?: Sudoku.Settings;
 }

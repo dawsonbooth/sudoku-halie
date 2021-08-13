@@ -6,8 +6,10 @@ import { Layout, useTheme } from "@ui-kitten/components";
 import { useGame, useSettings } from "../redux";
 import i18n from "i18n-js";
 import { NewGameButton, SettingsButton } from "../navigation/buttons";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackParamList } from "../navigation/AppNavigator";
 
-const colors = (darkMode: Boolean, theme: Record<string, string>) => {
+const colors = (darkMode: boolean, theme: Record<string, string>) => {
   if (darkMode) {
     return {
       text: theme["text-basic-color"],
@@ -57,10 +59,10 @@ const colors = (darkMode: Boolean, theme: Record<string, string>) => {
 };
 
 interface GameProps {
-  navigation: any;
+  navigation: StackNavigationProp<StackParamList>;
 }
 
-const Game: React.FC<GameProps> = ({ navigation }) => {
+const Game: React.FC<GameProps> = () => {
   const { /*game,*/ saveGame } = useGame();
   const { settings } = useSettings();
 

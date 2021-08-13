@@ -6,7 +6,7 @@ import * as Sudoku from "../types";
 
 interface BoardProps {
   board: Sudoku.Game["board"];
-  handleCellPress: Function;
+  handleCellPress: ({ row, col }: Sudoku.Location) => void;
   size: number;
 }
 

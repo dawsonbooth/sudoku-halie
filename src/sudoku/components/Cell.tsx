@@ -5,7 +5,7 @@ import {
   GestureResponderEvent,
   StyleSheet,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import Notes from "./Notes";
 import * as Sudoku from "../types";
@@ -29,7 +29,7 @@ const Cell: React.FC<CellProps> = ({
   isEqual,
   isConflict,
   onPress,
-  boardSize
+  boardSize,
 }) => {
   const colors = useContext(ColorsContext);
   const settings = useContext(SettingsContext);
@@ -53,13 +53,13 @@ const Cell: React.FC<CellProps> = ({
       borderRightWidth: (column + 1) % Math.sqrt(settings.degree) == 0 ? 2 : 1,
       borderColor: colors.board.border,
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
     },
     text: {
       color: colors.text,
       fontSize: 0.75 * (boardSize / settings.degree),
-      fontWeight: isPrefilled ? "bold" : "normal"
-    }
+      fontWeight: isPrefilled ? "bold" : "normal",
+    },
   });
 
   return (

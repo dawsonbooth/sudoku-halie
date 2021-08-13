@@ -8,7 +8,14 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { useSettings } from "../redux";
 import { StatusBar } from "react-native";
 
-const Stack = createStackNavigator();
+export type StackParamList = {
+  Home: undefined;
+  Game: undefined;
+  NewGame: undefined;
+  Settings: undefined;
+};
+
+const Stack = createStackNavigator<StackParamList>();
 
 const AppNavigator: React.FC = () => {
   const { settings } = useSettings();

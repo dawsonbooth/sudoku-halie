@@ -5,12 +5,14 @@ import Header from "../components/Header";
 import { useSettings } from "../redux";
 import i18n from "i18n-js";
 import { BackButton } from "../navigation/buttons";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackParamList } from "../navigation/AppNavigator";
 
 interface SettingsProps {
-  navigation: any;
+  navigation: StackNavigationProp<StackParamList>;
 }
 
-const Settings: React.FC<SettingsProps> = ({ navigation }) => {
+const Settings: React.FC<SettingsProps> = () => {
   const strings = {
     title: i18n.t("settings.title"),
     app: {
