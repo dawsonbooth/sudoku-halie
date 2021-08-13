@@ -1,14 +1,14 @@
 import React from "react";
 import _Slider from "@react-native-community/slider";
 
-interface PropTypes {
+interface SliderProps {
   value?: number;
   color?: string;
   onChange?: (value: number) => void;
   onComplete?: (value: number) => void;
 }
 
-const Slider: React.FC<PropTypes> = ({
+const Slider: React.FC<SliderProps> = ({
   value = 0,
   color = "#3466FF",
   onChange,

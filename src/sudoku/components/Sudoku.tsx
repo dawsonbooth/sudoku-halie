@@ -8,14 +8,14 @@ import Controls from "./Controls";
 import { View } from "react-native";
 import { Game, Settings, Colors } from "../types";
 
-interface PropTypes {
+interface SudokuProps {
   board?: Game["board"];
   onChange?: (board: Game["board"]) => void;
   settings?: Settings;
   colors?: Colors;
 }
 
-const Sudoku: React.FC<PropTypes> = ({
+const Sudoku: React.FC<SudokuProps> = ({
   // TODO: Game prop, game save/load, access Game class outside of Sudoku?
   board,
   onChange,

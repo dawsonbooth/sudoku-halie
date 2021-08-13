@@ -5,7 +5,7 @@ import { TouchableOpacity, View } from "react-native";
 import { Icon } from "@ui-kitten/components";
 import NumberButton from "./NumberButton";
 
-interface PropTypes {
+interface ControlsProps {
   progress: number[];
   size: number;
   notesMode: boolean;
@@ -15,7 +15,7 @@ interface PropTypes {
   handleNumberButtonPress: (number: number) => void;
 }
 
-const Controls: React.FC<PropTypes> = ({
+const Controls: React.FC<ControlsProps> = ({
   progress,
   size,
   notesMode,

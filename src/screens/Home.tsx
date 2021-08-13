@@ -3,11 +3,11 @@ import { SafeAreaView } from "react-native";
 import { Layout, Button } from "@ui-kitten/components";
 import { useGame } from "../redux";
 
-interface PropTypes {
+interface HomeProps {
   navigation: any;
 }
 
-const Home: React.FC<PropTypes> = ({ navigation }) => {
+const Home: React.FC<HomeProps> = ({ navigation }) => {
   const { game } = useGame();
 
   return (

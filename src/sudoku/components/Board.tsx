@@ -4,13 +4,13 @@ import Cell from "./Cell";
 import { ColorsContext } from "../colors";
 import * as Sudoku from "../types";
 
-interface PropTypes {
+interface BoardProps {
   board: Sudoku.Game["board"];
   handleCellPress: Function;
   size: number;
 }
 
-const Board: React.FC<PropTypes> = ({ board, handleCellPress, size }) => {
+const Board: React.FC<BoardProps> = ({ board, handleCellPress, size }) => {
   const colors = useContext(ColorsContext);
 
   const styles = StyleSheet.create({

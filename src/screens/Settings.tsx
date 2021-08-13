@@ -6,11 +6,11 @@ import { useSettings } from "../redux";
 import i18n from "i18n-js";
 import { BackButton } from "../navigation/buttons";
 
-interface PropTypes {
+interface SettingsProps {
   navigation: any;
 }
 
-const Settings: React.FC<PropTypes> = ({ navigation }) => {
+const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   const strings = {
     title: i18n.t("settings.title"),
     app: {

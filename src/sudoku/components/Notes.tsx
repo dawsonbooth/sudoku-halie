@@ -4,12 +4,12 @@ import { SettingsContext } from "../settings";
 import { ColorsContext } from "../colors";
 import { Cell } from "../types";
 
-interface PropTypes {
+interface NotesProps {
   notes: Cell["notes"];
   size: number;
 }
 
-const Notes: React.FC<PropTypes> = ({ notes, size }) => {
+const Notes: React.FC<NotesProps> = ({ notes, size }) => {
   const settings = useContext(SettingsContext);
   const colors = useContext(ColorsContext);
 

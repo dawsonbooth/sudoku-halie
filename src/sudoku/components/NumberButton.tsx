@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
 
-interface PropTypes {
+interface NumberButtonProps {
   number: number;
   percent: number;
   radius: number;
@@ -16,7 +16,7 @@ interface PropTypes {
   onPress: (event: GestureResponderEvent) => void;
 }
 
-const NumberButton: React.FC<PropTypes> = ({
+const NumberButton: React.FC<NumberButtonProps> = ({
   number,
   percent,
   radius,

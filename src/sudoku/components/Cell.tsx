@@ -10,14 +10,14 @@ import {
 import Notes from "./Notes";
 import * as Sudoku from "../types";
 
-interface PropTypes extends Sudoku.Cell {
+interface CellProps extends Sudoku.Cell {
   row: number;
   column: number;
   onPress: (event: GestureResponderEvent) => void;
   boardSize: number;
 }
 
-const Cell: React.FC<PropTypes> = ({
+const Cell: React.FC<CellProps> = ({
   row,
   column,
   value,

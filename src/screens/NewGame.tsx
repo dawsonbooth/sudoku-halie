@@ -14,11 +14,11 @@ import i18n from "i18n-js";
 import Header from "../components/Header";
 import { SettingsButton } from "../navigation/buttons";
 
-interface PropTypes {
+interface NewGameProps {
   navigation: any;
 }
 
-const NewGame: React.FC<PropTypes> = ({ navigation }) => {
+const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
   const { settings, changeSettings } = useSettings();
   const { startGame } = useGame();
 

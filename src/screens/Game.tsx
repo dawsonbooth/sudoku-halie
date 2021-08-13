@@ -56,11 +56,11 @@ const colors = (darkMode: Boolean, theme: Record<string, string>) => {
     };
 };
 
-interface PropTypes {
+interface GameProps {
   navigation: any;
 }
 
-const Game: React.FC<PropTypes> = ({ navigation }) => {
+const Game: React.FC<GameProps> = ({ navigation }) => {
   const { /*game,*/ saveGame } = useGame();
   const { settings } = useSettings();
 

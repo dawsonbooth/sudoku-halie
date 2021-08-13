@@ -1,13 +1,13 @@
 import React, { ReactElement } from "react";
-import { Icon, TopNavigation } from "@ui-kitten/components";
+import { TopNavigation } from "@ui-kitten/components";
 
-interface PropTypes {
+interface HeaderProps {
   title: string;
   accessoryLeft?: () => ReactElement;
   accessoryRight?: () => ReactElement;
 }
 
-const Header: React.FC<PropTypes> = ({
+const Header: React.FC<HeaderProps> = ({
   title,
   accessoryLeft,
   accessoryRight,
