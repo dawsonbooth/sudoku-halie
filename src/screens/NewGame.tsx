@@ -1,20 +1,31 @@
 import React, { useState } from "react";
-import { View, SafeAreaView } from "react-native";
-import {
-  Layout,
-  Toggle,
-  Text,
-  Button,
-  ListItem,
-  List,
-} from "@ui-kitten/components";
+import { Text, Button, ListItem, List, CheckBox } from "@ui-kitten/components";
 import Slider from "../components/Slider";
 import { useSettings, useGame } from "../redux";
 import i18n from "i18n-js";
-import Header from "../components/Header";
 import { SettingsButton } from "../navigation/buttons";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackParamList } from "../navigation/AppNavigator";
+import Screen from "../components/Screen";
+import styled from "styled-components/native";
+
+const Container = styled.View`
+  padding: 10px;
+`;
+
+const SliderLabel = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+`;
+
+const options = [
+  "dotNotes",
+  "showCompleted",
+  "showPeers",
+  "showEqual",
+  "showConflicts",
+];
 
 interface NewGameProps {
   navigation: StackNavigationProp<StackParamList>;
@@ -37,19 +48,11 @@ const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
   const difficulty =
     difficulties[Math.round((1 - prefilledRatio) * (difficulties.length - 1))];
 
-  const data = [
-    "dotNotes",
-    "showCompleted",
-    "showPeers",
-    "showEqual",
-    "showConflicts",
-  ];
-
   const renderItem = ({ item }) => (
     <ListItem
       title={i18n.t(`settings.sudoku.items.${item}`)}
       accessoryRight={(evaProps) => (
-        <Toggle
+        <CheckBox
           {...evaProps}
           checked={settings.sudoku[item]}
           onChange={(value) => changeSettings(settings.sudoku, item, value)}
@@ -62,44 +65,33 @@ const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
   );
 
   return (
-    <Layout>
-      <SafeAreaView style={{ height: "100%", width: "100%" }}>
-        <Header
-          title={i18n.t("newGame.title")}
-          accessoryLeft={() => <SettingsButton />}
+    <Screen title={i18n.t("newGame.title")} headerLeft={SettingsButton}>
+      <Container>
+        <SliderLabel>
+          <Text>{`Difficulty: ${difficulty}`}</Text>
+          <Text>
+            Prefilled:
+            {` ${Math.round(prefilledRatio * 100)}%`}
+          </Text>
+        </SliderLabel>
+        <Slider
+          value={settings.sudoku.prefilledRatio}
+          onChange={setPrefilledRatio}
+          onComplete={(value) =>
+            changeSettings(settings.sudoku, "prefilledRatio", value)
+          }
         />
-        <Layout>
-          <View style={{ padding: 10 }}>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-            >
-              <Text>{`Difficulty: ${difficulty}`}</Text>
-              <Text>
-                Prefilled:
-                {` ${Math.round(prefilledRatio * 100)}%`}
-              </Text>
-            </View>
-            <Slider
-              value={settings.sudoku.prefilledRatio}
-              onChange={setPrefilledRatio}
-              onComplete={(value) =>
-                changeSettings(settings.sudoku, "prefilledRatio", value)
-              }
-            />
-            <List data={data} renderItem={renderItem} scrollEnabled={false} />
-          </View>
-          <Button
-            onPress={() => {
-              startGame();
-              navigation.navigate("Game");
-            }}
-            style={{ margin: 10 }}
-          >
-            {i18n.t("newGame.button")}
-          </Button>
-        </Layout>
-      </SafeAreaView>
-    </Layout>
+        <List data={options} renderItem={renderItem} scrollEnabled={false} />
+        <Button
+          onPress={() => {
+            startGame();
+            navigation.navigate("Game");
+          }}
+        >
+          {i18n.t("newGame.button")}
+        </Button>
+      </Container>
+    </Screen>
   );
 };
 

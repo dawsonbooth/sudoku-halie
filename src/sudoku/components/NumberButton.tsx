@@ -1,12 +1,29 @@
 import React, { useContext } from "react";
 import { ColorsContext } from "../colors";
-import {
-  Text,
-  TouchableOpacity,
-  GestureResponderEvent,
-  PixelRatio,
-} from "react-native";
+import { GestureResponderEvent, PixelRatio } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
+import styled from "styled-components/native";
+
+const Button = styled.TouchableOpacity`
+  ${({ radius }: { radius: number }) => `
+    margin: ${radius / 5}px;
+  `}
+`;
+
+const Note = styled.Text`
+  ${({ radius, color }: { radius: number; color: string }) => `
+    margin-horizontal: ${radius * 0.4}px;
+    font-size: ${radius * 2}px;
+    color: ${color};
+  `}
+`;
+
+const Number = styled.Text`
+  ${({ radius, color }: { radius: number; color: string }) => `
+    font-size: ${radius * 1.25}px;
+    color: ${color};
+  `}
+`;
 
 interface NumberButtonProps {
   number: number;
@@ -26,18 +43,11 @@ const NumberButton: React.FC<NumberButtonProps> = ({
   const colors = useContext(ColorsContext);
 
   return (
-    <TouchableOpacity onPress={onPress} style={{ margin: radius / 5 }}>
+    <Button onPress={onPress} radius={radius}>
       {notesMode ? (
-        <Text
-          allowFontScaling={false}
-          style={{
-            marginHorizontal: radius * 0.4,
-            fontSize: radius * 2,
-            color: colors.text,
-          }}
-        >
+        <Note allowFontScaling={false} radius={radius} color={colors.text}>
           {number}
-        </Text>
+        </Note>
       ) : (
         <ProgressCircle
           percent={percent}
@@ -51,18 +61,12 @@ const NumberButton: React.FC<NumberButtonProps> = ({
           shadowColor={colors.controls.number_button.border}
           bgColor={colors.controls.number_button.background}
         >
-          <Text
-            allowFontScaling={false}
-            style={{
-              fontSize: radius * 1.25,
-              color: colors.text,
-            }}
-          >
+          <Number allowFontScaling={false} radius={radius} color={colors.text}>
             {number}
-          </Text>
+          </Number>
         </ProgressCircle>
       )}
-    </TouchableOpacity>
+    </Button>
   );
 };
 

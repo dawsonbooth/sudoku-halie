@@ -1,8 +1,25 @@
 import React, { useContext } from "react";
-import { StyleSheet, View } from "react-native";
+import { PixelRatio } from "react-native";
 import Cell from "./Cell";
 import { ColorsContext } from "../colors";
 import * as Sudoku from "../types";
+import styled from "styled-components/native";
+
+const Grid = styled.View`
+  ${({ size, borderColor }: { size: number; borderColor: string }) => `
+    display: flex;
+    flex-direction: column;
+    height: ${size}px;
+    margin: ${PixelRatio.roundToNearestPixel(0.05 * size)}px;
+    border-width: 2px;
+    border-color: ${borderColor};  
+`}
+`;
+
+const Row = styled.View`
+  flex: 1;
+  flex-direction: row;
+`;
 
 interface BoardProps {
   board: Sudoku.Game["board"];
@@ -13,26 +30,10 @@ interface BoardProps {
 const Board: React.FC<BoardProps> = ({ board, handleCellPress, size }) => {
   const colors = useContext(ColorsContext);
 
-  const styles = StyleSheet.create({
-    grid: {
-      display: "flex",
-      flexDirection: "column",
-
-      height: size,
-      margin: 0.05 * size,
-      borderWidth: 2,
-      borderColor: colors.board.border,
-    },
-    row: {
-      flex: 1,
-      flexDirection: "row",
-    },
-  });
-
   return (
-    <View style={styles.grid}>
+    <Grid size={size} borderColor={colors.board.border}>
       {board.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
-        <View key={r} style={styles.row}>
+        <Row key={r}>
           {row.map((cell: Sudoku.Cell, c: Sudoku.Location["col"]) => (
             <Cell
               key={c}
@@ -43,9 +44,9 @@ const Board: React.FC<BoardProps> = ({ board, handleCellPress, size }) => {
               boardSize={size}
             />
           ))}
-        </View>
+        </Row>
       ))}
-    </View>
+    </Grid>
   );
 };
 

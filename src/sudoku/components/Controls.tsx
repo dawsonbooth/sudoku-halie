@@ -1,10 +1,17 @@
 import React, { useContext } from "react";
+import styled from "styled-components/native";
 import { SettingsContext } from "../settings";
 import { ColorsContext } from "../colors";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Icon } from "@ui-kitten/components";
 import NumberButton from "./NumberButton";
 
+const Container = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
 interface ControlsProps {
   progress: number[];
   size: number;
@@ -29,13 +36,7 @@ const Controls: React.FC<ControlsProps> = ({
 
   return (
     <>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          margin: size * 0.02,
-        }}
-      >
+      <Container>
         <TouchableOpacity onPress={handleNotesButtonPress}>
           <Icon
             name="edit-outline"
@@ -60,15 +61,8 @@ const Controls: React.FC<ControlsProps> = ({
             fill={colors.text}
           />
         </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          margin: size * 0.02,
-        }}
-      >
+      </Container>
+      <Container>
         {[...Array(settings.degree)].map((_, i) => {
           const number = i + 1;
           return (
@@ -82,7 +76,7 @@ const Controls: React.FC<ControlsProps> = ({
             />
           );
         })}
-      </View>
+      </Container>
     </>
   );
 };

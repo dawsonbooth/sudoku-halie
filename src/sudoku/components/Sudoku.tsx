@@ -5,8 +5,13 @@ import defaultColors, { ColorsContext } from "../colors";
 import defaultSettings, { SettingsContext } from "../settings";
 import Board from "./Board";
 import Controls from "./Controls";
-import { View } from "react-native";
 import { Game, Settings, Colors } from "../types";
+import styled from "styled-components/native";
+
+const Container = styled.View`
+  height: 100%;
+  width: 100%;
+`;
 
 interface SudokuProps {
   board?: Game["board"];
@@ -38,14 +43,22 @@ const Sudoku: React.FC<SudokuProps> = ({
   );
 
   const { height, width } = useScreenDimensions();
-  const boardSize = Math.min(height * 0.5, width * 0.9);
 
-  const controlsSize = width;
+  let boardSize;
+  let controlSize;
+
+  if (height > width) {
+    boardSize = Math.min(0.5 * height, 0.9 * width);
+    controlSize = width;
+  } else {
+    boardSize = Math.min(0.5 * width, 0.9 * height);
+    controlSize = height;
+  }
 
   return (
     <ColorsContext.Provider value={colors}>
       <SettingsContext.Provider value={settings}>
-        <View style={{ height: "100%", width: "100%" }}>
+        <Container>
           <Board
             board={game.board}
             handleCellPress={handleCellPress}
@@ -53,14 +66,14 @@ const Sudoku: React.FC<SudokuProps> = ({
           />
           <Controls
             progress={game.progress}
-            size={controlsSize}
+            size={controlSize}
             notesMode={notesMode}
             handleNotesButtonPress={handleNotesButtonPress}
             handleEraserButtonPress={handleEraserButtonPress}
             handleRevealButtonPress={handleRevealButtonPress}
             handleNumberButtonPress={handleNumberButtonPress}
           />
-        </View>
+        </Container>
       </SettingsContext.Provider>
     </ColorsContext.Provider>
   );

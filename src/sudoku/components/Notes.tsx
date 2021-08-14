@@ -1,11 +1,39 @@
 import React, { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { SettingsContext } from "../settings";
 import { ColorsContext } from "../colors";
-import { Cell } from "../types";
+import * as Sudoku from "../types";
+import styled from "styled-components/native";
+
+const Grid = styled.View`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+`;
+
+const Row = styled.View`
+  flex: 1;
+  flex-direction: row;
+`;
+
+const Cell = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Note = styled.Text`
+  ${({ fontSize, color }: { fontSize: number; color: string }) => `
+    font-size: ${fontSize}px;
+    line-height: ${fontSize}px;
+    color: ${color};
+  `}
+`;
 
 interface NotesProps {
-  notes: Cell["notes"];
+  notes: Sudoku.Cell["notes"];
   size: number;
 }
 
@@ -15,57 +43,31 @@ const Notes: React.FC<NotesProps> = ({ notes, size }) => {
 
   const fontSize = (0.75 / 2) * (size / settings.degree);
 
-  const styles = StyleSheet.create({
-    grid: {
-      display: "flex",
-      flexDirection: "column",
-
-      height: "100%",
-      width: "100%",
-      margin: 0,
-      padding: 0,
-    },
-    row: {
-      flex: 1,
-      flexDirection: "row",
-    },
-  });
-
   const unit = Math.sqrt(settings.degree);
   const notesGrid = [...Array(unit)].map((_, r) =>
     [...Array(unit)].map((_, c) => notes[r * unit + c + 1])
   );
 
   return (
-    <View style={styles.grid}>
+    <Grid>
       {notesGrid.map((row, r) => (
-        <View key={r} style={styles.row}>
+        <Row key={r}>
           {row.map((isNote, c) => (
-            <View
-              key={c}
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {isNote ? (
-                <Text
+            <Cell key={c}>
+              {isNote && (
+                <Note
                   allowFontScaling={false}
-                  style={{
-                    fontSize,
-                    color: colors.text,
-                    lineHeight: fontSize,
-                  }}
+                  fontSize={fontSize}
+                  color={colors.text}
                 >
                   {settings.dotNotes ? "•" : r * unit + c + 1}
-                </Text>
-              ) : null}
-            </View>
+                </Note>
+              )}
+            </Cell>
           ))}
-        </View>
+        </Row>
       ))}
-    </View>
+    </Grid>
   );
 };
 

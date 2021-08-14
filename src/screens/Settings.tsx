@@ -1,18 +1,24 @@
 import React from "react";
-import { View, SafeAreaView } from "react-native";
-import { Layout, Text, Toggle, ListItem, List } from "@ui-kitten/components";
-import Header from "../components/Header";
+import styled from "styled-components/native";
+import { Text, ListItem, List, CheckBox } from "@ui-kitten/components";
 import { useSettings } from "../redux";
 import i18n from "i18n-js";
 import { BackButton } from "../navigation/buttons";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackParamList } from "../navigation/AppNavigator";
+import Screen from "../components/Screen";
+
+const Container = styled.View`
+  padding: 10px;
+`;
 
 interface SettingsProps {
   navigation: StackNavigationProp<StackParamList>;
 }
 
 const Settings: React.FC<SettingsProps> = () => {
+  const { settings, changeSettings } = useSettings();
+
   const strings = {
     title: i18n.t("settings.title"),
     app: {
@@ -32,8 +38,6 @@ const Settings: React.FC<SettingsProps> = () => {
       },
     },
   };
-
-  const { settings, changeSettings } = useSettings();
 
   const appData = Object.keys(strings.app.items).reduce((acc, key) => {
     return [
@@ -61,7 +65,7 @@ const Settings: React.FC<SettingsProps> = () => {
     <ListItem
       title={item.title}
       accessoryRight={(evaProps) => (
-        <Toggle
+        <CheckBox
           {...evaProps}
           checked={item.value}
           onChange={(value) => changeSettings(settings.app, item.key, value)}
@@ -75,7 +79,7 @@ const Settings: React.FC<SettingsProps> = () => {
     <ListItem
       title={item.title}
       accessoryRight={(evaProps) => (
-        <Toggle
+        <CheckBox
           {...evaProps}
           checked={item.value}
           onChange={(value) => changeSettings(settings.sudoku, item.key, value)}
@@ -86,27 +90,18 @@ const Settings: React.FC<SettingsProps> = () => {
   );
 
   return (
-    <Layout>
-      <SafeAreaView style={{ height: "100%", width: "100%" }}>
-        <Header title={strings.title} accessoryLeft={() => <BackButton />} />
-        <Layout>
-          <View style={{ padding: 10 }}>
-            <Text category="h6">{strings.app.header}</Text>
-            <List
-              data={appData}
-              renderItem={renderAppItem}
-              scrollEnabled={false}
-            />
-            <Text category="h6">{strings.sudoku.header}</Text>
-            <List
-              data={sudokuData}
-              renderItem={renderSudokuItem}
-              scrollEnabled={false}
-            />
-          </View>
-        </Layout>
-      </SafeAreaView>
-    </Layout>
+    <Screen title={strings.title} headerLeft={BackButton}>
+      <Container>
+        <Text category="h6">{strings.app.header}</Text>
+        <List data={appData} renderItem={renderAppItem} scrollEnabled={false} />
+        <Text category="h6">{strings.sudoku.header}</Text>
+        <List
+          data={sudokuData}
+          renderItem={renderSudokuItem}
+          scrollEnabled={false}
+        />
+      </Container>
+    </Screen>
   );
 };
 

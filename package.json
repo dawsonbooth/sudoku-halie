@@ -8,7 +8,7 @@
     "web": "expo start --web",
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001' && expo start",
     "eject": "expo eject",
-    "lint": "eslint './src/**/*' --fix"
+    "lint": "eslint \"./src/**/*\" --fix"
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
@@ -35,13 +35,16 @@
     "react-native-use-dimensions": "^1.2.5",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.1.1",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "@types/i18n-js": "^3.8.2",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "@types/react-redux": "^7.1.18",
+    "@types/styled-components": "^5.1.12",
+    "@types/styled-components-react-native": "^5.1.1",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "babel-preset-expo": "8.3.0",
