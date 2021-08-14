@@ -11,7 +11,7 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
   ],
-  plugins: ["react", "react-native"],
+  plugins: ["react", "react-native", "prettier"],
   rules: {
     "react/prop-types": "off",
   },
