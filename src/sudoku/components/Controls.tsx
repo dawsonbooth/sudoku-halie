@@ -5,6 +5,7 @@ import { ColorsContext } from "../colors";
 import { TouchableOpacity } from "react-native";
 import { Icon } from "@ui-kitten/components";
 import NumberButton from "./NumberButton";
+import _ from "lodash";
 
 const Container = styled.View`
   display: flex;
@@ -63,7 +64,7 @@ const Controls: React.FC<ControlsProps> = ({
         </TouchableOpacity>
       </Container>
       <Container>
-        {[...Array(settings.degree)].map((_, i) => {
+        {_.range(0, settings.degree).map((_, i) => {
           const number = i + 1;
           return (
             <NumberButton

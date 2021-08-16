@@ -3,6 +3,7 @@ import { SettingsContext } from "../settings";
 import { ColorsContext } from "../colors";
 import * as Sudoku from "../types";
 import styled from "styled-components/native";
+import _ from "lodash";
 
 const Grid = styled.View`
   display: flex;
@@ -44,8 +45,8 @@ const Notes: React.FC<NotesProps> = ({ notes, size }) => {
   const fontSize = (0.75 / 2) * (size / settings.degree);
 
   const unit = Math.sqrt(settings.degree);
-  const notesGrid = [...Array(unit)].map((_, r) =>
-    [...Array(unit)].map((_, c) => notes[r * unit + c + 1])
+  const notesGrid = _.range(0, unit).map((_value, r) =>
+    _.range(0, unit).map((_value, c) => notes[r * unit + c + 1])
   );
 
   return (

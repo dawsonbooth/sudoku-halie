@@ -185,10 +185,10 @@ export class Game {
 
     const conflicts = new Conflicts();
 
-    const progress = [...Array(degree + 1)].map(() => 0);
+    const progress = _.range(1, degree + 1).map(() => 0);
 
-    const solution = [...Array(degree)].map((_, row: Location["row"]) =>
-      [...Array(degree)].map((_, col: Location["col"]) => {
+    const solution = _.range(0, degree).map((_value, row: Location["row"]) =>
+      _.range(0, degree).map((_value, col: Location["col"]) => {
         const cell = board[row][col];
         if (cell.isSelected) selected = cell;
         if (cell.isConflict) {
@@ -222,10 +222,10 @@ export class Game {
     if (prefilledRatio > 1 || prefilledRatio < 0)
       throw TypeError("prefilledRatio prop must be between 0 and 1");
 
-    const board = [...Array(degree)].map((_, row: Location["row"]) =>
-      [...Array(degree)].map((_, col: Location["col"]) => ({
+    const board = _.range(0, degree).map((_value, row: Location["row"]) =>
+      _.range(0, degree).map((_value, col: Location["col"]) => ({
         value: null,
-        notes: Array<boolean>(degree + 1).map(() => false),
+        notes: _.range(0, degree + 1).map(() => false),
         isPrefilled: false,
         isCompleted: false,
         isSelected: false,
@@ -239,7 +239,7 @@ export class Game {
 
     const conflicts = new Conflicts();
 
-    const progress = [...Array(degree + 1)].map(() => 0);
+    const progress = _.range(0, degree + 1).map(() => 0);
 
     solvePuzzle(board, degree);
 
