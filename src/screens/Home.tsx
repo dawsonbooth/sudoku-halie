@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@ui-kitten/components";
-import { useGame } from "../redux";
+import { Store, useStore } from "../state";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackParamList } from "../navigation/AppNavigator";
 import Screen from "../components/Screen";
@@ -9,8 +9,10 @@ interface HomeProps {
   navigation: StackNavigationProp<StackParamList>;
 }
 
+const selector = (store: Store) => store.game;
+
 const Home: React.FC<HomeProps> = ({ navigation }) => {
-  const { game } = useGame();
+  const game = useStore(selector);
 
   return (
     <Screen>

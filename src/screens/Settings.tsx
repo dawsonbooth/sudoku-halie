@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components/native";
 import { Text, ListItem, List, CheckBox } from "@ui-kitten/components";
-import { useSettings } from "../redux";
+import { Store, useStore } from "../state";
 import i18n from "i18n-js";
 import { BackButton } from "../navigation/buttons";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackParamList } from "../navigation/AppNavigator";
 import Screen from "../components/Screen";
+import produce from "immer";
 
 const Container = styled.View`
   padding: 10px;
@@ -16,8 +17,13 @@ interface SettingsProps {
   navigation: StackNavigationProp<StackParamList>;
 }
 
+const selector = (store: Store) => ({
+  settings: store.settings,
+  updateSettings: store.updateSettings,
+});
+
 const Settings: React.FC<SettingsProps> = () => {
-  const { settings, changeSettings } = useSettings();
+  const { settings, updateSettings } = useStore(selector);
 
   const strings = {
     title: i18n.t("settings.title"),
@@ -68,10 +74,22 @@ const Settings: React.FC<SettingsProps> = () => {
         <CheckBox
           {...evaProps}
           checked={item.value}
-          onChange={(value) => changeSettings(settings.app, item.key, value)}
+          onChange={(value) =>
+            updateSettings(
+              produce(settings, (draft) => {
+                draft.app[item.key] = value;
+              })
+            )
+          }
         />
       )}
-      onPress={() => changeSettings(settings.app, item.key, !item.value)}
+      onPress={() =>
+        updateSettings(
+          produce(settings, (draft) => {
+            draft.app[item.key] = !item.value;
+          })
+        )
+      }
     />
   );
 
@@ -82,10 +100,22 @@ const Settings: React.FC<SettingsProps> = () => {
         <CheckBox
           {...evaProps}
           checked={item.value}
-          onChange={(value) => changeSettings(settings.sudoku, item.key, value)}
+          onChange={(value) =>
+            updateSettings(
+              produce(settings, (draft) => {
+                draft.sudoku[item.key] = value;
+              })
+            )
+          }
         />
       )}
-      onPress={() => changeSettings(settings.sudoku, item.key, !item.value)}
+      onPress={() =>
+        updateSettings(
+          produce(settings, (draft) => {
+            draft.sudoku[item.key] = !item.value;
+          })
+        )
+      }
     />
   );
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useScreenDimensions } from "react-native-use-dimensions";
-import { useGame } from "../hooks";
+import { useSudoku } from "../hooks";
 import defaultColors, { ColorsContext } from "../colors";
 import defaultSettings, { SettingsContext } from "../settings";
 import Board from "./Board";
@@ -35,7 +35,7 @@ const Sudoku: React.FC<SudokuProps> = ({
     handleEraserButtonPress,
     handleRevealButtonPress,
     handleNumberButtonPress,
-  } = useGame(
+  } = useSudoku(
     onChange,
     board
       ? Game.load(board)

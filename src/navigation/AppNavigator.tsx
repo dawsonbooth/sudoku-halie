@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { mapping, dark, light } from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import { useSettings } from "../redux";
+import { useStore, Store } from "../state";
 import { StatusBar } from "react-native";
 
 export type StackParamList = {
@@ -17,8 +17,10 @@ export type StackParamList = {
 
 const Stack = createStackNavigator<StackParamList>();
 
+const selector = (store: Store) => store.settings;
+
 const AppNavigator: React.FC = () => {
-  const { settings } = useSettings();
+  const settings = useStore(selector);
 
   const darkMode = settings.app.darkMode;
 

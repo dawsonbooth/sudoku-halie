@@ -1,8 +1,12 @@
 import * as Sudoku from "../sudoku";
 
-export interface State {
+export interface Store {
   game: Game;
   settings: Settings;
+  startGame: () => void;
+  endGame: () => void;
+  saveBoard: (board: Sudoku.Cell[][]) => void;
+  updateSettings: (settings: Settings) => void;
 }
 
 export interface Game {
@@ -20,5 +24,5 @@ export interface Settings {
 export interface Action {
   type: string;
   board?: Sudoku.Game["board"];
-  settings?: Sudoku.Settings;
+  settings?: Settings;
 }

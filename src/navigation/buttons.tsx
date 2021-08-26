@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, ImageProps } from "react-native";
 import { TopNavigationAction, Icon } from "@ui-kitten/components";
-import { useGame } from "../redux";
+import { Store, useStore } from "../state";
 import i18n from "i18n-js";
 import { useNavigation } from "@react-navigation/native";
 import { StackParamList } from "./AppNavigator";
@@ -25,8 +25,10 @@ export const BackButton: React.FC = () => {
   return <TopNavigationAction onPress={() => goBack()} icon={BackIcon} />;
 };
 
+const selector = (store: Store) => store.endGame;
+
 export const NewGameButton: React.FC = () => {
-  const { endGame } = useGame();
+  const endGame = useStore(selector);
   const { navigate } = useNavigation<StackNavigationProp<StackParamList>>();
 
   return (

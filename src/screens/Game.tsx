@@ -1,7 +1,7 @@
 import React from "react";
 import Sudoku from "../sudoku";
 import { useTheme } from "@ui-kitten/components";
-import { useGame, useSettings } from "../redux";
+import { Store, useStore } from "../state";
 import i18n from "i18n-js";
 import { NewGameButton, SettingsButton } from "../navigation/buttons";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -61,9 +61,13 @@ interface GameProps {
   navigation: StackNavigationProp<StackParamList>;
 }
 
+const selector = (store: Store) => ({
+  saveBoard: store.saveBoard,
+  settings: store.settings,
+});
+
 const Game: React.FC<GameProps> = () => {
-  const { saveGame } = useGame();
-  const { settings } = useSettings();
+  const { saveBoard, settings } = useStore(selector);
 
   const theme = useTheme();
 
@@ -74,7 +78,7 @@ const Game: React.FC<GameProps> = () => {
       headerRight={NewGameButton}
     >
       <Sudoku
-        onChange={saveGame}
+        onChange={saveBoard}
         settings={settings.sudoku}
         colors={colors(settings.app.darkMode, theme)}
       />

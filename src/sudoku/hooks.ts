@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 import * as Sudoku from "./types";
 import _ from "lodash";
 
-export const useGame = (
+export const useSudoku = (
   onChange: (board: Sudoku.Game["board"]) => void,
   initial: Sudoku.Game
 ): {
@@ -31,6 +31,7 @@ export const useGame = (
   const handleCellPress = (location: Sudoku.Location): void => {
     game.select(location);
     updateGame(game);
+    console.log("test");
   };
 
   const handleNotesButtonPress = (): void => {
