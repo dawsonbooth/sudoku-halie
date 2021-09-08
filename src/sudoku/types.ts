@@ -443,7 +443,7 @@ export interface Colors {
     };
   };
   controls: {
-    number_button: {
+    numberButton: {
       background: string;
       border: string;
       progress: string;

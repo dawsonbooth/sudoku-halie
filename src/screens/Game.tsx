@@ -24,7 +24,7 @@ const colors = (darkMode: boolean, theme: Record<string, string>) => {
         },
       },
       controls: {
-        number_button: {
+        numberButton: {
           background: theme["background-basic-color-1"],
           border: theme["background-basic-color-2"],
           progress: theme["color-primary-hover"],
@@ -47,7 +47,7 @@ const colors = (darkMode: boolean, theme: Record<string, string>) => {
         },
       },
       controls: {
-        number_button: {
+        numberButton: {
           background: theme["background-basic-color-1"],
           border: theme["background-basic-color-4"],
           progress: theme["color-info-hover"],

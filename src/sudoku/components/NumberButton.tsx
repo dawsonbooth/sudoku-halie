@@ -55,11 +55,11 @@ const NumberButton: React.FC<NumberButtonProps> = ({
           borderWidth={radius / 4}
           color={
             percent < 100
-              ? colors.controls.number_button.progress
-              : colors.controls.number_button.completed
+              ? colors.controls.numberButton.progress
+              : colors.controls.numberButton.completed
           }
-          shadowColor={colors.controls.number_button.border}
-          bgColor={colors.controls.number_button.background}
+          shadowColor={colors.controls.numberButton.border}
+          bgColor={colors.controls.numberButton.background}
         >
           <Number allowFontScaling={false} radius={radius} color={colors.text}>
             {number}
