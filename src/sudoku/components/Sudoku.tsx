@@ -21,7 +21,6 @@ interface SudokuProps {
 }
 
 const Sudoku: React.FC<SudokuProps> = ({
-  // TODO: Game prop, game save/load, access Game class outside of Sudoku?
   board,
   onChange,
   colors = defaultColors,
