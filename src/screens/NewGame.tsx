@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, Button, ListItem, List, CheckBox } from "@ui-kitten/components";
 import Slider from "../components/Slider";
-import { useStore, Store } from "../state";
+import { useStore, Store, Settings } from "../state";
 import i18n from "i18n-js";
 import { SettingsButton } from "../navigation/buttons";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -20,7 +20,12 @@ const SliderLabel = styled.View`
   justify-content: space-evenly;
 `;
 
-const options = [
+type BooleanSudokuSettings = Omit<
+  Settings["sudoku"],
+  "degree" | "prefilledRatio"
+>;
+
+const options: (keyof BooleanSudokuSettings)[] = [
   "dotNotes",
   "showCompleted",
   "showPeers",
@@ -54,7 +59,7 @@ const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
   const difficulty =
     difficulties[Math.round((1 - prefilledRatio) * (difficulties.length - 1))];
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: { item: keyof BooleanSudokuSettings }) => (
     <ListItem
       title={i18n.t(`settings.sudoku.items.${item}`)}
       accessoryRight={(evaProps) => (

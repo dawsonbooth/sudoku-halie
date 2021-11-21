@@ -7,6 +7,7 @@ import Board from "./Board";
 import Controls from "./Controls";
 import { Game, Settings, Colors } from "../types";
 import styled from "styled-components/native";
+import { loadGame, newGame } from "../game";
 
 const Container = styled.View`
   height: 100%;
@@ -35,10 +36,8 @@ const Sudoku: React.FC<SudokuProps> = ({
     handleRevealButtonPress,
     handleNumberButtonPress,
   } = useSudoku(
-    onChange,
-    board
-      ? Game.load(board)
-      : Game.new(settings.degree, settings.prefilledRatio)
+    board ? loadGame(board) : newGame(settings.degree, settings.prefilledRatio),
+    onChange
   );
 
   const { height, width } = useScreenDimensions();

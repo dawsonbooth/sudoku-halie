@@ -6,23 +6,24 @@ import i18n from "i18n-js";
 import { useNavigation } from "@react-navigation/native";
 import { StackParamList } from "./AppNavigator";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { RenderFCProp } from "@ui-kitten/components/devsupport";
 
-const BackIcon: React.FC<Partial<ImageProps>> = (style) => (
+const BackIcon: RenderFCProp<Partial<ImageProps>> = (style) => (
   <Icon {...style} name="arrow-ios-back" />
 );
 
-const PencilIcon: React.FC<Partial<ImageProps>> = (style) => (
+const PencilIcon: RenderFCProp<Partial<ImageProps>> = (style) => (
   <Icon {...style} name="edit" />
 );
 
-const SettingsIcon: React.FC<Partial<ImageProps>> = (style) => (
+const SettingsIcon: RenderFCProp<Partial<ImageProps>> = (style) => (
   <Icon {...style} name="settings" />
 );
 
 export const BackButton: React.FC = () => {
   const { goBack } = useNavigation();
 
-  return <TopNavigationAction onPress={() => goBack()} icon={BackIcon} />;
+  return <TopNavigationAction onPress={goBack} icon={BackIcon} />;
 };
 
 const selector = (store: Store) => store.endGame;

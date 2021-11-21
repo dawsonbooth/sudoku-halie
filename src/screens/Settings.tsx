@@ -1,7 +1,8 @@
 import React from "react";
+import { ListRenderItem } from "react-native";
 import styled from "styled-components/native";
 import { Text, ListItem, List, CheckBox } from "@ui-kitten/components";
-import { Store, useStore } from "../state";
+import { Settings as SettingsStateInterface, Store, useStore } from "../state";
 import i18n from "i18n-js";
 import { BackButton } from "../navigation/buttons";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -13,19 +14,60 @@ const Container = styled.View`
   padding: 10px;
 `;
 
+type SettingsInterface = Omit<SettingsStateInterface, "sudoku"> & {
+  sudoku: Omit<SettingsStateInterface["sudoku"], "degree" | "prefilledRatio">;
+};
+
+interface SettingsRowProps {
+  label: string;
+  value: boolean;
+  onValueChange: (v: this["value"]) => void;
+}
+
+const SettingsRow: ListRenderItem<SettingsRowProps> = ({
+  item: { label, value, onValueChange },
+}) => {
+  if (typeof value === "boolean") {
+    const onToggle = () => onValueChange(!value);
+    return (
+      <ListItem
+        title={label}
+        accessoryRight={(evaProps) => (
+          <CheckBox {...evaProps} checked={value} onChange={onToggle} />
+        )}
+        onPress={onToggle}
+      />
+    );
+  }
+  return <></>;
+};
+
 interface SettingsProps {
   navigation: StackNavigationProp<StackParamList>;
 }
+
+interface SettingData<S extends SettingsInterface[keyof SettingsInterface]> {
+  label: string;
+  value: S[keyof S];
+  onValueChange: (value: S[keyof S]) => void;
+}
+
+type Labels = {
+  title: string;
+} & {
+  [S in keyof SettingsInterface]: {
+    header: string;
+    items: { [K in keyof SettingsInterface[S]]: string };
+  };
+};
 
 const selector = (store: Store) => ({
   settings: store.settings,
   updateSettings: store.updateSettings,
 });
 
-const Settings: React.FC<SettingsProps> = () => {
-  const { settings, updateSettings } = useStore(selector);
-
-  const strings = {
+const useLabels = (): Labels => {
+  return {
     title: i18n.t("settings.title"),
     app: {
       header: i18n.t("settings.app.header"),
@@ -44,90 +86,54 @@ const Settings: React.FC<SettingsProps> = () => {
       },
     },
   };
+};
 
-  const appData = Object.keys(strings.app.items).reduce((acc, key) => {
-    return [
-      ...acc,
-      {
-        title: strings.app.items[key],
-        value: settings.app[key],
-        key,
-      },
-    ];
-  }, []);
+const Settings: React.FC<SettingsProps> = () => {
+  const { settings, updateSettings } = useStore(selector);
 
-  const sudokuData = Object.keys(strings.sudoku.items).reduce((acc, key) => {
-    return [
-      ...acc,
-      {
-        title: strings.sudoku.items[key],
-        value: settings.sudoku[key],
-        key,
-      },
-    ];
-  }, []);
+  const labels = useLabels();
 
-  const renderAppItem = ({ item }) => (
-    <ListItem
-      title={item.title}
-      accessoryRight={(evaProps) => (
-        <CheckBox
-          {...evaProps}
-          checked={item.value}
-          onChange={(value) =>
-            updateSettings(
-              produce(settings, (draft) => {
-                draft.app[item.key] = value;
-              })
-            )
-          }
-        />
-      )}
-      onPress={() =>
+  const appData: SettingData<SettingsInterface["app"]>[] = Object.entries(
+    settings.app
+  ).map((entry) => {
+    const [key, value] = entry as Entry<SettingsInterface["app"]>;
+    return {
+      label: labels.app.items[key],
+      value,
+      onValueChange: (v) =>
         updateSettings(
           produce(settings, (draft) => {
-            draft.app[item.key] = !item.value;
+            draft.app[key] = v;
           })
-        )
-      }
-    />
-  );
+        ),
+    };
+  });
 
-  const renderSudokuItem = ({ item }) => (
-    <ListItem
-      title={item.title}
-      accessoryRight={(evaProps) => (
-        <CheckBox
-          {...evaProps}
-          checked={item.value}
-          onChange={(value) =>
-            updateSettings(
-              produce(settings, (draft) => {
-                draft.sudoku[item.key] = value;
-              })
-            )
-          }
-        />
-      )}
-      onPress={() =>
+  const sudokuData: SettingData<SettingsInterface["sudoku"]>[] = Object.entries(
+    settings.sudoku
+  ).map((entry) => {
+    const [key, value] = entry as Entry<SettingsInterface["sudoku"]>;
+    return {
+      label: labels.sudoku.items[key],
+      value,
+      onValueChange: (v) =>
         updateSettings(
           produce(settings, (draft) => {
-            draft.sudoku[item.key] = !item.value;
+            draft.sudoku[key] = v;
           })
-        )
-      }
-    />
-  );
+        ),
+    };
+  });
 
   return (
-    <Screen title={strings.title} headerLeft={BackButton}>
+    <Screen title={labels.title} headerLeft={BackButton}>
       <Container>
-        <Text category="h6">{strings.app.header}</Text>
-        <List data={appData} renderItem={renderAppItem} scrollEnabled={false} />
-        <Text category="h6">{strings.sudoku.header}</Text>
+        <Text category="h6">{labels.app.header}</Text>
+        <List data={appData} renderItem={SettingsRow} scrollEnabled={false} />
+        <Text category="h6">{labels.sudoku.header}</Text>
         <List
           data={sudokuData}
-          renderItem={renderSudokuItem}
+          renderItem={SettingsRow}
           scrollEnabled={false}
         />
       </Container>
