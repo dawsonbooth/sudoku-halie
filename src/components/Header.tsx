@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { TopNavigation } from "@ui-kitten/components";
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   accessoryLeft?: () => ReactElement;
   accessoryRight?: () => ReactElement;
 }

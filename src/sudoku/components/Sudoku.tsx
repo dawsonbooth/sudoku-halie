@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useScreenDimensions } from "react-native-use-dimensions";
-import { useGame } from "../hooks";
+import { useSudoku } from "../hooks";
 import defaultColors, { ColorsContext } from "../colors";
 import defaultSettings, { SettingsContext } from "../settings";
 import Board from "./Board";
 import Controls from "./Controls";
 import { Game, Settings, Colors } from "../types";
 import styled from "styled-components/native";
+import { loadGame, newGame } from "../game";
 
 const Container = styled.View`
   height: 100%;
@@ -14,19 +15,20 @@ const Container = styled.View`
 `;
 
 interface SudokuProps {
-  board?: Game["board"];
+  board?: Game["board"] | null;
   onChange?: (board: Game["board"]) => void;
   settings?: Settings;
   colors?: Colors;
 }
 
 const Sudoku: React.FC<SudokuProps> = ({
-  // TODO: Game prop, game save/load, access Game class outside of Sudoku?
-  board,
+  board: initialBoard = null,
   onChange,
   colors = defaultColors,
   settings = defaultSettings,
 }) => {
+  const [board] = useState<Game["board"] | null>(initialBoard);
+
   const {
     game,
     notesMode,
@@ -35,11 +37,9 @@ const Sudoku: React.FC<SudokuProps> = ({
     handleEraserButtonPress,
     handleRevealButtonPress,
     handleNumberButtonPress,
-  } = useGame(
-    onChange,
-    board
-      ? Game.load(board)
-      : Game.new(settings.degree, settings.prefilledRatio)
+  } = useSudoku(
+    board ? loadGame(board) : newGame(settings.degree, settings.prefilledRatio),
+    onChange
   );
 
   const { height, width } = useScreenDimensions();

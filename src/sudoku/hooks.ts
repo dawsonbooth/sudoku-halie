@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import * as Sudoku from "./types";
-import _ from "lodash";
+import * as Game from "./game";
+import produce from "immer";
 
-export const useGame = (
-  onChange: (board: Sudoku.Game["board"]) => void,
-  initial: Sudoku.Game
+export const useSudoku = (
+  initial: Sudoku.Game,
+  onChange?: (board: Sudoku.Game["board"]) => void
 ): {
   game: Sudoku.Game;
   notesMode: boolean;
@@ -19,28 +20,16 @@ export const useGame = (
   const [notesMode, setNotesMode] = useState(false);
 
   useEffect(() => {
-    onChange(game.board);
+    if (onChange) onChange(game.board);
   }, [game.board, onChange]);
 
-  const updateGame = (game: Sudoku.Game) => {
-    onChange(game.board);
-    // setGame(Object.defineProperties(game, {}));
-    setGame(_.clone(game)); // necessary because of Object.is comparison
-  };
+  const handleCellPress = (location: Sudoku.Location): void =>
+    setGame(produce(game, (draft) => Game.select(draft, location)));
 
-  const handleCellPress = (location: Sudoku.Location): void => {
-    game.select(location);
-    updateGame(game);
-  };
+  const handleNotesButtonPress = (): void => setNotesMode(!notesMode);
 
-  const handleNotesButtonPress = (): void => {
-    setNotesMode(!notesMode);
-  };
-
-  const handleEraserButtonPress = (): void => {
-    game.erase();
-    updateGame(game);
-  };
+  const handleEraserButtonPress = (): void =>
+    setGame(produce(game, (draft) => Game.erase(draft)));
 
   const handleRevealButtonPress = (): void =>
     Alert.alert(
@@ -53,19 +42,16 @@ export const useGame = (
         },
         {
           text: "OK",
-          onPress: () => {
-            game.reveal();
-            updateGame(game);
-          },
+          onPress: () => setGame(produce(game, (draft) => Game.reveal(draft))),
         },
       ],
       { cancelable: false }
     );
 
   const handleNumberButtonPress = (number: number): void => {
-    if (notesMode) game.toggleNote(number);
-    else game.write(number);
-    updateGame(game);
+    if (notesMode)
+      setGame(produce(game, (draft) => Game.toggleNote(draft, number)));
+    else setGame(produce(game, (draft) => Game.write(draft, number)));
   };
 
   return {

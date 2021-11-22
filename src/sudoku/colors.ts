@@ -15,7 +15,7 @@ const colors: Colors = {
     },
   },
   controls: {
-    number_button: {
+    numberButton: {
       background: "white",
       border: "#A5B1B8",
       progress: "#01A3F2",

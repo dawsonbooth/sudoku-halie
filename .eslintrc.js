@@ -13,6 +13,7 @@ module.exports = {
   ],
   plugins: ["react", "react-native", "prettier"],
   rules: {
+    "prettier/prettier": "warn",
     "react/prop-types": "off",
   },
   parserOptions: {
