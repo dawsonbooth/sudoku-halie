@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useScreenDimensions } from "react-native-use-dimensions";
 import { useSudoku } from "../hooks";
 import defaultColors, { ColorsContext } from "../colors";
@@ -15,18 +15,20 @@ const Container = styled.View`
 `;
 
 interface SudokuProps {
-  board?: Game["board"];
+  board?: Game["board"] | null;
   onChange?: (board: Game["board"]) => void;
   settings?: Settings;
   colors?: Colors;
 }
 
 const Sudoku: React.FC<SudokuProps> = ({
-  board,
+  board: initialBoard = null,
   onChange,
   colors = defaultColors,
   settings = defaultSettings,
 }) => {
+  const [board] = useState<Game["board"] | null>(initialBoard);
+
   const {
     game,
     notesMode,

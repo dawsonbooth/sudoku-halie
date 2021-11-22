@@ -62,12 +62,13 @@ interface GameProps {
 }
 
 const selector = (store: Store) => ({
+  board: store.game.board,
   saveBoard: store.saveBoard,
   settings: store.settings,
 });
 
 const Game: React.FC<GameProps> = () => {
-  const { saveBoard, settings } = useStore(selector);
+  const { board, saveBoard, settings } = useStore(selector);
 
   const theme = useTheme();
 
@@ -78,6 +79,7 @@ const Game: React.FC<GameProps> = () => {
       headerRight={NewGameButton}
     >
       <Sudoku
+        board={board}
         onChange={saveBoard}
         settings={settings.sudoku}
         colors={colors(settings.app.darkMode, theme)}
