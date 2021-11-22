@@ -24,7 +24,7 @@
     "expo-font": "~9.2.1",
     "expo-localization": "~10.2.0",
     "i18n-js": "^3.7.1",
-    "immer": "^9.0.5",
+    "immer": "^9.0.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
