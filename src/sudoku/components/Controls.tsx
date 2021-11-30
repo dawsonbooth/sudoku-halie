@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components/native";
-import { ColorsContext } from "../colors";
 import { Alert, TouchableOpacity } from "react-native";
-import { Icon } from "@ui-kitten/components";
+import { Icon, useTheme } from "@ui-kitten/components";
 import NumberButton from "./NumberButton";
 import _ from "lodash";
 import { Store, useStore } from "../../state";
@@ -25,6 +24,7 @@ const selector = (state: Store) => ({
   handleEraserButtonPress: state.handleEraserButtonPress,
   handleRevealButtonPress: state.handleRevealButtonPress,
   handleNumberButtonPress: state.handleNumberButtonPress,
+  getColors: state.getColors,
 });
 
 const Controls: React.FC<ControlsProps> = ({ size }) => {
@@ -36,8 +36,11 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
     handleEraserButtonPress,
     handleRevealButtonPress,
     handleNumberButtonPress,
+    getColors,
   } = useStore(selector);
-  const colors = useContext(ColorsContext);
+
+  const theme = useTheme();
+  const colors = getColors(theme);
 
   if (!progress) return null;
 

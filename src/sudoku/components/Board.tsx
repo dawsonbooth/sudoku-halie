@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { PixelRatio } from "react-native";
 import Cell from "./Cell";
-import { ColorsContext } from "../colors";
 import * as Sudoku from "../types";
 import styled from "styled-components/native";
 import { Store, useStore } from "../../state";
+import { useTheme } from "@ui-kitten/components";
 
 const Grid = styled.View`
   ${({ size, borderColor }: { size: number; borderColor: string }) => `
@@ -28,12 +28,14 @@ interface BoardProps {
 
 const selector = (state: Store) => ({
   board: state.game?.board,
+  getColors: state.getColors,
   handleCellPress: state.handleCellPress,
 });
 
 const Board: React.FC<BoardProps> = ({ size }) => {
-  const colors = useContext(ColorsContext);
-  const { board, handleCellPress } = useStore(selector);
+  const { board, getColors, handleCellPress } = useStore(selector);
+  const theme = useTheme();
+  const colors = getColors(theme);
 
   if (!board) return null;
 

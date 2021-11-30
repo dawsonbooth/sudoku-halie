@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { ColorsContext } from "../colors";
+import React from "react";
 import * as Sudoku from "../types";
 import styled from "styled-components/native";
 import _ from "lodash";
 import { Store, useStore } from "../../state";
+import { useTheme } from "@ui-kitten/components";
 
 const Grid = styled.View`
   display: flex;
@@ -41,11 +41,13 @@ interface NotesProps {
 const selector = (state: Store) => ({
   degree: state.game?.degree,
   dotNotes: state.settings.sudoku.dotNotes,
+  getColors: state.getColors,
 });
 
 const Notes: React.FC<NotesProps> = ({ notes, size }) => {
-  const { degree, dotNotes } = useStore(selector);
-  const colors = useContext(ColorsContext);
+  const { degree, dotNotes, getColors } = useStore(selector);
+  const theme = useTheme();
+  const colors = getColors(theme);
 
   if (!degree) return null;
 

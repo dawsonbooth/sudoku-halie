@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { ColorsContext } from "../colors";
+import React from "react";
 import { GestureResponderEvent } from "react-native";
 import Notes from "./Notes";
 import * as Sudoku from "../types";
 import styled from "styled-components/native";
 import { Store, useStore } from "../../state";
+import { useTheme } from "@ui-kitten/components";
 
 const Button = styled.TouchableOpacity<{
   degree: number;
@@ -49,6 +49,7 @@ interface CellProps extends Sudoku.Cell {
 const selector = (state: Store) => ({
   degree: state.game?.degree,
   ...state.settings.sudoku,
+  getColors: state.getColors,
 });
 
 const Cell: React.FC<CellProps> = ({
@@ -65,10 +66,18 @@ const Cell: React.FC<CellProps> = ({
   onPress,
   boardSize,
 }) => {
-  const { degree, showPeers, showCompleted, showEqual, showConflicts } =
-    useStore(selector);
+  const {
+    degree,
+    showPeers,
+    showCompleted,
+    showEqual,
+    showConflicts,
+    getColors,
+  } = useStore(selector);
 
-  const colors = useContext(ColorsContext);
+  const theme = useTheme();
+
+  const colors = getColors(theme);
 
   if (!degree) return null;
 

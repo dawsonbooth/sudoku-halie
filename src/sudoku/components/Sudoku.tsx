@@ -1,6 +1,5 @@
 import React from "react";
 import { useScreenDimensions } from "react-native-use-dimensions";
-import colors, { ColorsContext } from "../colors";
 import Board from "./Board";
 import Controls from "./Controls";
 import styled from "styled-components/native";
@@ -25,12 +24,10 @@ const Sudoku: React.FC = () => {
   }
 
   return (
-    <ColorsContext.Provider value={colors}>
-      <Container>
-        <Board size={boardSize} />
-        <Controls size={controlSize} />
-      </Container>
-    </ColorsContext.Provider>
+    <Container>
+      <Board size={boardSize} />
+      <Controls size={controlSize} />
+    </Container>
   );
 };
 

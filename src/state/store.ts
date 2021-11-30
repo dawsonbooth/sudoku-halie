@@ -11,7 +11,7 @@ import * as Sudoku from "../sudoku/types";
 
 export const useStore = create<Store>(
   persist(
-    (set) => ({
+    (set, get) => ({
       game: null,
       notesMode: false,
       startGame: (options: Sudoku.NewGameOptions) =>
@@ -26,7 +26,7 @@ export const useStore = create<Store>(
             state.game = null;
           })
         ),
-      handleCellPress: (location: Sudoku.Location) =>
+      handleCellPress: (location) =>
         set(
           produce((state: Store) => {
             if (state.game) Game.select(state.game, location);
@@ -50,7 +50,7 @@ export const useStore = create<Store>(
             if (state.game) Game.reveal(state.game);
           })
         ),
-      handleNumberButtonPress: (num: number) =>
+      handleNumberButtonPress: (num) =>
         set(
           produce((state: Store) => {
             if (state.game)
@@ -70,12 +70,58 @@ export const useStore = create<Store>(
           showConflicts: true,
         },
       },
-      updateSettings: (settings: Store["settings"]) =>
+      updateSettings: (settings) =>
         set(
           produce((state) => {
             state.settings = settings;
           })
         ),
+      getColors: (theme) =>
+        get().settings.app.darkMode
+          ? {
+              text: theme["text-basic-color"],
+              board: {
+                border: theme["border-basic-color-4"],
+                cell: {
+                  normal: theme["background-basic-color-1"],
+                  peer: theme["color-basic-700"],
+                  equal: theme["background-basic-color-2"],
+                  conflict: theme["color-danger-hover"],
+                  selected: theme["color-primary-hover"],
+                  completed: theme["color-success-hover"],
+                },
+              },
+              controls: {
+                numberButton: {
+                  background: theme["background-basic-color-1"],
+                  border: theme["background-basic-color-2"],
+                  progress: theme["color-primary-hover"],
+                  completed: theme["color-success-hover"],
+                },
+              },
+            }
+          : {
+              text: theme["text-basic-color"],
+              board: {
+                border: theme["border-alternative-color-4"],
+                cell: {
+                  normal: theme["background-basic-color-1"],
+                  peer: theme["color-info-200"],
+                  equal: theme["color-info-300"],
+                  conflict: theme["color-danger-300"],
+                  selected: theme["color-warning-200"],
+                  completed: theme["color-success-200"],
+                },
+              },
+              controls: {
+                numberButton: {
+                  background: theme["background-basic-color-1"],
+                  border: theme["background-basic-color-4"],
+                  progress: theme["color-info-hover"],
+                  completed: theme["color-success-hover"],
+                },
+              },
+            },
     }),
     {
       name: "sudoku-halie-storage",

@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
-import { ColorsContext } from "../colors";
+import React from "react";
 import { GestureResponderEvent, PixelRatio } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
 import styled from "styled-components/native";
+import { useTheme } from "@ui-kitten/components";
+import { Store, useStore } from "../../state";
 
 const Button = styled.TouchableOpacity`
   ${({ radius }: { radius: number }) => `
@@ -33,6 +34,8 @@ interface NumberButtonProps {
   onPress: (event: GestureResponderEvent) => void;
 }
 
+const selector = (state: Store) => state.getColors;
+
 const NumberButton: React.FC<NumberButtonProps> = ({
   number,
   percent,
@@ -40,7 +43,9 @@ const NumberButton: React.FC<NumberButtonProps> = ({
   notesMode,
   onPress,
 }) => {
-  const colors = useContext(ColorsContext);
+  const getColors = useStore(selector);
+  const theme = useTheme();
+  const colors = getColors(theme);
 
   return (
     <Button onPress={onPress} radius={radius}>

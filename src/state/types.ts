@@ -1,4 +1,4 @@
-import { Game, Location, NewGameOptions } from "../sudoku/types";
+import { Game, Location, NewGameOptions, Colors } from "../sudoku/types";
 
 export interface Store {
   game: Game | null;
@@ -12,6 +12,7 @@ export interface Store {
   handleNumberButtonPress: (number: number) => void;
   settings: Settings;
   updateSettings: (settings: Settings) => void;
+  getColors: (theme: Record<string, string>) => Colors;
 }
 
 export interface Settings {
