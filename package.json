@@ -8,7 +8,7 @@
     "web": "expo start --web",
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001' && expo start",
     "eject": "expo eject",
-    "format": "prettier -w \"./src/**/*\" --fix",
+    "format": "prettier -w \"./src/**/*\"",
     "lint": "eslint \"./src/**/*\" --fix && tsc --noEmit"
   },
   "dependencies": {
