@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components/native";
-import { SettingsContext } from "../settings";
-import { ColorsContext } from "../colors";
-import { TouchableOpacity } from "react-native";
-import { Icon } from "@ui-kitten/components";
+import { Alert, TouchableOpacity } from "react-native";
+import { Icon, useTheme } from "@ui-kitten/components";
 import NumberButton from "./NumberButton";
 import _ from "lodash";
+import { Store, useStore } from "../../state";
 
 const Container = styled.View`
   display: flex;
@@ -14,26 +13,36 @@ const Container = styled.View`
   flex-wrap: wrap;
 `;
 interface ControlsProps {
-  progress: number[];
   size: number;
-  notesMode: boolean;
-  handleNotesButtonPress: () => void;
-  handleEraserButtonPress: () => void;
-  handleRevealButtonPress: () => void;
-  handleNumberButtonPress: (number: number) => void;
 }
 
-const Controls: React.FC<ControlsProps> = ({
-  progress,
-  size,
-  notesMode,
-  handleNotesButtonPress,
-  handleEraserButtonPress,
-  handleRevealButtonPress,
-  handleNumberButtonPress,
-}) => {
-  const settings = useContext(SettingsContext);
-  const colors = useContext(ColorsContext);
+const selector = (state: Store) => ({
+  degree: state.game?.degree,
+  progress: state.game?.progress,
+  notesMode: state.notesMode,
+  handleNotesButtonPress: state.handleNotesButtonPress,
+  handleEraserButtonPress: state.handleEraserButtonPress,
+  handleRevealButtonPress: state.handleRevealButtonPress,
+  handleNumberButtonPress: state.handleNumberButtonPress,
+  getColors: state.getColors,
+});
+
+const Controls: React.FC<ControlsProps> = ({ size }) => {
+  const {
+    degree,
+    progress,
+    notesMode,
+    handleNotesButtonPress,
+    handleEraserButtonPress,
+    handleRevealButtonPress,
+    handleNumberButtonPress,
+    getColors,
+  } = useStore(selector);
+
+  const theme = useTheme();
+  const colors = getColors(theme);
+
+  if (!progress) return null;
 
   return (
     <>
@@ -46,7 +55,25 @@ const Controls: React.FC<ControlsProps> = ({
             fill={colors.text}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleRevealButtonPress}>
+        <TouchableOpacity
+          onPress={() =>
+            Alert.alert(
+              "Reveal",
+              "Are you sure you want to reveal this cell?",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "OK",
+                  onPress: handleRevealButtonPress,
+                },
+              ],
+              { cancelable: false }
+            )
+          }
+        >
           <Icon
             name="search-outline"
             width={size / 8}
@@ -64,11 +91,11 @@ const Controls: React.FC<ControlsProps> = ({
         </TouchableOpacity>
       </Container>
       <Container>
-        {_.range(0, settings.degree).map((_, i) => {
+        {_.range(0, degree).map((_, i) => {
           const number = i + 1;
           return (
             <NumberButton
-              key={number}
+              key={`number-button-${number}`}
               number={number}
               percent={progress[number] * 100}
               radius={size / 14}

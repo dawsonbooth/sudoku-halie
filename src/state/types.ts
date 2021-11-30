@@ -1,28 +1,29 @@
-import * as Sudoku from "../sudoku";
+import { Game, Location, NewGameOptions, Colors } from "../sudoku/types";
 
 export interface Store {
-  game: Game;
-  settings: Settings;
-  startGame: () => void;
+  game: Game | null;
+  notesMode: boolean;
+  startGame: (options: NewGameOptions) => void;
   endGame: () => void;
-  saveBoard: (board: Sudoku.Cell[][]) => void;
+  handleCellPress: (location: Location) => void;
+  handleNotesButtonPress: () => void;
+  handleEraserButtonPress: () => void;
+  handleRevealButtonPress: () => void;
+  handleNumberButtonPress: (number: number) => void;
+  settings: Settings;
   updateSettings: (settings: Settings) => void;
-}
-
-export interface Game {
-  board: Sudoku.Game["board"] | null;
-  started: boolean;
+  getColors: (theme: Record<string, string>) => Colors;
 }
 
 export interface Settings {
-  sudoku: Sudoku.Settings;
   app: {
     darkMode: boolean;
   };
-}
-
-export interface Action {
-  type: string;
-  board?: Sudoku.Game["board"];
-  settings?: Settings;
+  sudoku: {
+    dotNotes: boolean;
+    showCompleted: boolean;
+    showPeers: boolean;
+    showEqual: boolean;
+    showConflicts: boolean;
+  };
 }

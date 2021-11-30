@@ -1,5 +1,5 @@
 export interface Game {
-  degree: Settings["degree"];
+  degree: number;
   board: Cell[][];
   selected: Location | null;
   progress: number[];
@@ -46,12 +46,7 @@ export interface Colors {
   };
 }
 
-export interface Settings {
+export interface NewGameOptions {
   degree: number;
   prefilledRatio: number;
-  dotNotes: boolean;
-  showCompleted: boolean;
-  showPeers: boolean;
-  showEqual: boolean;
-  showConflicts: boolean;
 }

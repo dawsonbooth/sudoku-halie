@@ -37,18 +37,16 @@ interface NewGameProps {
   navigation: StackNavigationProp<StackParamList>;
 }
 
-const selector = (store: Store) => ({
-  settings: store.settings,
-  updateSettings: store.updateSettings,
-  startGame: store.startGame,
+const selector = (state: Store) => ({
+  settings: state.settings,
+  updateSettings: state.updateSettings,
+  startGame: state.startGame,
 });
 
 const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
   const { settings, updateSettings, startGame } = useStore(selector);
 
-  const [prefilledRatio, setPrefilledRatio] = useState<number>(
-    settings.sudoku.prefilledRatio
-  );
+  const [prefilledRatio, setPrefilledRatio] = useState<number>(0.4);
 
   const difficulties = [
     i18n.t("newGame.easy"),
@@ -96,20 +94,14 @@ const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
           </Text>
         </SliderLabel>
         <Slider
-          value={settings.sudoku.prefilledRatio}
+          value={prefilledRatio}
           onChange={setPrefilledRatio}
-          onComplete={(value) =>
-            updateSettings(
-              produce(settings, (draft) => {
-                draft.sudoku["prefilledRatio"] = value;
-              })
-            )
-          }
+          onComplete={setPrefilledRatio}
         />
         <List data={options} renderItem={renderItem} scrollEnabled={false} />
         <Button
           onPress={() => {
-            startGame();
+            startGame({ degree: 9, prefilledRatio });
             navigation.navigate("Game");
           }}
         >

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Settings, Game, Location } from "./types";
+import { Game, Location } from "./types";
 import { solvePuzzle, findPeers, findConflicts } from "./utils";
 
 export const constructGame = (
@@ -49,10 +49,13 @@ export const loadGame = (board: Game["board"]): Game => {
   return constructGame(degree, board, selected, progress);
 };
 
-export const newGame = (
-  degree: Settings["degree"],
-  prefilledRatio: Settings["prefilledRatio"]
-): Game => {
+export const newGame = ({
+  degree,
+  prefilledRatio,
+}: {
+  degree: number;
+  prefilledRatio: number;
+}): Game => {
   if (!(degree >= 0 && Math.sqrt(degree) % 1 === 0))
     throw TypeError("degree setting must be a perfect square");
   if (prefilledRatio > 1 || prefilledRatio < 0)
@@ -100,7 +103,7 @@ export const newGame = (
 export const prefill = (
   board: Game["board"],
   prefilledRatio: number,
-  degree: Settings["degree"]
+  degree: number
 ): void => {
   const ratioIncrement = 1 / (degree * degree);
   let filledRatio = 0;

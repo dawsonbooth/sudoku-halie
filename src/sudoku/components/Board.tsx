@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { PixelRatio } from "react-native";
 import Cell from "./Cell";
-import { ColorsContext } from "../colors";
 import * as Sudoku from "../types";
 import styled from "styled-components/native";
+import { Store, useStore } from "../../state";
+import { useTheme } from "@ui-kitten/components";
 
 const Grid = styled.View`
   ${({ size, borderColor }: { size: number; borderColor: string }) => `
@@ -22,21 +23,29 @@ const Row = styled.View`
 `;
 
 interface BoardProps {
-  board: Sudoku.Game["board"];
-  handleCellPress: ({ row, col }: Sudoku.Location) => void;
   size: number;
 }
 
-const Board: React.FC<BoardProps> = ({ board, handleCellPress, size }) => {
-  const colors = useContext(ColorsContext);
+const selector = (state: Store) => ({
+  board: state.game?.board,
+  getColors: state.getColors,
+  handleCellPress: state.handleCellPress,
+});
+
+const Board: React.FC<BoardProps> = ({ size }) => {
+  const { board, getColors, handleCellPress } = useStore(selector);
+  const theme = useTheme();
+  const colors = getColors(theme);
+
+  if (!board) return null;
 
   return (
     <Grid size={size} borderColor={colors.board.border}>
       {board.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
-        <Row key={r}>
+        <Row key={`board-row-${r}`}>
           {row.map((cell: Sudoku.Cell, c: Sudoku.Location["col"]) => (
             <Cell
-              key={c}
+              key={`board-cell-${c}`}
               row={r}
               column={c}
               {...cell}

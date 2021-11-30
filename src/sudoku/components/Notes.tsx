@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { SettingsContext } from "../settings";
-import { ColorsContext } from "../colors";
+import React from "react";
 import * as Sudoku from "../types";
 import styled from "styled-components/native";
 import _ from "lodash";
+import { Store, useStore } from "../../state";
+import { useTheme } from "@ui-kitten/components";
 
 const Grid = styled.View`
   display: flex;
@@ -38,13 +38,22 @@ interface NotesProps {
   size: number;
 }
 
+const selector = (state: Store) => ({
+  degree: state.game?.degree,
+  dotNotes: state.settings.sudoku.dotNotes,
+  getColors: state.getColors,
+});
+
 const Notes: React.FC<NotesProps> = ({ notes, size }) => {
-  const settings = useContext(SettingsContext);
-  const colors = useContext(ColorsContext);
+  const { degree, dotNotes, getColors } = useStore(selector);
+  const theme = useTheme();
+  const colors = getColors(theme);
 
-  const fontSize = (0.75 / 2) * (size / settings.degree);
+  if (!degree) return null;
 
-  const unit = Math.sqrt(settings.degree);
+  const fontSize = (0.75 / 2) * (size / degree);
+
+  const unit = Math.sqrt(degree);
   const notesGrid = _.range(0, unit).map((_value, r) =>
     _.range(0, unit).map((_value, c) => notes[r * unit + c + 1])
   );
@@ -52,16 +61,16 @@ const Notes: React.FC<NotesProps> = ({ notes, size }) => {
   return (
     <Grid>
       {notesGrid.map((row, r) => (
-        <Row key={r}>
+        <Row key={`notes-row-${r}`}>
           {row.map((isNote, c) => (
-            <Cell key={c}>
+            <Cell key={`notes-cell-${c}`}>
               {isNote && (
                 <Note
                   allowFontScaling={false}
                   fontSize={fontSize}
                   color={colors.text}
                 >
-                  {settings.dotNotes ? "•" : r * unit + c + 1}
+                  {dotNotes ? "•" : r * unit + c + 1}
                 </Note>
               )}
             </Cell>

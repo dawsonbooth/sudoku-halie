@@ -26,7 +26,7 @@ export const BackButton: React.FC = () => {
   return <TopNavigationAction onPress={goBack} icon={BackIcon} />;
 };
 
-const selector = (store: Store) => store.endGame;
+const selector = (state: Store) => state.endGame;
 
 export const NewGameButton: React.FC = () => {
   const endGame = useStore(selector);
@@ -46,8 +46,8 @@ export const NewGameButton: React.FC = () => {
             {
               text: i18n.t("alert.ok"),
               onPress: () => {
-                endGame();
                 navigate("NewGame");
+                endGame();
               },
             },
           ],
