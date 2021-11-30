@@ -17,7 +17,7 @@ export type StackParamList = {
 
 const Stack = createStackNavigator<StackParamList>();
 
-const selector = (store: Store) => store.settings;
+const selector = (state: Store) => state.settings;
 
 const AppNavigator: React.FC = () => {
   const settings = useStore(selector);

@@ -1,6 +1,4 @@
-import { Store } from "./types";
-import * as Sudoku from "../sudoku/types";
-import { settings as sudokuSettings } from "../sudoku";
+import * as Game from "../sudoku/game"; // TODO: New library for game logic
 
 import create from "zustand";
 import produce from "immer";
@@ -8,35 +6,70 @@ import produce from "immer";
 import { persist } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { Store } from "./types";
+import * as Sudoku from "../sudoku/types";
+
 export const useStore = create<Store>(
   persist(
     (set) => ({
-      game: { started: false, board: null },
-      settings: {
-        sudoku: sudokuSettings,
-        app: {
-          darkMode: false,
-        },
-      },
-      startGame: () =>
+      game: null,
+      notesMode: false,
+      startGame: (options: Sudoku.NewGameOptions) =>
         set(
-          produce((state) => {
-            state.game.started = true;
+          produce((state: Store) => {
+            state.game = Game.newGame(options);
           })
         ),
       endGame: () =>
         set(
-          produce((state) => {
-            state.game.board = null;
-            state.game.started = false;
+          produce((state: Store) => {
+            state.game = null;
           })
         ),
-      saveBoard: (board: Sudoku.Cell[][]) =>
+      handleCellPress: (location: Sudoku.Location) =>
         set(
-          produce((state) => {
-            state.game.board = board;
+          produce((state: Store) => {
+            if (state.game) Game.select(state.game, location);
           })
         ),
+      handleNotesButtonPress: () =>
+        set(
+          produce((state: Store) => {
+            if (state.game) state.notesMode = !state.notesMode;
+          })
+        ),
+      handleEraserButtonPress: () =>
+        set(
+          produce((state: Store) => {
+            if (state.game) Game.erase(state.game);
+          })
+        ),
+      handleRevealButtonPress: () =>
+        set(
+          produce((state: Store) => {
+            if (state.game) Game.reveal(state.game);
+          })
+        ),
+      handleNumberButtonPress: (num: number) =>
+        set(
+          produce((state: Store) => {
+            if (state.game)
+              if (state.notesMode) Game.toggleNote(state.game, num);
+              else Game.write(state.game, num);
+          })
+        ),
+      settings: {
+        app: {
+          darkMode: false,
+        },
+        sudoku: {
+          dotNotes: false,
+          showCompleted: true,
+          showPeers: true,
+          showEqual: true,
+          showConflicts: true,
+        },
+      },
       updateSettings: (settings: Store["settings"]) =>
         set(
           produce((state) => {

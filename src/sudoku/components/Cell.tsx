@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { ColorsContext } from "../colors";
-import { SettingsContext } from "../settings";
 import { GestureResponderEvent } from "react-native";
 import Notes from "./Notes";
 import * as Sudoku from "../types";
 import styled from "styled-components/native";
+import { Store, useStore } from "../../state";
 
 const Button = styled.TouchableOpacity<{
   degree: number;
@@ -46,6 +46,11 @@ interface CellProps extends Sudoku.Cell {
   boardSize: number;
 }
 
+const selector = (state: Store) => ({
+  degree: state.game?.degree,
+  ...state.settings.sudoku,
+});
+
 const Cell: React.FC<CellProps> = ({
   row,
   column,
@@ -60,22 +65,25 @@ const Cell: React.FC<CellProps> = ({
   onPress,
   boardSize,
 }) => {
+  const { degree, showPeers, showCompleted, showEqual, showConflicts } =
+    useStore(selector);
+
   const colors = useContext(ColorsContext);
-  const settings = useContext(SettingsContext);
+
+  if (!degree) return null;
 
   let backgroundColor = colors.board.cell.normal;
-  if (isPeer && settings.showPeers) backgroundColor = colors.board.cell.peer;
-  if (isCompleted && settings.showCompleted)
+  if (isPeer && showPeers) backgroundColor = colors.board.cell.peer;
+  if (isCompleted && showCompleted)
     backgroundColor = colors.board.cell.completed;
-  if (isEqual && settings.showEqual) backgroundColor = colors.board.cell.equal;
-  if (isConflict && settings.showConflicts)
-    backgroundColor = colors.board.cell.conflict;
+  if (isEqual && showEqual) backgroundColor = colors.board.cell.equal;
+  if (isConflict && showConflicts) backgroundColor = colors.board.cell.conflict;
   if (isSelected) backgroundColor = colors.board.cell.selected;
 
   return (
     <Button
       onPress={onPress}
-      degree={settings.degree}
+      degree={degree}
       row={row}
       column={column}
       backgroundColor={backgroundColor}
@@ -84,7 +92,7 @@ const Cell: React.FC<CellProps> = ({
       {value ? (
         <Value
           allowFontScaling={false}
-          degree={settings.degree}
+          degree={degree}
           boardSize={boardSize}
           isPrefilled={isPrefilled}
           color={colors.text}

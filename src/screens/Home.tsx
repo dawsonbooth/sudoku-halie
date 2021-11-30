@@ -9,7 +9,7 @@ interface HomeProps {
   navigation: StackNavigationProp<StackParamList>;
 }
 
-const selector = (store: Store) => store.game;
+const selector = (state: Store) => state.game;
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
   const game = useStore(selector);
@@ -19,7 +19,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
       <Button
         appearance="ghost"
         onPress={() => {
-          if (game.started) navigation.navigate("Game");
+          if (game) navigation.navigate("Game");
           else navigation.navigate("NewGame");
         }}
       >

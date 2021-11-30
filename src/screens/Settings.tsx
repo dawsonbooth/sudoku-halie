@@ -61,9 +61,9 @@ type Labels = {
   };
 };
 
-const selector = (store: Store) => ({
-  settings: store.settings,
-  updateSettings: store.updateSettings,
+const selector = (state: Store) => ({
+  settings: state.settings,
+  updateSettings: state.updateSettings,
 });
 
 const useLabels = (): Labels => {

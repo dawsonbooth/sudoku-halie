@@ -1,12 +1,12 @@
 import _ from "lodash";
-import { Settings, Cell as GameCell, Location } from "./types";
+import { Cell as GameCell, Location } from "./types";
 
 type Cell = Pick<GameCell, "value" | "location">;
 
 export function findPeers(
   board: Cell[][],
   { row, col }: Location,
-  degree: Settings["degree"]
+  degree: number
 ): Cell[] {
   const peers: Cell[] = [];
   const unit = Math.sqrt(degree);
@@ -26,17 +26,14 @@ export function findConflicts(
   board: Cell[][],
   location: Location,
   value: number,
-  degree: Settings["degree"]
+  degree: number
 ): Cell[] {
   return findPeers(board, location, degree).filter(
     (c) => c.value > 0 && c.value === value
   );
 }
 
-export function solvePuzzle(
-  board: Cell[][],
-  degree: Settings["degree"]
-): boolean {
+export function solvePuzzle(board: Cell[][], degree: number): boolean {
   const values = _.shuffle(_.range(1, degree + 1));
   for (let r = 0; r < degree; r++) {
     for (let c = 0; c < degree; c++) {
