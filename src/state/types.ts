@@ -1,6 +1,9 @@
-import { Game, Location, NewGameOptions, Colors } from "../sudoku/types";
+import { GetState, SetState, StoreApi } from "zustand";
+import { Colors, Game, Location, NewGameOptions } from "../sudoku/types";
 
-export interface Store {
+export type Store = GameSlice & SettingsSlice;
+
+export type GameSlice = {
   game: Game | null;
   notesMode: boolean;
   startGame: (options: NewGameOptions) => void;
@@ -10,10 +13,19 @@ export interface Store {
   handleEraserButtonPress: () => void;
   handleRevealButtonPress: () => void;
   handleNumberButtonPress: (number: number) => void;
+};
+
+export type SettingsSlice = {
   settings: Settings;
   updateSettings: (settings: Settings) => void;
   getColors: (theme: Record<string, string>) => Colors;
-}
+};
+
+export type SliceCreator<TSlice extends Partial<Store>> = (
+  set: SetState<Store>,
+  get: GetState<TSlice>,
+  api: StoreApi<Store>
+) => TSlice;
 
 export interface Settings {
   app: {
