@@ -1,9 +1,9 @@
-import React from "react";
-import { Button } from "@ui-kitten/components";
-import { Store, useStore } from "../state";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { StackParamList } from "../navigation/AppNavigator";
-import Screen from "../components/Screen";
+import { Button } from "@ui-kitten/components";
+import React from "react";
+import Screen from "../../components/Screen";
+import { StackParamList } from "../../navigation/AppNavigator";
+import { Store, useStore } from "../../state";
 
 interface HomeProps {
   navigation: StackNavigationProp<StackParamList>;

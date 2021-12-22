@@ -1,43 +1,10 @@
+import { useTheme } from "@ui-kitten/components";
 import React from "react";
 import { GestureResponderEvent } from "react-native";
-import Notes from "./Notes";
-import * as Sudoku from "../types";
-import styled from "styled-components/native";
-import { Store, useStore } from "../../state";
-import { useTheme } from "@ui-kitten/components";
-
-const Button = styled.TouchableOpacity<{
-  degree: number;
-  row: number;
-  column: number;
-  backgroundColor: string;
-  borderColor: string;
-}>`
-  flex: 1;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  border-top-width: ${({ row, degree }) =>
-    row % Math.sqrt(degree) == 0 ? 2 : 1}px;
-  border-left-width: ${({ column, degree }) =>
-    column % Math.sqrt(degree) == 0 ? 2 : 1}px;
-  border-bottom-width: ${({ row, degree }) =>
-    (row + 1) % Math.sqrt(degree) == 0 ? 2 : 1}px;
-  border-right-width: ${({ column, degree }) =>
-    (column + 1) % Math.sqrt(degree) == 0 ? 2 : 1}px;
-  border-color: ${({ borderColor }) => borderColor};
-  align-items: center;
-  justify-content: center;
-`;
-
-const Value = styled.Text<{
-  degree: number;
-  boardSize: number;
-  isPrefilled: boolean;
-  color: string;
-}>`
-  color: ${({ color }) => color};
-  font-size: ${({ boardSize, degree }) => 0.75 * (boardSize / degree)}px;
-  font-weight: ${(isPrefilled) => (isPrefilled ? "bold" : "normal")};
-`;
+import { Store, useStore } from "../../../state";
+import * as Sudoku from "../../types";
+import Notes from "../notes";
+import { Button, Value } from "./styles";
 
 interface CellProps extends Sudoku.Cell {
   row: number;

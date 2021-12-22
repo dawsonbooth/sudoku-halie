@@ -1,30 +1,9 @@
+import { useTheme } from "@ui-kitten/components";
 import React from "react";
 import { GestureResponderEvent, PixelRatio } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
-import styled from "styled-components/native";
-import { useTheme } from "@ui-kitten/components";
-import { Store, useStore } from "../../state";
-
-const Button = styled.TouchableOpacity`
-  ${({ radius }: { radius: number }) => `
-    margin: ${radius / 5}px;
-  `}
-`;
-
-const Note = styled.Text`
-  ${({ radius, color }: { radius: number; color: string }) => `
-    margin-horizontal: ${radius * 0.4}px;
-    font-size: ${radius * 2}px;
-    color: ${color};
-  `}
-`;
-
-const Number = styled.Text`
-  ${({ radius, color }: { radius: number; color: string }) => `
-    font-size: ${radius * 1.25}px;
-    color: ${color};
-  `}
-`;
+import { Store, useStore } from "../../../state";
+import { Button, Note, Number } from "./styles";
 
 interface NumberButtonProps {
   number: number;

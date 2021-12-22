@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { Layout } from "@ui-kitten/components";
 import Header from "./Header";
 
-const Container = styled.SafeAreaView`
+const Wrapper = styled.SafeAreaView`
   height: 100%;
   width: 100%;
 `;
@@ -22,14 +22,14 @@ const Screen: React.FC<ScreenProps> = ({
 }) => {
   return (
     <Layout>
-      <Container>
+      <Wrapper>
         <Header
           title={title}
           accessoryLeft={headerLeft as () => JSX.Element}
           accessoryRight={headerRight as () => JSX.Element}
         />
         {children}
-      </Container>
+      </Wrapper>
     </Layout>
   );
 };

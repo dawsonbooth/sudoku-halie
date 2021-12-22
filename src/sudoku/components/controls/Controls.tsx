@@ -1,17 +1,11 @@
-import React from "react";
-import styled from "styled-components/native";
-import { Alert, TouchableOpacity } from "react-native";
 import { Icon, useTheme } from "@ui-kitten/components";
-import NumberButton from "./NumberButton";
 import _ from "lodash";
-import { Store, useStore } from "../../state";
+import React from "react";
+import { Alert, TouchableOpacity } from "react-native";
+import { Store, useStore } from "../../../state";
+import NumberButton from "../numberButton";
+import { Wrapper } from "./styles";
 
-const Container = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-`;
 interface ControlsProps {
   size: number;
 }
@@ -46,7 +40,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
 
   return (
     <>
-      <Container>
+      <Wrapper>
         <TouchableOpacity onPress={handleNotesButtonPress}>
           <Icon
             name="edit-outline"
@@ -89,8 +83,8 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
             fill={colors.text}
           />
         </TouchableOpacity>
-      </Container>
-      <Container>
+      </Wrapper>
+      <Wrapper>
         {_.range(0, degree).map((_, i) => {
           const number = i + 1;
           return (
@@ -104,7 +98,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
             />
           );
         })}
-      </Container>
+      </Wrapper>
     </>
   );
 };

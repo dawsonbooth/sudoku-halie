@@ -1,13 +1,8 @@
 import React from "react";
 import { useScreenDimensions } from "react-native-use-dimensions";
-import Board from "./Board";
-import Controls from "./Controls";
-import styled from "styled-components/native";
-
-const Container = styled.View`
-  height: 100%;
-  width: 100%;
-`;
+import Board from "../board";
+import Controls from "../controls";
+import { Wrapper } from "./styles";
 
 const Sudoku: React.FC = () => {
   const { height, width } = useScreenDimensions();
@@ -24,10 +19,10 @@ const Sudoku: React.FC = () => {
   }
 
   return (
-    <Container>
+    <Wrapper>
       <Board size={boardSize} />
       <Controls size={controlSize} />
-    </Container>
+    </Wrapper>
   );
 };
 

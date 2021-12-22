@@ -1,24 +1,14 @@
-import React, { useState } from "react";
-import { Text, Button, ListItem, List, CheckBox } from "@ui-kitten/components";
-import Slider from "../components/Slider";
-import { useStore, Store, Settings } from "../state";
-import i18n from "i18n-js";
-import { SettingsButton } from "../navigation/buttons";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { StackParamList } from "../navigation/AppNavigator";
-import Screen from "../components/Screen";
-import styled from "styled-components/native";
+import { Button, CheckBox, List, ListItem, Text } from "@ui-kitten/components";
+import i18n from "i18n-js";
 import produce from "immer";
-
-const Container = styled.View`
-  padding: 10px;
-`;
-
-const SliderLabel = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-`;
+import React, { useState } from "react";
+import Screen from "../../components/Screen";
+import Slider from "../../components/Slider";
+import { StackParamList } from "../../navigation/AppNavigator";
+import { SettingsButton } from "../../navigation/buttons";
+import { Settings, Store, useStore } from "../../state";
+import { Wrapper, SliderLabel } from "./styles";
 
 type BooleanSudokuSettings = Omit<
   Settings["sudoku"],
@@ -85,7 +75,7 @@ const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
 
   return (
     <Screen title={i18n.t("newGame.title")} headerLeft={SettingsButton}>
-      <Container>
+      <Wrapper>
         <SliderLabel>
           <Text>{`Difficulty: ${difficulty}`}</Text>
           <Text>
@@ -107,7 +97,7 @@ const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
         >
           {i18n.t("newGame.button")}
         </Button>
-      </Container>
+      </Wrapper>
     </Screen>
   );
 };

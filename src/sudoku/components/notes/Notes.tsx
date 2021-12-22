@@ -1,37 +1,9 @@
-import React from "react";
-import * as Sudoku from "../types";
-import styled from "styled-components/native";
-import _ from "lodash";
-import { Store, useStore } from "../../state";
 import { useTheme } from "@ui-kitten/components";
-
-const Grid = styled.View`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-`;
-
-const Row = styled.View`
-  flex: 1;
-  flex-direction: row;
-`;
-
-const Cell = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Note = styled.Text`
-  ${({ fontSize, color }: { fontSize: number; color: string }) => `
-    font-size: ${fontSize}px;
-    line-height: ${fontSize}px;
-    color: ${color};
-  `}
-`;
+import _ from "lodash";
+import React from "react";
+import { Store, useStore } from "../../../state";
+import * as Sudoku from "../../types";
+import { Cell, Grid, Note, Row } from "./styles";
 
 interface NotesProps {
   notes: Sudoku.Cell["notes"];

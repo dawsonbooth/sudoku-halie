@@ -1,18 +1,18 @@
+import { StackNavigationProp } from "@react-navigation/stack";
+import { CheckBox, List, ListItem, Text } from "@ui-kitten/components";
+import i18n from "i18n-js";
+import produce from "immer";
 import React from "react";
 import { ListRenderItem } from "react-native";
-import styled from "styled-components/native";
-import { Text, ListItem, List, CheckBox } from "@ui-kitten/components";
-import { Settings as SettingsStateInterface, Store, useStore } from "../state";
-import i18n from "i18n-js";
-import { BackButton } from "../navigation/buttons";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { StackParamList } from "../navigation/AppNavigator";
-import Screen from "../components/Screen";
-import produce from "immer";
-
-const Container = styled.View`
-  padding: 10px;
-`;
+import Screen from "../../components/Screen";
+import { StackParamList } from "../../navigation/AppNavigator";
+import { BackButton } from "../../navigation/buttons";
+import {
+  Settings as SettingsStateInterface,
+  Store,
+  useStore,
+} from "../../state";
+import { Wrapper } from "./styles";
 
 type SettingsInterface = Omit<SettingsStateInterface, "sudoku"> & {
   sudoku: Omit<SettingsStateInterface["sudoku"], "degree" | "prefilledRatio">;
@@ -127,7 +127,7 @@ const Settings: React.FC<SettingsProps> = () => {
 
   return (
     <Screen title={labels.title} headerLeft={BackButton}>
-      <Container>
+      <Wrapper>
         <Text category="h6">{labels.app.header}</Text>
         <List data={appData} renderItem={SettingsRow} scrollEnabled={false} />
         <Text category="h6">{labels.sudoku.header}</Text>
@@ -136,7 +136,7 @@ const Settings: React.FC<SettingsProps> = () => {
           renderItem={SettingsRow}
           scrollEnabled={false}
         />
-      </Container>
+      </Wrapper>
     </Screen>
   );
 };
