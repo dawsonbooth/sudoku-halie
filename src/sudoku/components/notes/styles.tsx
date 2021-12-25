@@ -20,10 +20,10 @@ export const Cell = styled.View`
   justify-content: center;
 `;
 
-export const Note = styled.Text`
-  ${({ fontSize, color }: { fontSize: number; color: string }) => css`
+export const Note = styled.Text<{ fontSize: number }>`
+  ${({ fontSize }) => css`
     font-size: ${fontSize}px;
     line-height: ${fontSize}px;
-    color: ${color};
   `}
+  color: ${({ theme }) => theme["text-basic-color"]};
 `;

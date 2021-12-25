@@ -1,4 +1,3 @@
-import { useTheme } from "@ui-kitten/components";
 import React from "react";
 import { Store, useStore } from "../../../state";
 import * as Sudoku from "../../types";
@@ -10,20 +9,18 @@ interface BoardProps {
 }
 
 const selector = (state: Store) => ({
+  darkMode: state.settings.app.darkMode,
   board: state.game?.board,
-  getColors: state.getColors,
   handleCellPress: state.handleCellPress,
 });
 
 const Board: React.FC<BoardProps> = ({ size }) => {
-  const { board, getColors, handleCellPress } = useStore(selector);
-  const theme = useTheme();
-  const colors = getColors(theme);
+  const { darkMode, board, handleCellPress } = useStore(selector);
 
   if (!board) return null;
 
   return (
-    <Grid size={size} borderColor={colors.board.border}>
+    <Grid size={size} darkMode={darkMode}>
       {board.map((row: Sudoku.Cell[], r: Sudoku.Location["row"]) => (
         <Row key={`board-row-${r}`}>
           {row.map((cell: Sudoku.Cell, c: Sudoku.Location["col"]) => (

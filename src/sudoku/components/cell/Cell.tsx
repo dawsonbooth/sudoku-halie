@@ -1,10 +1,9 @@
-import { useTheme } from "@ui-kitten/components";
-import React from "react";
+import React, { useMemo } from "react";
 import { GestureResponderEvent } from "react-native";
 import { Store, useStore } from "../../../state";
 import * as Sudoku from "../../types";
 import Notes from "../notes";
-import { Button, Value } from "./styles";
+import { Button, State, Value } from "./styles";
 
 interface CellProps extends Sudoku.Cell {
   row: number;
@@ -15,8 +14,8 @@ interface CellProps extends Sudoku.Cell {
 
 const selector = (state: Store) => ({
   degree: state.game?.degree,
+  darkMode: state.settings.app.darkMode,
   ...state.settings.sudoku,
-  getColors: state.getColors,
 });
 
 const Cell: React.FC<CellProps> = ({
@@ -35,26 +34,34 @@ const Cell: React.FC<CellProps> = ({
 }) => {
   const {
     degree,
+    darkMode,
     showPeers,
     showCompleted,
     showEqual,
     showConflicts,
-    getColors,
   } = useStore(selector);
 
-  const theme = useTheme();
-
-  const colors = getColors(theme);
+  const state = useMemo(() => {
+    let color = State.NORMAL;
+    if (isPeer && showPeers) color = State.PEER;
+    if (isCompleted && showCompleted) color = State.COMPLETED;
+    if (isEqual && showEqual) color = State.EQUAL;
+    if (isConflict && showConflicts) color = State.CONFLICT;
+    if (isSelected) color = State.SELECTED;
+    return color;
+  }, [
+    isCompleted,
+    isConflict,
+    isEqual,
+    isPeer,
+    isSelected,
+    showCompleted,
+    showConflicts,
+    showEqual,
+    showPeers,
+  ]);
 
   if (!degree) return null;
-
-  let backgroundColor = colors.board.cell.normal;
-  if (isPeer && showPeers) backgroundColor = colors.board.cell.peer;
-  if (isCompleted && showCompleted)
-    backgroundColor = colors.board.cell.completed;
-  if (isEqual && showEqual) backgroundColor = colors.board.cell.equal;
-  if (isConflict && showConflicts) backgroundColor = colors.board.cell.conflict;
-  if (isSelected) backgroundColor = colors.board.cell.selected;
 
   return (
     <Button
@@ -62,8 +69,8 @@ const Cell: React.FC<CellProps> = ({
       degree={degree}
       row={row}
       column={column}
-      backgroundColor={backgroundColor}
-      borderColor={colors.board.border}
+      state={state}
+      darkMode={darkMode}
     >
       {value ? (
         <Value
@@ -71,7 +78,6 @@ const Cell: React.FC<CellProps> = ({
           degree={degree}
           boardSize={boardSize}
           isPrefilled={isPrefilled}
-          color={colors.text}
         >
           {value}
         </Value>

@@ -23,29 +23,6 @@ export interface Location {
   col: number;
 }
 
-export interface Colors {
-  text: string;
-  board: {
-    border: string;
-    cell: {
-      normal: string;
-      peer: string;
-      equal: string;
-      conflict: string;
-      selected: string;
-      completed: string;
-    };
-  };
-  controls: {
-    numberButton: {
-      background: string;
-      border: string;
-      progress: string;
-      completed: string;
-    };
-  };
-}
-
 export interface NewGameOptions {
   degree: number;
   prefilledRatio: number;

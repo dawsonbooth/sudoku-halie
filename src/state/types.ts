@@ -1,5 +1,5 @@
 import { GetState, SetState, StoreApi } from "zustand";
-import { Colors, Game, Location, NewGameOptions } from "../sudoku/types";
+import { Game, Location, NewGameOptions } from "../sudoku/types";
 
 export type Store = GameSlice & SettingsSlice;
 
@@ -18,7 +18,6 @@ export type GameSlice = {
 export type SettingsSlice = {
   settings: Settings;
   updateSettings: (settings: Settings) => void;
-  getColors: (theme: Record<string, string>) => Colors;
 };
 
 export type SliceCreator<TSlice extends Partial<Store>> = (

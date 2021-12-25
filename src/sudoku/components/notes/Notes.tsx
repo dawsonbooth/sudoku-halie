@@ -1,4 +1,3 @@
-import { useTheme } from "@ui-kitten/components";
 import _ from "lodash";
 import React from "react";
 import { Store, useStore } from "../../../state";
@@ -13,13 +12,10 @@ interface NotesProps {
 const selector = (state: Store) => ({
   degree: state.game?.degree,
   dotNotes: state.settings.sudoku.dotNotes,
-  getColors: state.getColors,
 });
 
 const Notes: React.FC<NotesProps> = ({ notes, size }) => {
-  const { degree, dotNotes, getColors } = useStore(selector);
-  const theme = useTheme();
-  const colors = getColors(theme);
+  const { degree, dotNotes } = useStore(selector);
 
   if (!degree) return null;
 
@@ -37,11 +33,7 @@ const Notes: React.FC<NotesProps> = ({ notes, size }) => {
           {row.map((isNote, c) => (
             <Cell key={`notes-cell-${c}`}>
               {isNote && (
-                <Note
-                  allowFontScaling={false}
-                  fontSize={fontSize}
-                  color={colors.text}
-                >
+                <Note allowFontScaling={false} fontSize={fontSize}>
                   {dotNotes ? "•" : r * unit + c + 1}
                 </Note>
               )}

@@ -1,7 +1,8 @@
-import { Icon, useTheme } from "@ui-kitten/components";
+import { Icon } from "@ui-kitten/components";
 import _ from "lodash";
 import React from "react";
 import { Alert, TouchableOpacity } from "react-native";
+import { useTheme } from "styled-components/native";
 import { Store, useStore } from "../../../state";
 import NumberButton from "../numberButton";
 import { Wrapper } from "./styles";
@@ -18,7 +19,6 @@ const selector = (state: Store) => ({
   handleEraserButtonPress: state.handleEraserButtonPress,
   handleRevealButtonPress: state.handleRevealButtonPress,
   handleNumberButtonPress: state.handleNumberButtonPress,
-  getColors: state.getColors,
 });
 
 const Controls: React.FC<ControlsProps> = ({ size }) => {
@@ -30,11 +30,9 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
     handleEraserButtonPress,
     handleRevealButtonPress,
     handleNumberButtonPress,
-    getColors,
   } = useStore(selector);
 
   const theme = useTheme();
-  const colors = getColors(theme);
 
   if (!progress) return null;
 
@@ -46,7 +44,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
             name="edit-outline"
             width={size / 8}
             height={size / 8}
-            fill={colors.text}
+            fill={theme["text-basic-color"]}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -72,7 +70,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
             name="search-outline"
             width={size / 8}
             height={size / 8}
-            fill={colors.text}
+            fill={theme["text-basic-color"]}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={handleEraserButtonPress}>
@@ -80,7 +78,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
             name="trash-outline"
             width={size / 8}
             height={size / 8}
-            fill={colors.text}
+            fill={theme["text-basic-color"]}
           />
         </TouchableOpacity>
       </Wrapper>
