@@ -1,12 +1,7 @@
-import React from "react";
-import * as screens from "../screens";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
-import { mapping, dark, light } from "@eva-design/eva";
-import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import { useStore, Store } from "../state";
-import { StatusBar } from "react-native";
+import React from "react";
+import * as screens from "../screens";
 
 export type StackParamList = {
   Home: undefined;
@@ -17,32 +12,18 @@ export type StackParamList = {
 
 const Stack = createStackNavigator<StackParamList>();
 
-const selector = (state: Store) => state.settings;
-
-const AppNavigator: React.FC = () => {
-  const settings = useStore(selector);
-
-  const darkMode = settings.app.darkMode;
-
-  return (
-    <>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider mapping={mapping} theme={darkMode ? dark : light}>
-        <StatusBar barStyle={darkMode ? "light-content" : "dark-content"} />
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Home"
-            screenOptions={{ headerShown: false }}
-          >
-            <Stack.Screen name="Home" component={screens.Home} />
-            <Stack.Screen name="Game" component={screens.Game} />
-            <Stack.Screen name="NewGame" component={screens.NewGame} />
-            <Stack.Screen name="Settings" component={screens.Settings} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ApplicationProvider>
-    </>
-  );
-};
+const AppNavigator: React.FC = () => (
+  <NavigationContainer>
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="Home" component={screens.Home} />
+      <Stack.Screen name="Game" component={screens.Game} />
+      <Stack.Screen name="NewGame" component={screens.NewGame} />
+      <Stack.Screen name="Settings" component={screens.Settings} />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
 
 export default AppNavigator;
