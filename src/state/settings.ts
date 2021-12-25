@@ -1,7 +1,7 @@
-import produce from "immer";
-import { SettingsSlice, SliceCreator } from "./types";
+import produce from 'immer'
+import { SettingsSlice, SliceCreator } from './types'
 
-const createSettingsSlice: SliceCreator<SettingsSlice> = (set) => ({
+const createSettingsSlice: SliceCreator<SettingsSlice> = set => ({
   settings: {
     app: {
       darkMode: false,
@@ -14,12 +14,12 @@ const createSettingsSlice: SliceCreator<SettingsSlice> = (set) => ({
       showConflicts: true,
     },
   },
-  updateSettings: (settings) =>
+  updateSettings: settings =>
     set(
       produce((state: SettingsSlice) => {
-        state.settings = settings;
+        state.settings = settings
       })
     ),
-});
+})
 
-export default createSettingsSlice;
+export default createSettingsSlice

@@ -1,17 +1,13 @@
-import React, { ReactElement } from "react";
-import { TopNavigation } from "@ui-kitten/components";
+import React, { ReactElement } from 'react'
+import { TopNavigation } from '@ui-kitten/components'
 
 interface HeaderProps {
-  title?: string;
-  accessoryLeft?: () => ReactElement;
-  accessoryRight?: () => ReactElement;
+  title?: string
+  accessoryLeft?: () => ReactElement
+  accessoryRight?: () => ReactElement
 }
 
-const Header: React.FC<HeaderProps> = ({
-  title,
-  accessoryLeft,
-  accessoryRight,
-}) => {
+const Header: React.FC<HeaderProps> = ({ title, accessoryLeft, accessoryRight }) => {
   return (
     <TopNavigation
       title={title}
@@ -19,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({
       accessoryLeft={accessoryLeft}
       accessoryRight={accessoryRight}
     />
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

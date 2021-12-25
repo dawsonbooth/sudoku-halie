@@ -1,5 +1,5 @@
-import { PixelRatio } from "react-native";
-import styled, { css } from "styled-components/native";
+import { PixelRatio } from 'react-native'
+import styled, { css } from 'styled-components/native'
 
 export const Grid = styled.View<{ size: number; darkMode: boolean }>`
   ${({ theme, size, darkMode }) =>
@@ -10,12 +10,12 @@ export const Grid = styled.View<{ size: number; darkMode: boolean }>`
       margin: ${PixelRatio.roundToNearestPixel(0.05 * size)}px;
       border-width: 2px;
       border-color: ${darkMode
-        ? theme["border-basic-color-4"]
-        : theme["border-alternative-color-4"]};
+        ? theme['border-basic-color-4']
+        : theme['border-alternative-color-4']};
     `}
-`;
+`
 
 export const Row = styled.View`
   flex: 1;
   flex-direction: row;
-`;
+`

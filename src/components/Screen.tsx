@@ -1,25 +1,20 @@
-import React, { VoidFunctionComponent } from "react";
-import styled from "styled-components/native";
-import { Layout } from "@ui-kitten/components";
-import Header from "./Header";
+import React, { VoidFunctionComponent } from 'react'
+import styled from 'styled-components/native'
+import { Layout } from '@ui-kitten/components'
+import Header from './Header'
 
 const Wrapper = styled.SafeAreaView`
   height: 100%;
   width: 100%;
-`;
+`
 
 interface ScreenProps {
-  title?: string;
-  headerLeft?: VoidFunctionComponent;
-  headerRight?: VoidFunctionComponent;
+  title?: string
+  headerLeft?: VoidFunctionComponent
+  headerRight?: VoidFunctionComponent
 }
 
-const Screen: React.FC<ScreenProps> = ({
-  title,
-  headerLeft,
-  headerRight,
-  children,
-}) => {
+const Screen: React.FC<ScreenProps> = ({ title, headerLeft, headerRight, children }) => {
   return (
     <Layout>
       <Wrapper>
@@ -31,7 +26,7 @@ const Screen: React.FC<ScreenProps> = ({
         {children}
       </Wrapper>
     </Layout>
-  );
-};
+  )
+}
 
-export default Screen;
+export default Screen

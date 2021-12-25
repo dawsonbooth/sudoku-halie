@@ -1,53 +1,49 @@
-import React from "react";
-import { Alert, ImageProps } from "react-native";
-import { TopNavigationAction, Icon } from "@ui-kitten/components";
-import { Store, useStore } from "../state";
-import i18n from "i18n-js";
-import { useNavigation } from "@react-navigation/native";
-import { StackParamList } from "./AppNavigator";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RenderFCProp } from "@ui-kitten/components/devsupport";
+import React from 'react'
+import { Alert, ImageProps } from 'react-native'
+import { TopNavigationAction, Icon } from '@ui-kitten/components'
+import { Store, useStore } from '../state'
+import i18n from 'i18n-js'
+import { useNavigation } from '@react-navigation/native'
+import { StackParamList } from './AppNavigator'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RenderFCProp } from '@ui-kitten/components/devsupport'
 
-const BackIcon: RenderFCProp<Partial<ImageProps>> = (style) => (
+const BackIcon: RenderFCProp<Partial<ImageProps>> = style => (
   <Icon {...style} name="arrow-ios-back" />
-);
+)
 
-const PencilIcon: RenderFCProp<Partial<ImageProps>> = (style) => (
-  <Icon {...style} name="edit" />
-);
+const PencilIcon: RenderFCProp<Partial<ImageProps>> = style => <Icon {...style} name="edit" />
 
-const SettingsIcon: RenderFCProp<Partial<ImageProps>> = (style) => (
-  <Icon {...style} name="settings" />
-);
+const SettingsIcon: RenderFCProp<Partial<ImageProps>> = style => <Icon {...style} name="settings" />
 
 export const BackButton: React.FC = () => {
-  const { goBack } = useNavigation();
+  const { goBack } = useNavigation()
 
-  return <TopNavigationAction onPress={goBack} icon={BackIcon} />;
-};
+  return <TopNavigationAction onPress={goBack} icon={BackIcon} />
+}
 
-const selector = (state: Store) => state.endGame;
+const selector = (state: Store) => state.endGame
 
 export const NewGameButton: React.FC = () => {
-  const endGame = useStore(selector);
-  const { navigate } = useNavigation<StackNavigationProp<StackParamList>>();
+  const endGame = useStore(selector)
+  const { navigate } = useNavigation<StackNavigationProp<StackParamList>>()
 
   return (
     <TopNavigationAction
       onPress={() =>
         Alert.alert(
-          i18n.t("alert.newGame.title"),
-          i18n.t("alert.newGame.message"),
+          i18n.t('alert.newGame.title'),
+          i18n.t('alert.newGame.message'),
           [
             {
-              text: i18n.t("alert.cancel"),
-              style: "cancel",
+              text: i18n.t('alert.cancel'),
+              style: 'cancel',
             },
             {
-              text: i18n.t("alert.ok"),
+              text: i18n.t('alert.ok'),
               onPress: () => {
-                navigate("NewGame");
-                endGame();
+                navigate('NewGame')
+                endGame()
               },
             },
           ],
@@ -56,16 +52,11 @@ export const NewGameButton: React.FC = () => {
       }
       icon={PencilIcon}
     />
-  );
-};
+  )
+}
 
 export const SettingsButton: React.FC = () => {
-  const { navigate } = useNavigation<StackNavigationProp<StackParamList>>();
+  const { navigate } = useNavigation<StackNavigationProp<StackParamList>>()
 
-  return (
-    <TopNavigationAction
-      onPress={() => navigate("Settings")}
-      icon={SettingsIcon}
-    />
-  );
-};
+  return <TopNavigationAction onPress={() => navigate('Settings')} icon={SettingsIcon} />
+}

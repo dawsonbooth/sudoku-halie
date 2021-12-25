@@ -1,3 +1,3 @@
-import Sudoku from "./Sudoku";
+import Sudoku from './Sudoku'
 
-export default Sudoku;
+export default Sudoku

@@ -1,19 +1,14 @@
-import React from "react";
-import _Slider from "@react-native-community/slider";
+import React from 'react'
+import _Slider from '@react-native-community/slider'
 
 interface SliderProps {
-  value?: number;
-  color?: string;
-  onChange?: (value: number) => void;
-  onComplete?: (value: number) => void;
+  value?: number
+  color?: string
+  onChange?: (value: number) => void
+  onComplete?: (value: number) => void
 }
 
-const Slider: React.FC<SliderProps> = ({
-  value = 0,
-  color = "#3466FF",
-  onChange,
-  onComplete,
-}) => {
+const Slider: React.FC<SliderProps> = ({ value = 0, color = '#3466FF', onChange, onComplete }) => {
   return (
     <_Slider
       minimumValue={0}
@@ -24,7 +19,7 @@ const Slider: React.FC<SliderProps> = ({
       onValueChange={onChange}
       onSlidingComplete={onComplete}
     />
-  );
-};
+  )
+}
 
-export default Slider;
+export default Slider

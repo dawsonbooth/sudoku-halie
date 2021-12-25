@@ -1,21 +1,21 @@
-import React from "react";
-import { useScreenDimensions } from "react-native-use-dimensions";
-import Board from "../board";
-import Controls from "../controls";
-import { Wrapper } from "./styles";
+import React from 'react'
+import { useScreenDimensions } from 'react-native-use-dimensions'
+import Board from '../board'
+import Controls from '../controls'
+import { Wrapper } from './styles'
 
 const Sudoku: React.FC = () => {
-  const { height, width } = useScreenDimensions();
+  const { height, width } = useScreenDimensions()
 
-  let boardSize;
-  let controlSize;
+  let boardSize
+  let controlSize
 
   if (height > width) {
-    boardSize = Math.min(0.5 * height, 0.9 * width);
-    controlSize = width;
+    boardSize = Math.min(0.5 * height, 0.9 * width)
+    controlSize = width
   } else {
-    boardSize = Math.min(0.5 * width, 0.9 * height);
-    controlSize = height;
+    boardSize = Math.min(0.5 * width, 0.9 * height)
+    controlSize = height
   }
 
   return (
@@ -23,7 +23,7 @@ const Sudoku: React.FC = () => {
       <Board size={boardSize} />
       <Controls size={controlSize} />
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Sudoku;
+export default Sudoku

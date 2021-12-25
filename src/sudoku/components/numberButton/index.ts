@@ -1,3 +1,3 @@
-import NumberButton from "./NumberButton";
+import NumberButton from './NumberButton'
 
-export default NumberButton;
+export default NumberButton

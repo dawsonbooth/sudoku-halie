@@ -1,14 +1,14 @@
-import { Icon } from "@ui-kitten/components";
-import _ from "lodash";
-import React from "react";
-import { Alert, TouchableOpacity } from "react-native";
-import { useTheme } from "styled-components/native";
-import { Store, useStore } from "../../../state";
-import NumberButton from "../numberButton";
-import { Wrapper } from "./styles";
+import { Icon } from '@ui-kitten/components'
+import _ from 'lodash'
+import React from 'react'
+import { Alert, TouchableOpacity } from 'react-native'
+import { useTheme } from 'styled-components/native'
+import { Store, useStore } from '../../../state'
+import NumberButton from '../numberButton'
+import { Wrapper } from './styles'
 
 interface ControlsProps {
-  size: number;
+  size: number
 }
 
 const selector = (state: Store) => ({
@@ -19,7 +19,7 @@ const selector = (state: Store) => ({
   handleEraserButtonPress: state.handleEraserButtonPress,
   handleRevealButtonPress: state.handleRevealButtonPress,
   handleNumberButtonPress: state.handleNumberButtonPress,
-});
+})
 
 const Controls: React.FC<ControlsProps> = ({ size }) => {
   const {
@@ -30,11 +30,11 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
     handleEraserButtonPress,
     handleRevealButtonPress,
     handleNumberButtonPress,
-  } = useStore(selector);
+  } = useStore(selector)
 
-  const theme = useTheme();
+  const theme = useTheme()
 
-  if (!progress) return null;
+  if (!progress) return null
 
   return (
     <>
@@ -44,21 +44,21 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
             name="edit-outline"
             width={size / 8}
             height={size / 8}
-            fill={theme["text-basic-color"]}
+            fill={theme['text-basic-color']}
           />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
             Alert.alert(
-              "Reveal",
-              "Are you sure you want to reveal this cell?",
+              'Reveal',
+              'Are you sure you want to reveal this cell?',
               [
                 {
-                  text: "Cancel",
-                  style: "cancel",
+                  text: 'Cancel',
+                  style: 'cancel',
                 },
                 {
-                  text: "OK",
+                  text: 'OK',
                   onPress: handleRevealButtonPress,
                 },
               ],
@@ -70,7 +70,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
             name="search-outline"
             width={size / 8}
             height={size / 8}
-            fill={theme["text-basic-color"]}
+            fill={theme['text-basic-color']}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={handleEraserButtonPress}>
@@ -78,13 +78,13 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
             name="trash-outline"
             width={size / 8}
             height={size / 8}
-            fill={theme["text-basic-color"]}
+            fill={theme['text-basic-color']}
           />
         </TouchableOpacity>
       </Wrapper>
       <Wrapper>
         {_.range(0, degree).map((_, i) => {
-          const number = i + 1;
+          const number = i + 1
           return (
             <NumberButton
               key={`number-button-${number}`}
@@ -94,11 +94,11 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
               notesMode={notesMode}
               onPress={() => handleNumberButtonPress(number)}
             />
-          );
+          )
         })}
       </Wrapper>
     </>
-  );
-};
+  )
+}
 
-export default Controls;
+export default Controls

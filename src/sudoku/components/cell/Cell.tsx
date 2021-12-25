@@ -1,22 +1,22 @@
-import React, { useMemo } from "react";
-import { GestureResponderEvent } from "react-native";
-import { Store, useStore } from "../../../state";
-import * as Sudoku from "../../types";
-import Notes from "../notes";
-import { Button, State, Value } from "./styles";
+import React, { useMemo } from 'react'
+import { GestureResponderEvent } from 'react-native'
+import { Store, useStore } from '../../../state'
+import * as Sudoku from '../../types'
+import Notes from '../notes'
+import { Button, State, Value } from './styles'
 
 interface CellProps extends Sudoku.Cell {
-  row: number;
-  column: number;
-  onPress: (event: GestureResponderEvent) => void;
-  boardSize: number;
+  row: number
+  column: number
+  onPress: (event: GestureResponderEvent) => void
+  boardSize: number
 }
 
 const selector = (state: Store) => ({
   degree: state.game?.degree,
   darkMode: state.settings.app.darkMode,
   ...state.settings.sudoku,
-});
+})
 
 const Cell: React.FC<CellProps> = ({
   row,
@@ -32,23 +32,17 @@ const Cell: React.FC<CellProps> = ({
   onPress,
   boardSize,
 }) => {
-  const {
-    degree,
-    darkMode,
-    showPeers,
-    showCompleted,
-    showEqual,
-    showConflicts,
-  } = useStore(selector);
+  const { degree, darkMode, showPeers, showCompleted, showEqual, showConflicts } =
+    useStore(selector)
 
   const state = useMemo(() => {
-    let color = State.NORMAL;
-    if (isPeer && showPeers) color = State.PEER;
-    if (isCompleted && showCompleted) color = State.COMPLETED;
-    if (isEqual && showEqual) color = State.EQUAL;
-    if (isConflict && showConflicts) color = State.CONFLICT;
-    if (isSelected) color = State.SELECTED;
-    return color;
+    let color = State.NORMAL
+    if (isPeer && showPeers) color = State.PEER
+    if (isCompleted && showCompleted) color = State.COMPLETED
+    if (isEqual && showEqual) color = State.EQUAL
+    if (isConflict && showConflicts) color = State.CONFLICT
+    if (isSelected) color = State.SELECTED
+    return color
   }, [
     isCompleted,
     isConflict,
@@ -59,9 +53,9 @@ const Cell: React.FC<CellProps> = ({
     showConflicts,
     showEqual,
     showPeers,
-  ]);
+  ])
 
-  if (!degree) return null;
+  if (!degree) return null
 
   return (
     <Button
@@ -85,7 +79,7 @@ const Cell: React.FC<CellProps> = ({
         notes[0] && <Notes notes={notes} size={boardSize} />
       )}
     </Button>
-  );
-};
+  )
+}
 
-export default Cell;
+export default Cell

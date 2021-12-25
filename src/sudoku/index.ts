@@ -1,3 +1,3 @@
-import Sudoku from "./components/sudoku";
+import Sudoku from './components/sudoku'
 
-export default Sudoku;
+export default Sudoku

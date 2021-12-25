@@ -1,3 +1,6 @@
 module.exports = {
-  endOfLine: "auto",
+  arrowParens: "avoid",
+  printWidth: 100,
+  semi: false,
+  singleQuote: true,
 };
