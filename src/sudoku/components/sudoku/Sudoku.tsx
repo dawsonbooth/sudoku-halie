@@ -8,19 +8,19 @@ import { Wrapper } from './styles'
 const Sudoku: React.FC = () => {
   const { height, width } = useScreenDimensions()
 
+  const isPortrait = height > width
   let boardSize
   let controlSize
-
-  if (height > width) {
+  if (isPortrait) {
     boardSize = Math.min(0.5 * height, 0.9 * width)
     controlSize = width
   } else {
-    boardSize = Math.min(0.5 * width, 0.9 * height)
+    boardSize = Math.min(0.5 * width, 0.75 * height)
     controlSize = height
   }
 
   return (
-    <Wrapper>
+    <Wrapper isPortrait={isPortrait}>
       <Board size={boardSize} />
       <Controls size={controlSize} />
       <NumberButtons size={controlSize} />

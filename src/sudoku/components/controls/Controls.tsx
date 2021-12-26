@@ -1,6 +1,7 @@
 import { Icon } from '@ui-kitten/components'
 import React from 'react'
 import { Alert, TouchableOpacity } from 'react-native'
+import { useScreenDimensions } from 'react-native-use-dimensions'
 import { useTheme } from 'styled-components/native'
 import { Store, useStore } from '../../../state'
 import { Wrapper } from './styles'
@@ -19,13 +20,15 @@ const selector = (state: Store) => ({
 const Controls: React.FC<ControlsProps> = ({ size }) => {
   const { progress, handleNotesButtonPress, handleEraserButtonPress, handleRevealButtonPress } =
     useStore(selector)
-
+  const { height, width } = useScreenDimensions()
   const theme = useTheme()
 
   if (!progress) return null
 
+  const isPortrait = height > width
+
   return (
-    <Wrapper>
+    <Wrapper isPortrait={isPortrait}>
       <TouchableOpacity onPress={handleNotesButtonPress}>
         <Icon
           name="edit-outline"

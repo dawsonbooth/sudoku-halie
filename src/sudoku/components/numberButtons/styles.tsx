@@ -1,8 +1,9 @@
-import styled, { css } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 export const Wrapper = styled.View`
   flex-flow: row wrap;
   justify-content: center;
+  flex: 1;
 `
 
 export const Button = styled.TouchableOpacity<{ radius: number }>`
@@ -10,10 +11,7 @@ export const Button = styled.TouchableOpacity<{ radius: number }>`
 `
 
 export const Note = styled.Text<{ radius: number }>`
-  ${({ radius }) => css`
-    margin-horizontal: ${radius * 0.4}px;
-    font-size: ${radius * 2}px;
-  `}
+  font-size: ${({ radius }) => radius * 2}px;
   color: ${({ theme }) => theme['text-basic-color']};
 `
 
