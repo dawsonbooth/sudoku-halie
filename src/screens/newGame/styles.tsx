@@ -5,7 +5,6 @@ export const Wrapper = styled.View`
 `
 
 export const SliderLabel = styled.View`
-  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 `

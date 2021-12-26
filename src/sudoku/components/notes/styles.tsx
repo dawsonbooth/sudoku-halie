@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components/native'
 
 export const Grid = styled.View`
-  display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;

@@ -2,6 +2,7 @@ import React from 'react'
 import { useScreenDimensions } from 'react-native-use-dimensions'
 import Board from '../board'
 import Controls from '../controls'
+import NumberButtons from '../numberButtons'
 import { Wrapper } from './styles'
 
 const Sudoku: React.FC = () => {
@@ -22,6 +23,7 @@ const Sudoku: React.FC = () => {
     <Wrapper>
       <Board size={boardSize} />
       <Controls size={controlSize} />
+      <NumberButtons size={controlSize} />
     </Wrapper>
   )
 }

@@ -1,5 +1,10 @@
 import styled, { css } from 'styled-components/native'
 
+export const Wrapper = styled.View`
+  flex-flow: row wrap;
+  justify-content: center;
+`
+
 export const Button = styled.TouchableOpacity<{ radius: number }>`
   margin: ${({ radius }) => radius / 5}px;
 `
