@@ -28,7 +28,11 @@ const SettingsRow: ListRenderItem<SettingsRowProps> = ({
     return (
       <ListItem
         title={label}
-        accessoryRight={evaProps => <CheckBox {...evaProps} checked={value} onChange={onToggle} />}
+        accessoryRight={evaProps => (
+          <CheckBox {...evaProps} checked={value} onChange={onToggle}>
+            {label}
+          </CheckBox>
+        )}
         onPress={onToggle}
       />
     )

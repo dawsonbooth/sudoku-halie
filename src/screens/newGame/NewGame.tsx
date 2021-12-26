@@ -8,7 +8,7 @@ import Slider from '../../components/Slider'
 import { StackParamList } from '../../navigation/AppNavigator'
 import { SettingsButton } from '../../navigation/buttons'
 import { Settings, Store, useStore } from '../../state'
-import { Wrapper, SliderLabel } from './styles'
+import { SliderLabel, Wrapper } from './styles'
 
 type BooleanSudokuSettings = Omit<Settings['sudoku'], 'degree' | 'prefilledRatio'>
 
@@ -32,38 +32,41 @@ const selector = (state: Store) => ({
 
 const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
   const { settings, updateSettings, startGame } = useStore(selector)
-
-  const [prefilledRatio, setPrefilledRatio] = useState<number>(0.4)
-
   const difficulties = [i18n.t('newGame.easy'), i18n.t('newGame.medium'), i18n.t('newGame.hard')]
 
+  const [prefilledRatio, setPrefilledRatio] = useState<number>(0.4)
   const difficulty = difficulties[Math.round((1 - prefilledRatio) * (difficulties.length - 1))]
 
-  const renderItem = ({ item }: { item: keyof BooleanSudokuSettings }) => (
-    <ListItem
-      title={i18n.t(`settings.sudoku.items.${item}`)}
-      accessoryRight={evaProps => (
-        <CheckBox
-          {...evaProps}
-          checked={settings.sudoku[item]}
-          onChange={value =>
-            updateSettings(
-              produce(settings, draft => {
-                draft.sudoku[item] = value
-              })
-            )
-          }
-        />
-      )}
-      onPress={() =>
-        updateSettings(
-          produce(settings, draft => {
-            draft.sudoku[item] = !settings.sudoku[item]
-          })
-        )
-      }
-    />
-  )
+  const renderItem = ({ item }: { item: keyof BooleanSudokuSettings }) => {
+    const label = i18n.t(`settings.sudoku.items.${item}`)
+    return (
+      <ListItem
+        title={label}
+        accessoryRight={evaProps => (
+          <CheckBox
+            {...evaProps}
+            checked={settings.sudoku[item]}
+            onChange={value =>
+              updateSettings(
+                produce(settings, draft => {
+                  draft.sudoku[item] = value
+                })
+              )
+            }
+          >
+            {label}
+          </CheckBox>
+        )}
+        onPress={() =>
+          updateSettings(
+            produce(settings, draft => {
+              draft.sudoku[item] = !settings.sudoku[item]
+            })
+          )
+        }
+      />
+    )
+  }
 
   return (
     <Screen title={i18n.t('newGame.title')} headerLeft={SettingsButton}>
