@@ -1,5 +1,5 @@
 module.exports = {
-  parser: "@typescript-eslint/parser", // Specifies the ESLint parser
+  parser: "@typescript-eslint/parser",
   env: {
     node: true,
     es6: true,
@@ -11,17 +11,17 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
   ],
-  plugins: ["react", "react-native", "prettier"],
+  plugins: [
+    "react",
+    "react-hooks",
+    "react-native",
+    "@typescript-eslint",
+    "prettier",
+  ],
   rules: {
-    "prettier/prettier": "warn",
+    "prettier/prettier": "off",
     "react/prop-types": "off",
-  },
-  parserOptions: {
-    ecmaFeatures: {
-      tsx: true,
-    },
-    ecmaVersion: 2020,
-    sourceType: "module",
+    "@typescript-eslint/no-empty-interface": "off",
   },
   settings: {
     react: {
