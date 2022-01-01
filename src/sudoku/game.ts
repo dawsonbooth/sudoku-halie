@@ -2,53 +2,6 @@ import _ from 'lodash'
 import { Game, Location } from './types'
 import { solvePuzzle, findPeers, findConflicts } from './utils'
 
-export const constructGame = (
-  degree: Game['degree'],
-  board: Game['board'],
-  selected: Game['selected'],
-  progress: Game['progress']
-): Game => {
-  const game = {
-    degree,
-    board,
-    selected,
-    progress,
-  }
-
-  checkCompleted(game)
-  checkConflicts(game)
-
-  return game
-}
-
-export const loadGame = (board: Game['board']): Game => {
-  const degree = board.length
-
-  let selected: Location | null = null
-
-  const progress = _.range(1, degree + 1).map(() => 0)
-
-  const solution = _.range(0, degree).map((_value, row: Location['row']) =>
-    _.range(0, degree).map((_value, col: Location['col']) => ({
-      value: board[row][col].value,
-      location: { row, col },
-    }))
-  )
-
-  solvePuzzle(solution, degree)
-
-  for (let row = 0; row < degree; row++) {
-    for (let col = 0; col < degree; col++) {
-      const cell = board[row][col]
-      if (cell.isSelected) selected = { row, col }
-      if (cell.value > 0) progress[cell.value] += 1 / degree
-      cell.solution = solution[row][col].value
-    }
-  }
-
-  return constructGame(degree, board, selected, progress)
-}
-
 export const newGame = ({
   degree,
   prefilledRatio,
@@ -95,7 +48,17 @@ export const newGame = ({
   for (const row of board)
     for (const cell of row) if (cell.value > 0) progress[cell.value] += 1 / degree
 
-  return constructGame(degree, board, null, progress)
+  const game: Game = {
+    degree,
+    board,
+    progress,
+    selected: null,
+  }
+
+  checkCompleted(game)
+  checkConflicts(game)
+
+  return game
 }
 
 export const prefill = (board: Game['board'], prefilledRatio: number, degree: number): void => {
