@@ -11,8 +11,8 @@ interface NumberButtons {
 }
 
 const selector = (state: Store) => {
-  const { row, col } = state.game?.selected ?? {}
-  const notes = row && col ? state.game?.board?.[row][col].notes : null
+  const selected = state.game?.selected
+  const notes = selected ? state.game?.board?.[selected.row][selected.col].notes : null
 
   return {
     degree: state.game?.degree,
