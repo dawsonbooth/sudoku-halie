@@ -14,7 +14,6 @@ const selector = (state: Store) => ({
   progress: state.game?.progress,
   undoEnabled: state.past.length > 0,
   redoEnabled: state.future.length > 0,
-  darkMode: state.settings.app.darkMode,
   handleUndoButtonPress: state.handleUndoButtonPress,
   handleNotesButtonPress: state.handleNotesButtonPress,
   handleEraserButtonPress: state.handleEraserButtonPress,
@@ -27,7 +26,6 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
     progress,
     undoEnabled,
     redoEnabled,
-    darkMode,
     handleUndoButtonPress,
     handleNotesButtonPress,
     handleEraserButtonPress,
@@ -41,8 +39,6 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
 
   const isPortrait = height > width
 
-  const disabledColor = darkMode ? 'background-basic-color-4' : 'background-basic-color-2'
-
   return (
     <Wrapper isPortrait={isPortrait}>
       <TouchableOpacity onPress={handleUndoButtonPress} disabled={!undoEnabled}>
@@ -50,7 +46,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
           name="corner-up-left-outline"
           width={size / 8}
           height={size / 8}
-          fill={theme[undoEnabled ? 'text-basic-color' : disabledColor]}
+          fill={theme[undoEnabled ? 'text-basic-color' : 'text-disabled-color']}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleNotesButtonPress}>
@@ -100,7 +96,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
           name="corner-up-right-outline"
           width={size / 8}
           height={size / 8}
-          fill={theme[redoEnabled ? 'text-basic-color' : disabledColor]}
+          fill={theme[redoEnabled ? 'text-basic-color' : 'text-disabled-color']}
         />
       </TouchableOpacity>
     </Wrapper>
