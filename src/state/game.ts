@@ -5,9 +5,11 @@ import { GameSlice, SliceCreator } from './types'
 
 const operation = (state: GameSlice, gameRecipe: (game: GameSlice['game']) => void) => {
   const [nextGame, , diff] = produceWithPatches(gameRecipe)(state.game)
-  state.game = nextGame
-  state.past.push(diff)
-  state.future = []
+  if (diff.length > 0) {
+    state.game = nextGame
+    state.past.push(diff)
+    state.future = []
+  }
 }
 
 const createGameSlice: SliceCreator<GameSlice> = set => ({
