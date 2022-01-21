@@ -12,14 +12,28 @@ interface ControlsProps {
 
 const selector = (state: Store) => ({
   progress: state.game?.progress,
+  undoEnabled: state.past.length > 0,
+  redoEnabled: state.future.length > 0,
+  darkMode: state.settings.app.darkMode,
+  handleUndoButtonPress: state.handleUndoButtonPress,
   handleNotesButtonPress: state.handleNotesButtonPress,
   handleEraserButtonPress: state.handleEraserButtonPress,
   handleRevealButtonPress: state.handleRevealButtonPress,
+  handleRedoButtonPress: state.handleRedoButtonPress,
 })
 
 const Controls: React.FC<ControlsProps> = ({ size }) => {
-  const { progress, handleNotesButtonPress, handleEraserButtonPress, handleRevealButtonPress } =
-    useStore(selector)
+  const {
+    progress,
+    undoEnabled,
+    redoEnabled,
+    darkMode,
+    handleUndoButtonPress,
+    handleNotesButtonPress,
+    handleEraserButtonPress,
+    handleRevealButtonPress,
+    handleRedoButtonPress,
+  } = useStore(selector)
   const { height, width } = useScreenDimensions()
   const theme = useTheme()
 
@@ -27,8 +41,18 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
 
   const isPortrait = height > width
 
+  const disabledColor = darkMode ? 'background-basic-color-4' : 'background-basic-color-2'
+
   return (
     <Wrapper isPortrait={isPortrait}>
+      <TouchableOpacity onPress={handleUndoButtonPress} disabled={!undoEnabled}>
+        <Icon
+          name="corner-up-left-outline"
+          width={size / 8}
+          height={size / 8}
+          fill={theme[undoEnabled ? 'text-basic-color' : disabledColor]}
+        />
+      </TouchableOpacity>
       <TouchableOpacity onPress={handleNotesButtonPress}>
         <Icon
           name="edit-outline"
@@ -69,6 +93,14 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
           width={size / 8}
           height={size / 8}
           fill={theme['text-basic-color']}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleRedoButtonPress} disabled={!redoEnabled}>
+        <Icon
+          name="corner-up-right-outline"
+          width={size / 8}
+          height={size / 8}
+          fill={theme[redoEnabled ? 'text-basic-color' : disabledColor]}
         />
       </TouchableOpacity>
     </Wrapper>

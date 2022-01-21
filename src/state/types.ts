@@ -1,3 +1,4 @@
+import { Patch } from 'immer'
 import { GetState, SetState, StoreApi } from 'zustand'
 import { Game, Location, NewGameOptions } from '../sudoku/types'
 
@@ -6,6 +7,8 @@ export type Store = GameSlice & SettingsSlice
 export type GameSlice = {
   game: Game | null
   notesMode: boolean
+  past: Patch[][]
+  future: Patch[][]
   startGame: (options: NewGameOptions) => void
   endGame: () => void
   handleCellPress: (location: Location) => void
@@ -13,6 +16,8 @@ export type GameSlice = {
   handleEraserButtonPress: () => void
   handleRevealButtonPress: () => void
   handleNumberButtonPress: (number: number) => void
+  handleUndoButtonPress: () => void
+  handleRedoButtonPress: () => void
 }
 
 export type SettingsSlice = {
