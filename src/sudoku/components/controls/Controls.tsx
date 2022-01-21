@@ -12,14 +12,26 @@ interface ControlsProps {
 
 const selector = (state: Store) => ({
   progress: state.game?.progress,
+  undoEnabled: state.past.length > 0,
+  redoEnabled: state.future.length > 0,
+  handleUndoButtonPress: state.handleUndoButtonPress,
   handleNotesButtonPress: state.handleNotesButtonPress,
   handleEraserButtonPress: state.handleEraserButtonPress,
   handleRevealButtonPress: state.handleRevealButtonPress,
+  handleRedoButtonPress: state.handleRedoButtonPress,
 })
 
 const Controls: React.FC<ControlsProps> = ({ size }) => {
-  const { progress, handleNotesButtonPress, handleEraserButtonPress, handleRevealButtonPress } =
-    useStore(selector)
+  const {
+    progress,
+    undoEnabled,
+    redoEnabled,
+    handleUndoButtonPress,
+    handleNotesButtonPress,
+    handleEraserButtonPress,
+    handleRevealButtonPress,
+    handleRedoButtonPress,
+  } = useStore(selector)
   const { height, width } = useScreenDimensions()
   const theme = useTheme()
 
@@ -29,6 +41,14 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
 
   return (
     <Wrapper isPortrait={isPortrait}>
+      <TouchableOpacity onPress={handleUndoButtonPress} disabled={!undoEnabled}>
+        <Icon
+          name="corner-up-left-outline"
+          width={size / 8}
+          height={size / 8}
+          fill={theme[undoEnabled ? 'text-basic-color' : 'text-disabled-color']}
+        />
+      </TouchableOpacity>
       <TouchableOpacity onPress={handleNotesButtonPress}>
         <Icon
           name="edit-outline"
@@ -69,6 +89,14 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
           width={size / 8}
           height={size / 8}
           fill={theme['text-basic-color']}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleRedoButtonPress} disabled={!redoEnabled}>
+        <Icon
+          name="corner-up-right-outline"
+          width={size / 8}
+          height={size / 8}
+          fill={theme[redoEnabled ? 'text-basic-color' : 'text-disabled-color']}
         />
       </TouchableOpacity>
     </Wrapper>

@@ -1,53 +1,103 @@
-import produce from 'immer'
+import produce, { applyPatches, produceWithPatches } from 'immer'
 import * as Game from '../sudoku/game' // TODO: New library for game logic
 import * as Sudoku from '../sudoku/types'
 import { GameSlice, SliceCreator } from './types'
 
+const operation = (state: GameSlice, gameRecipe: (game: GameSlice['game']) => void) => {
+  const [nextGame, , diff] = produceWithPatches(gameRecipe)(state.game)
+  if (diff.length > 0) {
+    state.game = nextGame
+    state.past.push(diff)
+    state.future = []
+  }
+}
+
 const createGameSlice: SliceCreator<GameSlice> = set => ({
   game: null,
   notesMode: false,
+  past: [],
+  future: [],
   startGame: (options: Sudoku.NewGameOptions) =>
     set(
-      produce((state: GameSlice) => {
+      produce<GameSlice>(state => {
         state.game = Game.newGame(options)
       })
     ),
   endGame: () =>
     set(
-      produce((state: GameSlice) => {
+      produce<GameSlice>(state => {
         state.game = null
+        state.past = []
+        state.future = []
       })
     ),
   handleCellPress: location =>
     set(
-      produce((state: GameSlice) => {
+      produce<GameSlice>(state => {
         if (state.game) Game.select(state.game, location)
       })
     ),
   handleNotesButtonPress: () =>
     set(
-      produce((state: GameSlice) => {
+      produce<GameSlice>(state => {
         if (state.game) state.notesMode = !state.notesMode
       })
     ),
   handleEraserButtonPress: () =>
     set(
-      produce((state: GameSlice) => {
-        if (state.game) Game.erase(state.game)
+      produce<GameSlice>(state => {
+        operation(state, game => {
+          if (game) Game.erase(game)
+        })
       })
     ),
   handleRevealButtonPress: () =>
     set(
-      produce((state: GameSlice) => {
-        if (state.game) Game.reveal(state.game)
+      produce<GameSlice>(state => {
+        operation(state, game => {
+          if (game) Game.reveal(game)
+        })
       })
     ),
   handleNumberButtonPress: num =>
     set(
-      produce((state: GameSlice) => {
-        if (state.game)
-          if (state.notesMode) Game.toggleNote(state.game, num)
-          else Game.write(state.game, num)
+      produce<GameSlice>(state => {
+        operation(state, game => {
+          if (game) {
+            if (state.notesMode) Game.toggleNote(game, num)
+            else Game.write(game, num)
+          }
+        })
+      })
+    ),
+  handleUndoButtonPress: () =>
+    set(
+      produce<GameSlice>(state => {
+        if (state.game) {
+          const diff = state.past.pop()
+          if (diff) {
+            const [nextGame, , newDiff] = produceWithPatches(game => {
+              applyPatches(game, diff)
+            })(state.game)
+            state.game = nextGame
+            state.future.push(newDiff)
+          }
+        }
+      })
+    ),
+  handleRedoButtonPress: () =>
+    set(
+      produce<GameSlice>(state => {
+        if (state.game) {
+          const diff = state.future.pop()
+          if (diff) {
+            const [nextGame, , newDiff] = produceWithPatches(game => {
+              applyPatches(game, diff)
+            })(state.game)
+            state.game = nextGame
+            state.past.push(newDiff)
+          }
+        }
       })
     ),
 })

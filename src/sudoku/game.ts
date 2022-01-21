@@ -219,6 +219,5 @@ export const reveal = (game: Game): void => {
 
   if (selected && !selected.isPrefilled) {
     write(game, selected.solution)
-    selected.isPrefilled = true
   }
 }
