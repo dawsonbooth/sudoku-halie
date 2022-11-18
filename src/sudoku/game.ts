@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { Game, Location } from './types'
-import { solvePuzzle, findPeers, findConflicts } from './utils'
+import { findConflicts, findPeers, solvePuzzle } from './utils'
 
 export const newGame = ({
   degree,
@@ -26,14 +26,14 @@ export const newGame = ({
       isConflict: false,
       solution: 0,
       location: { row, col },
-    }))
+    })),
   )
 
   const solution = _.range(0, degree).map((_value, row: Location['row']) =>
     _.range(0, degree).map((_value, col: Location['col']) => ({
       value: board[row][col].value,
       location: { row, col },
-    }))
+    })),
   )
 
   solvePuzzle(solution, degree)
@@ -80,7 +80,7 @@ export const checkCompleted = (game: Game): void => {
   game.board.forEach(row =>
     row.forEach(cell => {
       cell.isCompleted = game.progress[cell.value] >= 1
-    })
+    }),
   )
 }
 
@@ -121,7 +121,7 @@ export const unflagEquals = (game: Game): void => {
   game.board.forEach(row =>
     row.forEach(cell => {
       cell.isEqual = false
-    })
+    }),
   )
 }
 
@@ -129,7 +129,7 @@ export const unflagPeers = (game: Game): void => {
   game.board.forEach(row =>
     row.forEach(cell => {
       cell.isPeer = false
-    })
+    }),
   )
 }
 

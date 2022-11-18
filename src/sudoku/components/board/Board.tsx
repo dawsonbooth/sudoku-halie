@@ -2,7 +2,7 @@ import React from 'react'
 import { Store, useStore } from '../../../state'
 import * as Sudoku from '../../types'
 import Cell from '../cell'
-import { Grid, Row, Wrapper } from './styles'
+import { Grid, Row, Wrapper } from './style'
 
 interface BoardProps {
   size: number

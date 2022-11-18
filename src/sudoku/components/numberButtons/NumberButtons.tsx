@@ -1,10 +1,8 @@
 import _ from 'lodash'
 import React from 'react'
-import { PixelRatio } from 'react-native'
-import ProgressCircle from 'react-native-progress-circle'
-import { useTheme } from 'styled-components/native'
 import { Store, useStore } from '../../../state'
-import { Button, Note, Number, Wrapper } from './styles'
+import { ProgressRing } from '../progressRing/ProgressRing'
+import { Button, Note, Number, Wrapper } from './style'
 
 interface NumberButtons {
   size: number
@@ -19,16 +17,12 @@ const selector = (state: Store) => {
     progress: state.game?.progress,
     notes,
     notesMode: state.notesMode,
-    darkMode: state.settings.app.darkMode,
     handleNumberButtonPress: state.handleNumberButtonPress,
   }
 }
 
 const NumberButtons: React.FC<NumberButtons> = ({ size }) => {
-  const { degree, progress, notes, notesMode, darkMode, handleNumberButtonPress } =
-    useStore(selector)
-
-  const theme = useTheme()
+  const { degree, progress, notes, notesMode, handleNumberButtonPress } = useStore(selector)
 
   if (!progress || !notes) return null
 
@@ -37,7 +31,7 @@ const NumberButtons: React.FC<NumberButtons> = ({ size }) => {
       {_.range(0, degree).map((_, i) => {
         const num = i + 1
         const percent = progress[num] * 100
-        const radius = size / 14
+        const radius = size / 16
         return (
           <Button
             key={`number-button-${num}`}
@@ -49,26 +43,11 @@ const NumberButtons: React.FC<NumberButtons> = ({ size }) => {
                 {num}
               </Note>
             ) : (
-              <ProgressCircle
-                percent={percent}
-                radius={PixelRatio.roundToNearestPixel(radius)}
-                borderWidth={radius / 4}
-                color={
-                  percent < 100
-                    ? darkMode
-                      ? theme['color-primary-hover']
-                      : theme['color-info-hover']
-                    : theme['color-success-hover']
-                }
-                shadowColor={
-                  darkMode ? theme['background-basic-color-2'] : theme['background-basic-color-4']
-                }
-                bgColor={theme['background-basic-color-1']}
-              >
-                <Number allowFontScaling={false} fontSize={radius * 1.25}>
+              <ProgressRing radius={radius} percent={percent}>
+                <Number allowFontScaling={false} fontSize={radius * 1.1}>
                   {num}
                 </Number>
-              </ProgressCircle>
+              </ProgressRing>
             )}
           </Button>
         )

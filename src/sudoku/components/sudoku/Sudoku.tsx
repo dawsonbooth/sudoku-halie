@@ -1,12 +1,12 @@
 import React from 'react'
-import { useScreenDimensions } from 'react-native-use-dimensions'
+import { useWindowDimensions } from 'react-native'
 import Board from '../board'
 import Controls from '../controls'
 import NumberButtons from '../numberButtons'
-import { Wrapper } from './styles'
+import { Wrapper } from './style'
 
 const Sudoku: React.FC = () => {
-  const { height, width } = useScreenDimensions()
+  const { height, width } = useWindowDimensions()
 
   const isPortrait = height > width
   let boardSize

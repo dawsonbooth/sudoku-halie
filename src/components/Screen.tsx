@@ -1,6 +1,6 @@
+import { Layout } from '@ui-kitten/components'
 import React, { VoidFunctionComponent } from 'react'
 import styled from 'styled-components/native'
-import { Layout } from '@ui-kitten/components'
 import Header from './Header'
 
 const Wrapper = styled.SafeAreaView`
@@ -12,6 +12,7 @@ interface ScreenProps {
   title?: string
   headerLeft?: VoidFunctionComponent
   headerRight?: VoidFunctionComponent
+  children: React.ReactNode
 }
 
 const Screen: React.FC<ScreenProps> = ({ title, headerLeft, headerRight, children }) => {

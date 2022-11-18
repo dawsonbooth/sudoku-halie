@@ -9,6 +9,7 @@ import { Store } from './types'
 enablePatches()
 
 export const useStore = create<Store>(
+  // @ts-expect-error: Zustand type error
   persist(
     (...args) => ({
       ...createGameSlice(...args),
@@ -17,6 +18,6 @@ export const useStore = create<Store>(
     {
       name: 'sudoku-halie-storage',
       getStorage: () => AsyncStorage,
-    }
-  )
+    },
+  ),
 )

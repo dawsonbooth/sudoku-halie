@@ -7,7 +7,9 @@ export const Wrapper = styled.View`
 `
 
 export const Button = styled.TouchableOpacity<{ radius: number }>`
-  margin: ${({ radius }) => radius / 5}px;
+  height: ${({ radius }) => radius * 2}px;
+  width: ${({ radius }) => radius * 2}px;
+  margin: ${({ radius }) => radius / 2}px;
 `
 
 export const Note = styled.Text<{ fontSize: number; added?: boolean }>`

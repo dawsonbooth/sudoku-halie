@@ -1,14 +1,14 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Button, CheckBox, List, ListItem, Text } from '@ui-kitten/components'
-import i18n from 'i18n-js'
 import produce from 'immer'
 import React, { useState } from 'react'
 import Screen from '../../components/Screen'
 import Slider from '../../components/Slider'
+import i18n from '../../locales'
 import { StackParamList } from '../../navigation/AppNavigator'
 import { SettingsButton } from '../../navigation/buttons'
 import { Settings, Store, useStore } from '../../state'
-import { SliderLabel, Wrapper } from './styles'
+import { SliderLabel, Wrapper } from './style'
 
 type BooleanSudokuSettings = Omit<Settings['sudoku'], 'degree' | 'prefilledRatio'>
 
@@ -50,7 +50,7 @@ const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
               updateSettings(
                 produce(settings, draft => {
                   draft.sudoku[item] = value
-                })
+                }),
               )
             }
           >
@@ -61,7 +61,7 @@ const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
           updateSettings(
             produce(settings, draft => {
               draft.sudoku[item] = !settings.sudoku[item]
-            })
+            }),
           )
         }
       />

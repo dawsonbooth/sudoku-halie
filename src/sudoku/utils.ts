@@ -22,7 +22,7 @@ export function findConflicts(
   board: Cell[][],
   location: Location,
   value: number,
-  degree: number
+  degree: number,
 ): Cell[] {
   return findPeers(board, location, degree).filter(c => c.value > 0 && c.value === value)
 }

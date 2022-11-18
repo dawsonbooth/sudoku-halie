@@ -1,5 +1,5 @@
-import React from 'react'
 import _Slider from '@react-native-community/slider'
+import React from 'react'
 
 interface SliderProps {
   value?: number
