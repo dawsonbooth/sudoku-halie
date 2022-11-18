@@ -3,7 +3,7 @@ import React from 'react'
 import { Alert, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { Store, useStore } from '../../../state'
-import { Wrapper } from './styles'
+import { Wrapper } from './style'
 
 interface ControlsProps {
   size: number

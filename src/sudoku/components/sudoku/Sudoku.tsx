@@ -3,7 +3,7 @@ import { useWindowDimensions } from 'react-native'
 import Board from '../board'
 import Controls from '../controls'
 import NumberButtons from '../numberButtons'
-import { Wrapper } from './styles'
+import { Wrapper } from './style'
 
 const Sudoku: React.FC = () => {
   const { height, width } = useWindowDimensions()

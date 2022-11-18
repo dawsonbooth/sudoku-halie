@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React from 'react'
 import { Store, useStore } from '../../../state'
 import * as Sudoku from '../../types'
-import { Cell, Grid, Note, Row } from './styles'
+import { Cell, Grid, Note, Row } from './style'
 
 interface NotesProps {
   notes: Sudoku.Cell['notes']

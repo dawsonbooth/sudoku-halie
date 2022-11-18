@@ -8,7 +8,7 @@ import i18n from '../../locales'
 import { StackParamList } from '../../navigation/AppNavigator'
 import { BackButton } from '../../navigation/buttons'
 import { Settings as SettingsStateInterface, Store, useStore } from '../../state'
-import { Wrapper } from './styles'
+import { Wrapper } from './style'
 
 type SettingsInterface = Omit<SettingsStateInterface, 'sudoku'> & {
   sudoku: Omit<SettingsStateInterface['sudoku'], 'degree' | 'prefilledRatio'>

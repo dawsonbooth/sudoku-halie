@@ -8,7 +8,7 @@ import i18n from '../../locales'
 import { StackParamList } from '../../navigation/AppNavigator'
 import { SettingsButton } from '../../navigation/buttons'
 import { Settings, Store, useStore } from '../../state'
-import { SliderLabel, Wrapper } from './styles'
+import { SliderLabel, Wrapper } from './style'
 
 type BooleanSudokuSettings = Omit<Settings['sudoku'], 'degree' | 'prefilledRatio'>
 

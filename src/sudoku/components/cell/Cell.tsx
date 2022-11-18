@@ -3,7 +3,7 @@ import { GestureResponderEvent } from 'react-native'
 import { Store, useStore } from '../../../state'
 import * as Sudoku from '../../types'
 import Notes from '../notes'
-import { Button, State, Value } from './styles'
+import { Button, State, Value } from './style'
 
 interface CellProps extends Sudoku.Cell {
   row: number

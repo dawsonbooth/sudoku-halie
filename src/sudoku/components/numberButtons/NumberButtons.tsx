@@ -4,7 +4,7 @@ import { PixelRatio } from 'react-native'
 import ProgressCircle from 'react-native-progress-circle'
 import { useTheme } from 'styled-components/native'
 import { Store, useStore } from '../../../state'
-import { Button, Note, Number, Wrapper } from './styles'
+import { Button, Note, Number, Wrapper } from './style'
 
 interface NumberButtons {
   size: number
