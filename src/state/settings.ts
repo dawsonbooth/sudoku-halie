@@ -18,7 +18,7 @@ const createSettingsSlice: SliceCreator<SettingsSlice> = set => ({
     set(
       produce((state: SettingsSlice) => {
         state.settings = settings
-      })
+      }),
     ),
 })
 

@@ -21,7 +21,7 @@ const createGameSlice: SliceCreator<GameSlice> = set => ({
     set(
       produce<GameSlice>(state => {
         state.game = Game.newGame(options)
-      })
+      }),
     ),
   endGame: () =>
     set(
@@ -29,19 +29,19 @@ const createGameSlice: SliceCreator<GameSlice> = set => ({
         state.game = null
         state.past = []
         state.future = []
-      })
+      }),
     ),
   handleCellPress: location =>
     set(
       produce<GameSlice>(state => {
         if (state.game) Game.select(state.game, location)
-      })
+      }),
     ),
   handleNotesButtonPress: () =>
     set(
       produce<GameSlice>(state => {
         if (state.game) state.notesMode = !state.notesMode
-      })
+      }),
     ),
   handleEraserButtonPress: () =>
     set(
@@ -49,7 +49,7 @@ const createGameSlice: SliceCreator<GameSlice> = set => ({
         operation(state, game => {
           if (game) Game.erase(game)
         })
-      })
+      }),
     ),
   handleRevealButtonPress: () =>
     set(
@@ -57,7 +57,7 @@ const createGameSlice: SliceCreator<GameSlice> = set => ({
         operation(state, game => {
           if (game) Game.reveal(game)
         })
-      })
+      }),
     ),
   handleNumberButtonPress: num =>
     set(
@@ -68,7 +68,7 @@ const createGameSlice: SliceCreator<GameSlice> = set => ({
             else Game.write(game, num)
           }
         })
-      })
+      }),
     ),
   handleUndoButtonPress: () =>
     set(
@@ -83,7 +83,7 @@ const createGameSlice: SliceCreator<GameSlice> = set => ({
             state.future.push(newDiff)
           }
         }
-      })
+      }),
     ),
   handleRedoButtonPress: () =>
     set(
@@ -98,7 +98,7 @@ const createGameSlice: SliceCreator<GameSlice> = set => ({
             state.past.push(newDiff)
           }
         }
-      })
+      }),
     ),
 })
 

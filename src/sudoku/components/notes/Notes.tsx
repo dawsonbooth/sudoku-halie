@@ -23,7 +23,7 @@ const Notes: React.FC<NotesProps> = ({ notes, size }) => {
 
   const unit = Math.sqrt(degree)
   const notesGrid = _.range(0, unit).map((_value, r) =>
-    _.range(0, unit).map((_value, c) => notes[r * unit + c + 1])
+    _.range(0, unit).map((_value, c) => notes[r * unit + c + 1]),
   )
 
   return (

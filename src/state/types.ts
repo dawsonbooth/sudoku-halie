@@ -28,7 +28,7 @@ export type SettingsSlice = {
 export type SliceCreator<TSlice extends Partial<Store>> = (
   set: SetState<Store>,
   get: GetState<TSlice>,
-  api: StoreApi<Store>
+  api: StoreApi<Store>,
 ) => TSlice
 
 export interface Settings {
