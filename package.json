@@ -8,8 +8,11 @@
     "web": "expo start --web",
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001' && expo start",
     "eject": "expo eject",
-    "format": "prettier -w \"./src/**/*\"",
-    "lint": "eslint \"./src/**/*\" --fix && tsc --noEmit"
+    "format": "prettier -w src",
+    "lint:code": "eslint \"./src/**/*\"",
+    "lint:types": "tsc --noEmit",
+    "lint:format": "prettier -c src",
+    "lint": "yarn lint:code && yarn lint:format && yarn lint:types"
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
