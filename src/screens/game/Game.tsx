@@ -1,7 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack'
-import i18n from 'i18n-js'
 import React from 'react'
 import Screen from '../../components/Screen'
+import i18n from '../../locales'
 import { StackParamList } from '../../navigation/AppNavigator'
 import { NewGameButton, SettingsButton } from '../../navigation/buttons'
 import Sudoku from '../../sudoku'

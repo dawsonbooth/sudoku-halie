@@ -2,11 +2,11 @@ import React from 'react'
 import { Alert, ImageProps } from 'react-native'
 import { TopNavigationAction, Icon } from '@ui-kitten/components'
 import { Store, useStore } from '../state'
-import i18n from 'i18n-js'
 import { useNavigation } from '@react-navigation/native'
 import { StackParamList } from './AppNavigator'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RenderFCProp } from '@ui-kitten/components/devsupport'
+import i18n from '../locales'
 
 const BackIcon: RenderFCProp<Partial<ImageProps>> = style => (
   <Icon {...style} name="arrow-ios-back" />
@@ -47,7 +47,7 @@ export const NewGameButton: React.FC = () => {
               },
             },
           ],
-          { cancelable: false }
+          { cancelable: false },
         )
       }
       icon={PencilIcon}

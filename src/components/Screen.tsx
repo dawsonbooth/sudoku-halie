@@ -12,6 +12,7 @@ interface ScreenProps {
   title?: string
   headerLeft?: VoidFunctionComponent
   headerRight?: VoidFunctionComponent
+  children: React.ReactNode
 }
 
 const Screen: React.FC<ScreenProps> = ({ title, headerLeft, headerRight, children }) => {

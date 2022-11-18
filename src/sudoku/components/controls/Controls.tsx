@@ -1,7 +1,6 @@
 import { Icon } from '@ui-kitten/components'
 import React from 'react'
-import { Alert, TouchableOpacity } from 'react-native'
-import { useScreenDimensions } from 'react-native-use-dimensions'
+import { Alert, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { Store, useStore } from '../../../state'
 import { Wrapper } from './styles'
@@ -32,7 +31,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
     handleRevealButtonPress,
     handleRedoButtonPress,
   } = useStore(selector)
-  const { height, width } = useScreenDimensions()
+  const { height, width } = useWindowDimensions()
   const theme = useTheme()
 
   if (!progress) return null
@@ -72,7 +71,7 @@ const Controls: React.FC<ControlsProps> = ({ size }) => {
                 onPress: handleRevealButtonPress,
               },
             ],
-            { cancelable: false }
+            { cancelable: false },
           )
         }
       >

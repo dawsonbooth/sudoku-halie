@@ -1,10 +1,10 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CheckBox, List, ListItem, Text } from '@ui-kitten/components'
-import i18n from 'i18n-js'
 import produce from 'immer'
 import React from 'react'
 import { ListRenderItem } from 'react-native'
 import Screen from '../../components/Screen'
+import i18n from '../../locales'
 import { StackParamList } from '../../navigation/AppNavigator'
 import { BackButton } from '../../navigation/buttons'
 import { Settings as SettingsStateInterface, Store, useStore } from '../../state'
@@ -101,14 +101,14 @@ const Settings: React.FC<SettingsProps> = () => {
           updateSettings(
             produce(settings, draft => {
               draft.app[key] = v
-            })
+            }),
           ),
       }
-    }
+    },
   )
 
   const sudokuData: SettingData<SettingsInterface['sudoku']>[] = Object.entries(
-    settings.sudoku
+    settings.sudoku,
   ).map(entry => {
     const [key, value] = entry as Entry<SettingsInterface['sudoku']>
     return {
@@ -118,7 +118,7 @@ const Settings: React.FC<SettingsProps> = () => {
         updateSettings(
           produce(settings, draft => {
             draft.sudoku[key] = v
-          })
+          }),
         ),
     }
   })
