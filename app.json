@@ -3,7 +3,11 @@
     "name": "Sudoku Halie",
     "slug": "sudoku-halie",
     "privacy": "public",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.1.1",
     "icon": "./assets/icon.png",
     "splash": {
@@ -14,11 +18,22 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dawsonbooth.sudokuhalie"
     },
-    "description": ""
+    "description": "",
+    "extra": {
+      "eas": {
+        "projectId": "1451624d-403e-4acf-8abd-bba76f4b4120"
+      }
+    },
+    "android": {
+      "package": "com.dawsonbooth.sudokuhalie"
+    }
   },
   "ios": {
     "CFBundleAllowMixedLocalizations": true
