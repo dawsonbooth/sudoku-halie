@@ -30,11 +30,13 @@ const selector = (state: Store) => ({
   startGame: state.startGame,
 })
 
+const INITIAL_PREFILLED_RATIO = 0.4
+
 const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
   const { settings, updateSettings, startGame } = useStore(selector)
   const difficulties = [i18n.t('newGame.easy'), i18n.t('newGame.medium'), i18n.t('newGame.hard')]
 
-  const [prefilledRatio, setPrefilledRatio] = useState<number>(0.4)
+  const [prefilledRatio, setPrefilledRatio] = useState<number>(INITIAL_PREFILLED_RATIO)
   const difficulty = difficulties[Math.round((1 - prefilledRatio) * (difficulties.length - 1))]
 
   const renderItem = ({ item }: { item: keyof BooleanSudokuSettings }) => {
@@ -72,14 +74,11 @@ const NewGame: React.FC<NewGameProps> = ({ navigation }) => {
     <Screen title={i18n.t('newGame.title')} headerLeft={SettingsButton}>
       <Wrapper>
         <SliderLabel>
-          <Text>{`Difficulty: ${difficulty}`}</Text>
-          <Text>
-            Prefilled:
-            {` ${Math.round(prefilledRatio * 100)}%`}
-          </Text>
+          <Text>Difficulty: {difficulty}</Text>
+          <Text>Prefilled: {Math.round(prefilledRatio * 100)}%</Text>
         </SliderLabel>
         <Slider
-          value={prefilledRatio}
+          value={INITIAL_PREFILLED_RATIO}
           onChange={setPrefilledRatio}
           onComplete={setPrefilledRatio}
         />
