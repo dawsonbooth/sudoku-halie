@@ -7,7 +7,7 @@ interface HeaderProps {
   accessoryRight?: () => ReactElement
 }
 
-const Header: React.FC<HeaderProps> = ({ title, accessoryLeft, accessoryRight }) => {
+const Header = ({ title, accessoryLeft, accessoryRight }) => {
   return (
     <TopNavigation
       title={title}
