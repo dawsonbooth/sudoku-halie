@@ -1,23 +1,27 @@
-name: Lint and Type Check
+name: Lint
 on:
   pull_request:
     branches:
       - master
+    types:
+      - opened
+      - reopened
+      - synchronize
+
 jobs:
-  build-test:
+  check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Setup NodeJS 18
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
-      - name: Install yarn
-        run: npm install -g yarn
-      - name: Install dependencies
-        run: yarn install
-      - name: Lint
-        run: yarn lint
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: yarn
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Lint
+      run: yarn lint

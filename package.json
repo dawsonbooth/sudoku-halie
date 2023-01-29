@@ -9,7 +9,7 @@
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001' && expo start",
     "eject": "expo eject",
     "format": "prettier -w src",
-    "lint:code": "eslint src",
+    "lint:code": "eslint src --max-warnings=0",
     "lint:types": "tsc --noEmit",
     "lint:format": "prettier -c src",
     "lint": "yarn lint:code && yarn lint:format && yarn lint:types"
