@@ -62,5 +62,6 @@
     "prettier-plugin-organize-imports": "^3.2.1",
     "typescript": "~5.3.3"
   },
+  "trustedDependencies": ["@sentry/cli"],
   "private": true
 }
