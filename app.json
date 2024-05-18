@@ -18,7 +18,9 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dawsonbooth.sudokuhalie",
-      "CFBundleAllowMixedLocalizations": true
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true
+      }
     },
     "description": "",
     "extra": {
