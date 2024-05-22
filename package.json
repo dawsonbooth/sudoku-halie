@@ -6,8 +6,6 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001' && expo start",
-    "eject": "expo eject",
     "format": "prettier -w src",
     "lint:code": "eslint src --max-warnings=0",
     "lint:types": "tsc --noEmit",
@@ -62,6 +60,8 @@
     "prettier-plugin-organize-imports": "^3.2.1",
     "typescript": "~5.3.3"
   },
-  "trustedDependencies": ["@sentry/cli"],
+  "trustedDependencies": [
+    "@sentry/cli"
+  ],
   "private": true
 }
